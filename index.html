@@ -17,7 +17,6 @@
         :root {
             --primary: #6C3CE1;
             --primary-light: #8B5CF6;
-            --primary-dark: #5B2FC9;
             --gradient: linear-gradient(135deg, #6C3CE1, #8B5CF6);
             --bg: #f0f0f5;
             --card: #ffffff;
@@ -37,7 +36,6 @@
             max-width: 480px;
             margin: 0 auto;
             color: var(--text);
-            overflow-x: hidden;
         }
         /* ============================================================
            HEADER
@@ -79,16 +77,6 @@
             background: var(--success);
             padding: 2px 12px;
             border-radius: 50px;
-            animation: pulse 2s infinite;
-        }
-        @keyframes pulse {
-            0%,
-            100% {
-                opacity: 1;
-            }
-            50% {
-                opacity: 0.4;
-            }
         }
         .header-top .notif {
             background: rgba(255, 255, 255, 0.15);
@@ -98,8 +86,6 @@
             color: #fff;
             font-size: 18px;
             position: relative;
-            backdrop-filter: blur(4px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
         }
         .header-top .notif .dot {
             position: absolute;
@@ -111,6 +97,15 @@
             border-radius: 50%;
             border: 2px solid var(--primary);
             animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0%,
+            100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.4;
+            }
         }
         .header .greeting {
             font-size: 16px;
@@ -134,7 +129,6 @@
             margin-top: 8px;
             position: relative;
             z-index: 2;
-            backdrop-filter: blur(4px);
         }
         .header .location {
             font-size: 12px;
@@ -325,31 +319,20 @@
             font-weight: 600;
         }
         /* ============================================================
-           CHAT INTERFACE (Seperti TikTok/WhatsApp)
+           CHAT
            ============================================================ */
         .chat-container {
             background: var(--card);
             border-radius: var(--radius);
             padding: 16px;
             box-shadow: var(--shadow);
-            max-height: 350px;
+            max-height: 300px;
             overflow-y: auto;
             margin-bottom: 10px;
         }
         .chat-container .msg {
             display: flex;
             margin-bottom: 10px;
-            animation: slideIn 0.3s ease;
-        }
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
         }
         .chat-container .msg .avatar {
             width: 36px;
@@ -449,7 +432,7 @@
             margin-bottom: 4px;
         }
         /* ============================================================
-           GRAFIK / CHART (Blockchain Style)
+           GRAFIK
            ============================================================ */
         .chart-container {
             background: var(--card);
@@ -462,7 +445,7 @@
             display: flex;
             align-items: flex-end;
             justify-content: space-around;
-            height: 150px;
+            height: 120px;
             gap: 6px;
             padding: 10px 0;
         }
@@ -471,13 +454,13 @@
             background: var(--gradient);
             border-radius: 6px 6px 0 0;
             min-height: 10px;
-            max-height: 140px;
+            max-height: 110px;
             transition: height 0.8s ease;
             position: relative;
         }
         .chart-container .chart-bar .bar .val {
             position: absolute;
-            top: -20px;
+            top: -18px;
             left: 50%;
             transform: translateX(-50%);
             font-size: 10px;
@@ -515,7 +498,7 @@
             text-transform: uppercase;
         }
         /* ============================================================
-           ORDER / TRANSAKSI
+           ORDER CARD
            ============================================================ */
         .order-card {
             background: var(--card);
@@ -544,16 +527,6 @@
             font-size: 12px;
             color: var(--text-secondary);
         }
-        .order-card .info .hash {
-            font-size: 10px;
-            color: var(--text-secondary);
-            font-family: monospace;
-            background: #f3f4f6;
-            padding: 2px 8px;
-            border-radius: 4px;
-            display: inline-block;
-            margin-top: 2px;
-        }
         .order-card .status {
             font-size: 11px;
             font-weight: 700;
@@ -569,10 +542,6 @@
             color: #92400e;
         }
         .order-card .status.done {
-            background: #d1fae5;
-            color: #065f46;
-        }
-        .order-card .status.deliver {
             background: #d1fae5;
             color: #065f46;
         }
@@ -640,3 +609,910 @@
         .register-form select {
             width: 100%;
             padding: 14px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 15px;
+            margin-bottom: 10px;
+            font-family: inherit;
+            background: #f8fafc;
+            transition: all 0.3s;
+        }
+        .register-form input:focus,
+        .register-form select:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(108, 60, 225, 0.08);
+        }
+        .register-form .btn-register {
+            width: 100%;
+            padding: 16px;
+            background: var(--gradient);
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 8px 30px rgba(108, 60, 225, 0.3);
+        }
+        .register-form .btn-register:active {
+            transform: scale(0.97);
+        }
+        .register-form .geo-status {
+            font-size: 13px;
+            color: var(--success);
+            text-align: center;
+            margin-bottom: 12px;
+            padding: 8px;
+            background: #f0fdf4;
+            border-radius: 12px;
+            font-weight: 500;
+        }
+        /* ============================================================
+           EARNING
+           ============================================================ */
+        .earning-card {
+            background: var(--card);
+            border-radius: var(--radius);
+            padding: 16px;
+            box-shadow: var(--shadow);
+            margin-top: 10px;
+        }
+        .earning-card .row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #f3f4f6;
+        }
+        .earning-card .row:last-child {
+            border-bottom: none;
+        }
+        .earning-card .label {
+            color: var(--text-secondary);
+        }
+        .earning-card .value {
+            font-weight: 700;
+            font-size: 15px;
+        }
+        .earning-card .value.green {
+            color: var(--success);
+        }
+        .earning-card .value.gold {
+            color: var(--warning);
+        }
+        .progress-bar {
+            height: 8px;
+            background: #f3f4f6;
+            border-radius: 10px;
+            margin: 8px 0;
+            overflow: hidden;
+        }
+        .progress-bar .fill {
+            height: 100%;
+            background: var(--gradient);
+            border-radius: 10px;
+            transition: width 1s ease;
+        }
+        /* ============================================================
+           QRIS
+           ============================================================ */
+        .qr-container {
+            background: var(--card);
+            border-radius: var(--radius);
+            padding: 20px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            margin-top: 12px;
+        }
+        .qr-container img {
+            width: 180px;
+            height: 180px;
+            object-fit: contain;
+            background: #f8fafc;
+            padding: 8px;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+        }
+        .qr-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 12px;
+        }
+        .qr-buttons a {
+            background: var(--primary);
+            color: #fff;
+            padding: 8px 24px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 13px;
+            transition: all 0.3s;
+        }
+        .qr-buttons a:active {
+            transform: scale(0.95);
+        }
+        .qr-buttons a.download {
+            background: #25D366;
+        }
+        /* ============================================================
+           DESA GRID
+           ============================================================ */
+        .desa-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+        .desa-card {
+            background: var(--card);
+            border-radius: 14px;
+            padding: 12px 8px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            transition: all 0.3s;
+            border: 1px solid rgba(0, 0, 0, 0.02);
+        }
+        .desa-card:active {
+            transform: scale(0.95);
+        }
+        .desa-card .name {
+            font-weight: 700;
+            font-size: 13px;
+        }
+        .desa-card .kurir {
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+        .desa-card .online {
+            font-size: 10px;
+            color: var(--success);
+            font-weight: 600;
+        }
+        /* ============================================================
+           BOTTOM NAV
+           ============================================================ */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 0 calc(12px + var(--safe-bottom));
+            border-top: 1px solid rgba(0, 0, 0, 0.04);
+            box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.04);
+            z-index: 100;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+        .bottom-nav a {
+            text-decoration: none;
+            text-align: center;
+            color: #9ca3af;
+            font-size: 10px;
+            font-weight: 600;
+            flex: 1;
+            transition: all 0.3s;
+            padding: 4px 0;
+            border-radius: 12px;
+        }
+        .bottom-nav a.active {
+            color: var(--primary);
+        }
+        .bottom-nav a .icon {
+            font-size: 22px;
+            display: block;
+            margin-bottom: 2px;
+        }
+        /* ============================================================
+           TOAST
+           ============================================================ */
+        .toast {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-100px);
+            background: #1e293b;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 14px;
+            z-index: 999;
+            transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            max-width: 92%;
+            text-align: center;
+            pointer-events: none;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+        }
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
+        /* ============================================================
+           FOOTER
+           ============================================================ */
+        .footer {
+            text-align: center;
+            font-size: 12px;
+            color: #9ca3af;
+            padding: 20px 0 10px;
+        }
+        .footer .credit {
+            font-weight: 700;
+            color: var(--primary);
+        }
+        /* ============================================================
+           HIDDEN
+           ============================================================ */
+        .hidden {
+            display: none !important;
+        }
+        /* ============================================================
+           RESPONSIVE
+           ============================================================ */
+        @media (max-width: 400px) {
+            .desa-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .contact-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .saldo-card .value {
+                font-size: 15px;
+            }
+            .chart-container .chart-bar {
+                height: 100px;
+            }
+        }
+        @media (min-width: 600px) {
+            body {
+                background: #e5e7eb;
+                padding: 0 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================================
+    TOAST
+    ============================================================ -->
+    <div class="toast" id="toast">✅ Berhasil!</div>
+
+    <!-- ============================================================
+    HEADER
+    ============================================================ -->
+    <div class="header">
+        <div class="header-top">
+            <div class="brand">🧺 Zeevanna <span class="badge-live">● LIVE</span></div>
+            <a href="#" class="notif" id="notifBtn">🔔 <span class="dot"></span></a>
+        </div>
+        <div class="greeting">👋 Selamat datang, <span id="userName">Admin</span></div>
+        <div class="sub">Platform Digital • 339 Desa Pandeglang</div>
+        <span class="role-badge" id="roleBadge">👑 Admin</span>
+        <div class="location" id="userLocation">📍 Mendeteksi lokasi...</div>
+    </div>
+
+    <!-- ============================================================
+    SALDO CARD
+    ============================================================ -->
+    <div class="saldo-card">
+        <div class="item"><div class="label">💰 Saldo</div><div class="value" id="saldoValue">Rp 12.5Jt</div></div>
+        <div class="item"><div class="label">⭐ Poin</div><div class="value gold" id="poinValue">15.320</div></div>
+        <div class="item"><div class="label">📦 Pesanan</div><div class="value" id="orderCount">1.247</div></div>
+        <div class="item"><div class="label">📊 Transaksi</div><div class="value green" id="txCount" style="font-size:14px;">3.842</div></div>
+    </div>
+
+    <!-- ============================================================
+    ROLE SWITCH
+    ============================================================ -->
+    <div class="role-switch">
+        <button class="role-btn active" data-role="admin">👑 Admin</button>
+        <button class="role-btn" data-role="kurir">🚚 Kurir</button>
+        <button class="role-btn" data-role="pekerja">🧺 Pekerja</button>
+        <button class="role-btn" data-role="pelanggan">👤 Pelanggan</button>
+    </div>
+
+    <!-- ============================================================
+    STATUS GRID
+    ============================================================ -->
+    <div class="status-grid">
+        <div class="status-item active"><span class="icon">📦</span><span class="label">Semua</span><span class="count">1.247</span></div>
+        <div class="status-item"><span class="icon">⏳</span><span class="label">Diproses</span><span class="count">342</span></div>
+        <div class="status-item"><span class="icon">🚚</span><span class="label">Diantar</span><span class="count">156</span></div>
+        <div class="status-item"><span class="icon">✅</span><span class="label">Selesai</span><span class="count">749</span></div>
+    </div>
+
+    <!-- ============================================================
+    MENU GRID
+    ============================================================ -->
+    <div class="menu-grid">
+        <a href="#pesan" class="menu-item"><span class="icon">📋</span><span class="label">Pesan</span></a>
+        <a href="#chat" class="menu-item"><span class="icon">💬</span><span class="label">Chat</span></a>
+        <a href="#grafik" class="menu-item"><span class="icon">📊</span><span class="label">Grafik</span></a>
+        <a href="#daftar" class="menu-item"><span class="icon">📝</span><span class="label">Daftar</span></a>
+    </div>
+
+    <!-- ============================================================
+    PESAN
+    ============================================================ -->
+    <div id="pesan" class="section">
+        <div class="section-title">📋 Pesan Sekarang <span class="badge" id="desaLabel">Pandeglang</span></div>
+
+        <div id="pelangganView">
+            <a href="https://wa.me/6283819023700" class="btn-wa">💬 Pesan via WhatsApp</a>
+            <p style="font-size:13px;color:var(--text-secondary);text-align:center;margin:-6px 0 10px;">📍 <span id="orderDesa">Mendeteksi...</span></p>
+        </div>
+
+        <div id="kurirView" class="hidden">
+            <div class="order-card"><div class="info"><div class="name">👤 Andi (Kadupandak)</div><div class="desa">📦 5 pcs • Kemeja + Celana</div></div><span class="status process">Diproses</span><span class="earning">+Rp 15.000</span></div>
+            <div class="order-card"><div class="info"><div class="name">👤 Siti (Cigeulis)</div><div class="desa">📦 3 pcs • Gaun + Jas</div></div><span class="status pending">Menunggu</span><span class="earning">+Rp 12.000</span></div>
+        </div>
+
+        <div id="pekerjaView" class="hidden">
+            <div class="order-card"><div class="info"><div class="name">🧺 Tugas: Kadupandak</div><div class="desa">👕 5 pcs • Kemeja + Celana</div></div><span class="status process">Dikerjakan</span><span class="earning">+Rp 25.000</span></div>
+        </div>
+
+        <div class="contact-grid">
+            <a href="tel:083181500947">📞 0831-8150-0947</a>
+            <a href="https://wa.me/6283181500947">💬 WA 0831</a>
+            <a href="tel:083819023700">📞 0838-1902-3700</a>
+            <a href="https://wa.me/6283819023700">💬 WA 0838</a>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    CHAT
+    ============================================================ -->
+    <div id="chat" class="section">
+        <div class="section-title">💬 Chat Real-time <span class="badge" id="onlineCount">● 8 online</span></div>
+
+        <div class="online-users" id="onlineUsers"></div>
+        <div class="chat-container" id="chatContainer"></div>
+
+        <div class="chat-input">
+            <input type="text" id="chatInput" placeholder="Ketik pesan..." />
+            <button onclick="sendMessage()">Kirim</button>
+        </div>
+        <p style="font-size:11px;color:var(--text-secondary);text-align:center;margin-top:6px;">🔒 Terenkripsi • Real-time</p>
+    </div>
+
+    <!-- ============================================================
+    GRAFIK
+    ============================================================ -->
+    <div id="grafik" class="section">
+        <div class="section-title">📊 Dashboard Analitik <span class="badge">Real-time</span></div>
+
+        <div class="chart-container">
+            <div class="chart-stats">
+                <div class="stat"><div class="num" id="statTotal">Rp 21.2Jt</div><div class="label">Total Volume</div></div>
+                <div class="stat"><div class="num" id="statAvg">Rp 17.5K</div><div class="label">Rata-rata</div></div>
+                <div class="stat"><div class="num" id="statGrowth">+12.8%</div><div class="label">Pertumbuhan</div></div>
+            </div>
+            <div class="chart-bar" id="chartBar"></div>
+            <div class="chart-labels" id="chartLabels"></div>
+            <div style="margin-top:12px;display:flex;justify-content:space-between;font-size:12px;color:var(--text-secondary);padding:8px 0;border-top:1px solid #f3f4f6;">
+                <span>⛓️ ZV-Chain</span>
+                <span>🟢 Aktif</span>
+                <span>⚡ 1.2s</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    DAFTAR
+    ============================================================ -->
+    <div id="daftar" class="section">
+        <div class="section-title">📝 Pendaftaran <span class="badge">Bergabung</span></div>
+        <div class="register-form">
+            <div class="geo-status" id="geoStatus"><span id="geoText">📍 Mendeteksi lokasi...</span></div>
+            <input type="text" id="regName" placeholder="Nama Lengkap" />
+            <input type="tel" id="regPhone" placeholder="Nomor HP" />
+            <select id="regDesa"><option value="">Pilih Desa</option></select>
+            <select id="regRole"><option value="">Pilih Peran</option><option value="kurir">🚚 Kurir</option><option value="pekerja">🧺 Pekerja</option><option value="pelanggan">👤 Pelanggan</option></select>
+            <button class="btn-register" onclick="registerUser()">✅ Daftar Sekarang</button>
+            <p style="font-size:12px;color:#9ca3af;text-align:center;margin-top:10px;">📍 Gratis • Langsung dapat penghasilan</p>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    QRIS
+    ============================================================ -->
+    <div class="section">
+        <div class="section-title">💳 QRIS Pembayaran</div>
+        <div class="qr-container">
+            <p style="font-weight:700;color:var(--primary);">Zeevanna Digital & Kreatif</p>
+            <p style="font-size:14px;color:var(--text-secondary);">KP. BATUR LOR</p>
+            <p style="font-size:12px;color:#9ca3af;margin-bottom:12px;">NMID: ID1026535679355</p>
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=ID1026535679355" alt="QRIS" />
+            <div class="qr-buttons">
+                <a href="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=ID1026535679355" target="_blank">📤 Bagikan</a>
+                <a href="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=ID1026535679355" download class="download">⬇️ Download</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    DESA
+    ============================================================ -->
+    <div class="section">
+        <div class="section-title">🏘️ Daftar Desa <span class="badge" id="desaCount">339</span></div>
+        <div class="desa-grid" id="desaGrid"></div>
+        <p style="font-size:13px;color:var(--text-secondary);text-align:center;margin-top:12px;">📍 1 desa = 1 kurir • Pekerja dari warga setempat</p>
+    </div>
+
+    <!-- ============================================================
+    PAYROLL
+    ============================================================ -->
+    <div class="section" id="payroll">
+        <div class="section-title">💳 Payroll & Poin <span class="badge">Hari Ini</span></div>
+
+        <div id="adminPayroll">
+            <div class="earning-card">
+                <div class="row"><span class="label">💰 Gaji Kurir</span><span class="value green">Rp 8.450.000</span></div>
+                <div class="row"><span class="label">🧺 Gaji Pekerja</span><span class="value green">Rp 12.750.000</span></div>
+                <div class="row"><span class="label">⭐ Total Poin</span><span class="value gold">15.320</span></div>
+                <div class="row"><span class="label">📦 Total Pesanan</span><span class="value">1.247</span></div>
+                <div class="progress-bar"><div class="fill" style="width:78%;"></div></div>
+                <p style="font-size:12px;color:var(--text-secondary);text-align:center;">🚀 Target: 78%</p>
+            </div>
+        </div>
+
+        <div id="kurirPayroll" class="hidden">
+            <div class="earning-card">
+                <div class="row"><span class="label">💰 Saldo Anda</span><span class="value green">Rp 1.250.000</span></div>
+                <div class="row"><span class="label">⭐ Poin Anda</span><span class="value gold">1.240</span></div>
+                <div class="row"><span class="label">📦 Dikirim</span><span class="value">47</span></div>
+                <div class="row"><span class="label">🏆 Level</span><span class="value" style="color:var(--primary);">💎 Diamond</span></div>
+                <div class="progress-bar"><div class="fill" style="width:62%;"></div></div>
+                <p style="font-size:12px;color:var(--text-secondary);text-align:center;">🎯 100 poin lagi</p>
+            </div>
+        </div>
+
+        <div id="pekerjaPayroll" class="hidden">
+            <div class="earning-card">
+                <div class="row"><span class="label">💰 Saldo Anda</span><span class="value green">Rp 850.000</span></div>
+                <div class="row"><span class="label">⭐ Poin Anda</span><span class="value gold">860</span></div>
+                <div class="row"><span class="label">🧺 Dikerjakan</span><span class="value">32</span></div>
+                <div class="row"><span class="label">🏆 Level</span><span class="value" style="color:var(--warning);">⭐ Gold</span></div>
+                <div class="progress-bar"><div class="fill" style="width:45%;"></div></div>
+                <p style="font-size:12px;color:var(--text-secondary);text-align:center;">🎯 140 poin lagi</p>
+            </div>
+        </div>
+
+        <div id="pelangganPayroll" class="hidden">
+            <div class="earning-card">
+                <div class="row"><span class="label">⭐ Poin Anda</span><span class="value gold">320</span></div>
+                <div class="row"><span class="label">📦 Pesanan</span><span class="value">12</span></div>
+                <div class="row"><span class="label">🎁 Voucher</span><span class="value" style="color:var(--success);">Rp 50.000</span></div>
+                <div class="progress-bar"><div class="fill" style="width:30%;"></div></div>
+                <p style="font-size:12px;color:var(--text-secondary);text-align:center;">🎯 500 poin = voucher Rp 100.000</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    FOOTER
+    ============================================================ -->
+    <div class="footer">
+        &copy; 2026 <span class="credit">Zeevanna Digital</span> • 339 Desa Pandeglang
+    </div>
+
+    <!-- ============================================================
+    BOTTOM NAV
+    ============================================================ -->
+    <div class="bottom-nav">
+        <a href="#" class="active"><span class="icon">🏠</span>Beranda</a>
+        <a href="#chat"><span class="icon">💬</span>Chat</a>
+        <a href="#grafik"><span class="icon">📊</span>Grafik</a>
+        <a href="#daftar"><span class="icon">📝</span>Daftar</a>
+    </div>
+
+    <!-- ============================================================
+    JAVASCRIPT (DI-BUNGKUS TRY-CATCH AGAR TIDAK ERROR)
+    ============================================================ -->
+    <script>
+        try {
+            // ============================================================
+            // DATA DESA
+            // ============================================================
+            const desaList = ["Kadupandak", "Cigeulis", "Saketi", "Carita", "Labuan", "Cikeusik", "Cibitung", "Cimanggu",
+                "Cipeucang", "Cisata", "Jiput", "Kaduhejo", "Karangkamulyan", "Keboncau", "Koroncong",
+                "Mandalawangi", "Mekarjaya", "Pagelaran", "Pandeglang", "Cadasari", "Banjar", "Bojong", "Cimanuk",
+                "Cangkring", "Cibodas"
+            ];
+
+            let allDesa = [];
+            for (let i = 1; i <= 339; i++) {
+                allDesa.push(i <= desaList.length ? desaList[i - 1] : `Desa ${i}`);
+            }
+
+            // ============================================================
+            // CHAT DATA
+            // ============================================================
+            const chatUsers = [
+                { name: "Admin", initial: "A", color: "#6C3CE1" },
+                { name: "Andi", initial: "A", color: "#22c55e" },
+                { name: "Siti", initial: "S", color: "#f59e0b" },
+                { name: "Rudi", initial: "R", color: "#ef4444" },
+                { name: "Dewi", initial: "D", color: "#8B5CF6" },
+                { name: "Budi", initial: "B", color: "#3b82f6" },
+                { name: "Tono", initial: "T", color: "#ec4899" },
+                { name: "Rina", initial: "R", color: "#14b8a6" }
+            ];
+
+            let chatMessages = [
+                { user: "Andi", text: "Halo, saya mau pesan setrika 5 pcs", time: "10:23" },
+                { user: "Siti", text: "Saya juga mau pesan 3 pcs untuk gaun", time: "10:25" },
+                { user: "Admin", text: "Baik, akan kami proses segera 👍", time: "10:26" }
+            ];
+
+            let currentUser = "Admin";
+
+            // ============================================================
+            // RENDER CHAT
+            // ============================================================
+            function renderChat() {
+                const container = document.getElementById('chatContainer');
+                if (!container) return;
+                container.innerHTML = '';
+                chatMessages.forEach(msg => {
+                    const isOwn = msg.user === currentUser;
+                    const div = document.createElement('div');
+                    div.className = `msg ${isOwn ? 'own' : ''}`;
+                    const avatar = document.createElement('div');
+                    avatar.className = 'avatar';
+                    avatar.textContent = msg.user.charAt(0);
+                    const bubble = document.createElement('div');
+                    bubble.className = 'bubble';
+                    bubble.innerHTML =
+                        `<strong>${msg.user}</strong><br>${msg.text}<span class="time">${msg.time}</span>`;
+                    div.appendChild(avatar);
+                    div.appendChild(bubble);
+                    container.appendChild(div);
+                });
+                container.scrollTop = container.scrollHeight;
+            }
+
+            function renderOnlineUsers() {
+                const container = document.getElementById('onlineUsers');
+                if (!container) return;
+                container.innerHTML = '';
+                chatUsers.forEach(u => {
+                    const div = document.createElement('div');
+                    div.className = 'user';
+                    div.innerHTML = `
+                        <div class="avatar" style="background:${u.color};">${u.initial}</div>
+                        <span>${u.name}</span>
+                    `;
+                    container.appendChild(div);
+                });
+                const countEl = document.getElementById('onlineCount');
+                if (countEl) countEl.textContent = `● ${chatUsers.length} online`;
+            }
+
+            window.sendMessage = function() {
+                const input = document.getElementById('chatInput');
+                if (!input || !input.value.trim()) return;
+                const text = input.value.trim();
+                const now = new Date();
+                const time =
+                `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
+                chatMessages.push({ user: currentUser, text: text, time: time });
+                input.value = '';
+                renderChat();
+                setTimeout(() => {
+                    const replies = ["Baik, akan kami proses! 👍", "Terima kasih pesanannya! 🧺",
+                        "Siap, segera kami antar! 🚚", "Noted! ✅"
+                    ];
+                    const randomUser = chatUsers[Math.floor(Math.random() * chatUsers.length)];
+                    const now2 = new Date();
+                    const time2 =
+                    `${String(now2.getHours()).padStart(2,'0')}:${String(now2.getMinutes()).padStart(2,'0')}`;
+                    chatMessages.push({
+                        user: randomUser.name,
+                        text: replies[Math.floor(Math.random() * replies.length)],
+                        time: time2
+                    });
+                    renderChat();
+                }, 1500 + Math.random() * 2000);
+            };
+
+            // Enter key
+            document.addEventListener('DOMContentLoaded', function() {
+                const input = document.getElementById('chatInput');
+                if (input) {
+                    input.addEventListener('keydown', function(e) {
+                        if (e.key === 'Enter') window.sendMessage();
+                    });
+                }
+            });
+
+            // ============================================================
+            // GRAFIK
+            // ============================================================
+            function renderChart() {
+                const container = document.getElementById('chartBar');
+                const labels = document.getElementById('chartLabels');
+                if (!container || !labels) return;
+                const data = [
+                    { label: 'Sen', val: 65 },
+                    { label: 'Sel', val: 78 },
+                    { label: 'Rab', val: 55 },
+                    { label: 'Kam', val: 90 },
+                    { label: 'Jum', val: 120 },
+                    { label: 'Sab', val: 85 },
+                    { label: 'Min', val: 70 }
+                ];
+                container.innerHTML = '';
+                labels.innerHTML = '';
+                const max = Math.max(...data.map(d => d.val));
+                data.forEach(d => {
+                    const height = Math.max((d.val / max) * 110, 20);
+                    const bar = document.createElement('div');
+                    bar.className = 'bar';
+                    bar.style.height = height + 'px';
+                    bar.innerHTML = `<span class="val">${d.val}</span>`;
+                    container.appendChild(bar);
+                    const label = document.createElement('span');
+                    label.textContent = d.label;
+                    labels.appendChild(label);
+                });
+                const total = data.reduce((a, b) => a + b.val, 0);
+                const totalEl = document.getElementById('statTotal');
+                const avgEl = document.getElementById('statAvg');
+                const growthEl = document.getElementById('statGrowth');
+                if (totalEl) totalEl.textContent = `Rp ${(total * 250).toLocaleString()}`;
+                if (avgEl) avgEl.textContent = `Rp ${Math.round((total / data.length) * 250).toLocaleString()}`;
+                if (growthEl) growthEl.textContent = `+${(Math.random() * 15 + 5).toFixed(1)}%`;
+            }
+
+            // ============================================================
+            // DESA GRID
+            // ============================================================
+            function renderDesa() {
+                const grid = document.getElementById('desaGrid');
+                if (!grid) return;
+                grid.innerHTML = '';
+                const sample = allDesa.slice(0, 18);
+                const kurir = ["Andi", "Siti", "Rudi", "Dewi", "Budi", "Tono", "Rina", "Agus", "Nina", "Eko", "Dian",
+                    "Fajar", "Gilang", "Hana", "Irfan", "Jeni", "Kiki", "Lina"
+                ];
+                sample.forEach((d, i) => {
+                    const card = document.createElement('div');
+                    card.className = 'desa-card';
+                    card.innerHTML =
+                        `<div class="name">🏘️ ${d}</div><div class="kurir">🚚 ${kurir[i % kurir.length]}</div><div class="online">● Online</div>`;
+                    grid.appendChild(card);
+                });
+                const countEl = document.getElementById('desaCount');
+                if (countEl) countEl.textContent = allDesa.length;
+            }
+
+            // ============================================================
+            // GEOLOKASI
+            // ============================================================
+            function getLocation() {
+                const loc = document.getElementById('userLocation');
+                const geo = document.getElementById('geoText');
+                const order = document.getElementById('orderDesa');
+                const reg = document.getElementById('regDesa');
+
+                if (!navigator.geolocation) {
+                    if (loc) loc.textContent = '⚠️ GPS tidak didukung';
+                    if (geo) geo.textContent = '⚠️ GPS tidak didukung';
+                    fallbackDesa();
+                    return;
+                }
+
+                navigator.geolocation.getCurrentPosition(
+                    function(pos) {
+                        try {
+                            const lat = pos.coords.latitude;
+                            const lng = pos.coords.longitude;
+                            if (loc) loc.textContent = `📍 ${lat.toFixed(4)}, ${lng.toFixed(4)}`;
+                            if (geo) geo.textContent = `✅ Lokasi: ${lat.toFixed(4)}, ${lng.toFixed(4)}`;
+                            if (order) order.textContent = `📍 Pandeglang`;
+                            if (reg) {
+                                reg.innerHTML = '<option value="">Pilih Desa</option>';
+                                allDesa.slice(0, 10).forEach(d => {
+                                    const opt = document.createElement('option');
+                                    opt.value = d;
+                                    opt.textContent = d;
+                                    reg.appendChild(opt);
+                                });
+                            }
+                            showToast('✅ Lokasi terdeteksi');
+                        } catch (e) { fallbackDesa(); }
+                    },
+                    function() {
+                        if (loc) loc.textContent = '⚠️ GPS tidak aktif';
+                        if (geo) geo.textContent = '⚠️ Aktifkan GPS';
+                        fallbackDesa();
+                    }, { enableHighAccuracy: true, timeout: 8000 }
+                );
+            }
+
+            function fallbackDesa() {
+                const reg = document.getElementById('regDesa');
+                if (reg) {
+                    reg.innerHTML = '<option value="">Pilih Desa</option>';
+                    allDesa.slice(0, 10).forEach(d => {
+                        const opt = document.createElement('option');
+                        opt.value = d;
+                        opt.textContent = d;
+                        reg.appendChild(opt);
+                    });
+                }
+            }
+
+            // ============================================================
+            // TOAST
+            // ============================================================
+            const toast = document.getElementById('toast');
+            let toastTimer;
+
+            function showToast(msg) {
+                if (!toast) return;
+                toast.textContent = msg || '✅ Berhasil!';
+                toast.classList.add('show');
+                clearTimeout(toastTimer);
+                toastTimer = setTimeout(() => toast.classList.remove('show'), 3000);
+            }
+
+            // ============================================================
+            // REGISTER
+            // ============================================================
+            window.registerUser = function() {
+                const name = document.getElementById('regName').value.trim();
+                const phone = document.getElementById('regPhone').value.trim();
+                const desa = document.getElementById('regDesa').value;
+                const role = document.getElementById('regRole').value;
+                if (!name || !phone || !desa || !role) {
+                    showToast('⚠️ Harap isi semua data!');
+                    return;
+                }
+                if (phone.length < 10) {
+                    showToast('⚠️ Nomor HP tidak valid!');
+                    return;
+                }
+                showToast('✅ Pendaftaran berhasil!');
+                document.getElementById('regName').value = '';
+                document.getElementById('regPhone').value = '';
+                document.getElementById('regRole').value = '';
+            };
+
+            // ============================================================
+            // ROLE SWITCH
+            // ============================================================
+            document.querySelectorAll('.role-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.role-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    const role = this.dataset.role;
+                    const nameEl = document.getElementById('userName');
+                    const badgeEl = document.getElementById('roleBadge');
+                    const pelangganView = document.getElementById('pelangganView');
+                    const kurirView = document.getElementById('kurirView');
+                    const pekerjaView = document.getElementById('pekerjaView');
+                    const adminPayroll = document.getElementById('adminPayroll');
+                    const kurirPayroll = document.getElementById('kurirPayroll');
+                    const pekerjaPayroll = document.getElementById('pekerjaPayroll');
+                    const pelangganPayroll = document.getElementById('pelangganPayroll');
+
+                    if (nameEl) nameEl.textContent = role === 'admin' ? 'Admin Pusat' : role === 'kurir' ?
+                        'Kurir' : role === 'pekerja' ? 'Pekerja' : 'Pelanggan';
+                    if (badgeEl) badgeEl.textContent = role === 'admin' ? '👑 Admin' : role === 'kurir' ?
+                        '🚚 Kurir' : role === 'pekerja' ? '🧺 Pekerja' : '👤 Pelanggan';
+
+                    if (pelangganView) pelangganView.classList.toggle('hidden', role !== 'pelanggan' && role !==
+                        'admin');
+                    if (kurirView) kurirView.classList.toggle('hidden', role !== 'kurir');
+                    if (pekerjaView) pekerjaView.classList.toggle('hidden', role !== 'pekerja');
+
+                    if (adminPayroll) adminPayroll.classList.toggle('hidden', role !== 'admin');
+                    if (kurirPayroll) kurirPayroll.classList.toggle('hidden', role !== 'kurir');
+                    if (pekerjaPayroll) pekerjaPayroll.classList.toggle('hidden', role !== 'pekerja');
+                    if (pelangganPayroll) pelangganPayroll.classList.toggle('hidden', role !== 'pelanggan');
+
+                    currentUser = role === 'admin' ? 'Admin' : role === 'kurir' ? 'Kurir' : role === 'pekerja' ?
+                        'Pekerja' : 'Pelanggan';
+                    renderChat();
+                    if (role !== 'admin') showToast(`👋 Selamat datang ${role}!`);
+                });
+            });
+
+            // ============================================================
+            // NAVIGASI BOTTOM
+            // ============================================================
+            document.querySelectorAll('.bottom-nav a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    document.querySelectorAll('.bottom-nav a').forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                    const target = this.getAttribute('href');
+                    if (target && target.startsWith('#')) {
+                        e.preventDefault();
+                        const el = document.querySelector(target);
+                        if (el) el.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+
+            // ============================================================
+            // MENU GRID
+            // ============================================================
+            document.querySelectorAll('.menu-item').forEach(item => {
+                item.addEventListener('click', function(e) {
+                    const target = this.getAttribute('href');
+                    if (target && target.startsWith('#')) {
+                        e.preventDefault();
+                        const el = document.querySelector(target);
+                        if (el) el.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+
+            // ============================================================
+            // STATUS GRID
+            // ============================================================
+            document.querySelectorAll('.status-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    document.querySelectorAll('.status-item').forEach(i => i.classList.remove('active'));
+                    this.classList.add('active');
+                    const label = this.querySelector('.label')?.textContent || '';
+                    showToast(`📊 Menampilkan: ${label}`);
+                });
+            });
+
+            // ============================================================
+            // NOTIF
+            // ============================================================
+            const notifBtn = document.getElementById('notifBtn');
+            if (notifBtn) {
+                notifBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    showToast('🔔 Ada 3 notifikasi baru!');
+                });
+            }
+
+            // ============================================================
+            // INIT
+            // ============================================================
+            document.addEventListener('DOMContentLoaded', function() {
+                renderDesa();
+                getLocation();
+                renderChat();
+                renderOnlineUsers();
+                renderChart();
+
+                // Animasi progress bar
+                document.querySelectorAll('.progress-bar .fill').forEach(el => {
+                    const w = el.style.width;
+                    el.style.width = '0%';
+                    setTimeout(() => el.style.width = w, 400);
+                });
+
+                console.log('✅ Zeevanna Digital - Platform Terintegrasi');
+                console.log(`🏘️ ${allDesa.length} desa terdaftar`);
+                console.log('📞 0831-8150-0947 | 0838-1902-3700');
+            });
+
+        } catch (error) {
+            console.error('⚠️ Error:', error);
+            // Tampilkan pesan error di layar agar pengguna tahu
+            document.body.innerHTML += `
+                <div style="background:#fee;padding:20px;margin:20px;border-radius:12px;border:2px solid #ef4444;max-width:480px;margin:20px auto;">
+                    <h3 style="color:#dc2626;">⚠️ Ada error di aplikasi</h3>
+                    <p style="color:#6b7280;font-size:14px;">${error.message}</p>
+                    <p style="color:#6b7280;font-size:12px;margin-top:8px;">Silakan refresh halaman atau coba lagi nanti.</p>
+                </div>
+            `;
+        }
+    </script>
+
+</body>
+</html>
