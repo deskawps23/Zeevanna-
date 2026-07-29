@@ -2,119 +2,666 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zeevanna Digital</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <meta name="theme-color" content="#6C3CE1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Zeevanna Digital - Pandeglang</title>
     <style>
+        /* ============================================================
+           RESET & BASE
+           ============================================================ */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+        :root {
+            --primary: #6C3CE1;
+            --primary-light: #8B5CF6;
+            --primary-dark: #5B2FC9;
+            --gradient: linear-gradient(135deg, #6C3CE1, #8B5CF6);
+            --bg: #f0f0f5;
+            --card: #ffffff;
+            --text: #1e1e2f;
+            --text-secondary: #6b7280;
+            --radius: 16px;
+            --shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+            --safe-bottom: env(safe-area-inset-bottom, 0px);
+        }
+        html {
+            scroll-behavior: smooth;
+        }
         body {
-            font-family: -apple-system, Arial, sans-serif;
-            background: #f0f0f5;
-            padding: 16px;
-            max-width: 500px;
-            margin: 0 auto;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            padding-bottom: calc(70px + var(--safe-bottom));
+            min-height: 100vh;
+            min-height: 100dvh;
         }
+
+        /* ============================================================
+           HEADER
+           ============================================================ */
         .header {
-            background: linear-gradient(135deg, #6C3CE1, #8B5CF6);
+            background: var(--gradient);
+            padding: 20px 16px 30px;
+            border-radius: 0 0 28px 28px;
             color: #fff;
-            padding: 24px;
-            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        .header::after {
+            content: '';
+            position: absolute;
+            top: -40%;
+            right: -10%;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 50%;
+        }
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+        .header-top .brand {
+            font-size: 20px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .header-top .brand .badge-live {
+            font-size: 9px;
+            background: #22c55e;
+            padding: 2px 10px;
+            border-radius: 50px;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%,
+            100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.4;
+            }
+        }
+        .header-top .notif {
+            font-size: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 6px 14px;
+            border-radius: 50px;
+            text-decoration: none;
+            color: #fff;
+            position: relative;
+            z-index: 1;
+            backdrop-filter: blur(4px);
+        }
+        .header-top .notif .dot {
+            position: absolute;
+            top: 4px;
+            right: 6px;
+            width: 8px;
+            height: 8px;
+            background: #ef4444;
+            border-radius: 50%;
+            border: 2px solid #6C3CE1;
+            animation: pulse 1.5s infinite;
+        }
+        .header .greeting {
+            font-size: 15px;
+            opacity: 0.95;
+            margin-top: 8px;
+            position: relative;
+            z-index: 1;
+            font-weight: 500;
+        }
+        .header .sub {
+            font-size: 13px;
+            opacity: 0.8;
+            position: relative;
+            z-index: 1;
+            margin-top: 2px;
+        }
+        .header .role-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 2px 16px;
+            border-radius: 50px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-top: 6px;
+            position: relative;
+            z-index: 1;
+            backdrop-filter: blur(4px);
+        }
+        .header .location-info {
+            font-size: 12px;
+            opacity: 0.85;
+            margin-top: 6px;
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(0, 0, 0, 0.1);
+            padding: 4px 14px;
+            border-radius: 50px;
+            display: inline-flex;
+            backdrop-filter: blur(4px);
+        }
+        .header .location-info .dot-loc {
+            width: 8px;
+            height: 8px;
+            background: #22c55e;
+            border-radius: 50%;
+            display: inline-block;
+            animation: pulse 2s infinite;
+        }
+
+        /* ============================================================
+           SALDO CARD (Gojek Style)
+           ============================================================ */
+        .saldo-card {
+            background: var(--card);
+            margin: -16px 16px 16px;
+            border-radius: var(--radius);
+            padding: 16px 18px;
+            box-shadow: var(--shadow);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 6px;
+            position: relative;
+            z-index: 2;
+            border: 1px solid rgba(108, 60, 225, 0.06);
+        }
+        .saldo-card .item {
             text-align: center;
-            margin-bottom: 16px;
+            flex: 1;
+            min-width: 55px;
         }
-        .header h1 {
+        .saldo-card .label {
+            font-size: 10px;
+            color: #9ca3af;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+        .saldo-card .value {
+            font-size: 17px;
+            font-weight: 800;
+            color: var(--primary);
+            margin-top: 2px;
+        }
+        .saldo-card .value.green {
+            color: #22c55e;
+        }
+        .saldo-card .value.gold {
+            color: #f59e0b;
+        }
+
+        /* ============================================================
+           ROLE SWITCH
+           ============================================================ */
+        .role-switch {
+            display: flex;
+            gap: 8px;
+            padding: 0 16px 14px;
+            overflow-x: auto;
+            flex-wrap: nowrap;
+            scrollbar-width: none;
+        }
+        .role-switch::-webkit-scrollbar {
+            display: none;
+        }
+        .role-btn {
+            padding: 6px 18px;
+            border-radius: 50px;
+            border: 2px solid var(--primary);
+            background: transparent;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 12px;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+        .role-btn.active {
+            background: var(--primary);
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(108, 60, 225, 0.3);
+        }
+        .role-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* ============================================================
+           STATUS GRID (TikTok/Shopee Style)
+           ============================================================ */
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            padding: 0 16px 16px;
+        }
+        .status-item {
+            background: var(--card);
+            border-radius: 14px;
+            padding: 12px 6px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            text-decoration: none;
+            color: var(--text);
+            transition: all 0.2s;
+            border: 2px solid transparent;
+        }
+        .status-item:active {
+            transform: scale(0.95);
+        }
+        .status-item.active {
+            border-color: var(--primary);
+        }
+        .status-item .icon {
             font-size: 24px;
+            display: block;
         }
-        .header p {
-            opacity: 0.9;
+        .status-item .label {
+            font-size: 10px;
+            font-weight: 600;
             margin-top: 4px;
+            color: #6b7280;
         }
-        .card {
-            background: #fff;
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        .status-item .count {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-top: 2px;
         }
-        .card h2 {
-            color: #6C3CE1;
-            font-size: 18px;
-            margin-bottom: 12px;
+
+        /* ============================================================
+           MENU GRID
+           ============================================================ */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            padding: 0 16px 16px;
         }
-        .btn {
+        .menu-item {
+            background: var(--card);
+            border-radius: var(--radius);
+            padding: 14px 6px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            text-decoration: none;
+            color: var(--text);
+            transition: all 0.2s;
+            border: 1px solid rgba(0, 0, 0, 0.03);
+        }
+        .menu-item:active {
+            transform: scale(0.95);
+            background: #f8f8fc;
+        }
+        .menu-item .icon {
+            font-size: 26px;
+            display: block;
+        }
+        .menu-item .label {
+            font-size: 11px;
+            font-weight: 600;
+            margin-top: 4px;
+            color: #6b7280;
+        }
+
+        /* ============================================================
+           SECTION
+           ============================================================ */
+        .section {
+            padding: 0 16px 20px;
+        }
+        .section-title {
+            font-size: 17px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--text);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .section-title .badge-count {
+            background: var(--primary);
+            color: #fff;
+            font-size: 11px;
+            padding: 2px 14px;
+            border-radius: 50px;
+            font-weight: 600;
+        }
+
+        /* ============================================================
+           ORDER CARD
+           ============================================================ */
+        .order-card {
+            background: var(--card);
+            border-radius: 14px;
+            padding: 14px 16px;
+            margin-bottom: 10px;
+            box-shadow: var(--shadow);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 6px;
+            border-left: 4px solid var(--primary);
+            transition: all 0.2s;
+        }
+        .order-card:active {
+            transform: scale(0.98);
+        }
+        .order-card .info {
+            font-size: 14px;
+            flex: 2;
+            min-width: 120px;
+        }
+        .order-card .info .name {
+            font-weight: 600;
+        }
+        .order-card .info .desa {
+            font-size: 12px;
+            color: #6b7280;
+        }
+        .order-card .info .point-earn {
+            font-size: 11px;
+            color: #f59e0b;
+            font-weight: 600;
+        }
+        .order-card .info .distance {
+            font-size: 11px;
+            color: var(--primary);
+            font-weight: 600;
+        }
+        .order-card .status {
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 14px;
+            border-radius: 50px;
+        }
+        .order-card .status.done {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        .order-card .status.pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        .order-card .status.process {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+        .order-card .status.deliver {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        .order-card .earning {
+            font-weight: 700;
+            color: #22c55e;
+            font-size: 14px;
+        }
+
+        /* ============================================================
+           BUTTON WA
+           ============================================================ */
+        .btn-wa {
             display: block;
             background: #25D366;
             color: #fff;
-            padding: 14px;
+            padding: 16px;
+            border: none;
             border-radius: 50px;
             text-align: center;
-            font-weight: bold;
-            text-decoration: none;
             font-size: 16px;
+            font-weight: 700;
+            text-decoration: none;
+            margin: 12px 0;
+            box-shadow: 0 4px 16px rgba(37, 211, 102, 0.3);
+            transition: all 0.2s;
         }
-        .contact {
+        .btn-wa:active {
+            transform: scale(0.97);
+        }
+
+        /* ============================================================
+           CONTACT GRID
+           ============================================================ */
+        .contact-grid {
             display: flex;
+            flex-wrap: wrap;
             gap: 10px;
             margin-top: 10px;
         }
-        .contact a {
-            flex: 1;
-            background: #f8f8fc;
-            padding: 12px;
-            border-radius: 12px;
+        .contact-grid a {
+            flex: 1 0 calc(50% - 10px);
+            background: var(--card);
+            border: 1px solid #e5e7eb;
+            border-radius: 14px;
+            padding: 12px 8px;
             text-align: center;
             text-decoration: none;
-            color: #1e1e2f;
+            color: var(--text);
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .contact-grid a:active {
+            background: #f8f8fc;
+        }
+
+        /* ============================================================
+           REGISTER FORM
+           ============================================================ */
+        .register-form {
+            background: var(--card);
+            border-radius: var(--radius);
+            padding: 20px;
+            box-shadow: var(--shadow);
+        }
+        .register-form input,
+        .register-form select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 14px;
+            margin-bottom: 10px;
+            font-family: inherit;
+            background: #f8fafc;
+            transition: all 0.2s;
+            -webkit-appearance: none;
+        }
+        .register-form input:focus,
+        .register-form select:focus {
+            border-color: var(--primary);
+            outline: none;
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(108, 60, 225, 0.08);
+        }
+        .register-form .btn-register {
+            width: 100%;
+            padding: 14px;
+            background: var(--gradient);
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 16px rgba(108, 60, 225, 0.3);
+        }
+        .register-form .btn-register:active {
+            transform: scale(0.97);
+        }
+        .register-form .geo-status {
+            font-size: 12px;
+            color: #22c55e;
+            text-align: center;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            background: #f0fdf4;
+            padding: 8px;
+            border-radius: 12px;
+        }
+
+        /* ============================================================
+           EARNING CARD
+           ============================================================ */
+        .earning-card {
+            background: var(--card);
+            border-radius: var(--radius);
+            padding: 16px;
+            box-shadow: var(--shadow);
+            margin-top: 10px;
+        }
+        .earning-card .row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #f3f4f6;
+        }
+        .earning-card .row:last-child {
+            border-bottom: none;
+        }
+        .earning-card .label {
+            font-size: 14px;
+            color: #6b7280;
+        }
+        .earning-card .value {
+            font-weight: 700;
+            font-size: 14px;
+        }
+        .earning-card .value.green {
+            color: #22c55e;
+        }
+        .earning-card .value.gold {
+            color: #f59e0b;
+        }
+        .progress-bar {
+            height: 8px;
+            background: #f3f4f6;
+            border-radius: 10px;
+            margin: 8px 0 10px;
+            overflow: hidden;
+        }
+        .progress-bar .fill {
+            height: 100%;
+            background: var(--gradient);
+            border-radius: 10px;
+            transition: width 0.8s ease;
+        }
+
+        /* ============================================================
+           QRIS
+           ============================================================ */
+        .qr-container {
+            background: var(--card);
+            border-radius: var(--radius);
+            padding: 20px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            margin-top: 12px;
+        }
+        .qr-container .merchant {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .qr-container .location {
+            font-size: 14px;
+            color: #6b7280;
+            margin-top: 2px;
+        }
+        .qr-container .nmid {
+            font-size: 12px;
+            color: #9ca3af;
+            margin-top: 2px;
+            margin-bottom: 12px;
+        }
+        .qr-container img {
+            width: 180px;
+            height: 180px;
+            object-fit: contain;
+            border-radius: 12px;
+            background: #f8fafc;
+            padding: 8px;
             border: 1px solid #e5e7eb;
+        }
+        .qr-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 12px;
+        }
+        .qr-buttons a {
+            background: var(--primary);
+            color: #fff;
+            padding: 8px 24px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 13px;
+            transition: all 0.2s;
+        }
+        .qr-buttons a:active {
+            transform: scale(0.95);
+        }
+        .qr-buttons a.download {
+            background: #25D366;
+        }
+
+        /* ============================================================
+           DESA GRID
+           ============================================================ */
+        .desa-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+        .desa-card {
+            background: var(--card);
+            border-radius: 14px;
+            padding: 12px 10px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(0, 0, 0, 0.03);
+        }
+        .desa-card .name {
+            font-weight: 700;
             font-size: 13px;
         }
-        .footer {
-            text-align: center;
-            color: #999;
-            font-size: 12px;
-            margin-top: 16px;
+        .desa-card .kurir {
+            font-size: 11px;
+            color: #6b7280;
         }
-    </style>
-</head>
-<body>
+        .desa-card .count {
+            font-size: 11px;
+            color: var(--primary);
+            font-weight: 600;
+        }
+        .desa-card .online {
+            font-size: 10px;
+            color: #22c55e;
+        }
 
-    <div class="header">
-        <h1>🧺 Zeevanna Digital</h1>
-        <p>Jasa Setrika & Laundry Online • Pandeglang</p>
-    </div>
-
-    <div class="card">
-        <h2>📋 Pesan Sekarang</h2>
-        <a href="https://wa.me/6283819023700" class="btn">💬 Pesan via WhatsApp</a>
-        <div class="contact">
-            <a href="tel:083181500947">📞 0831-8150-0947</a>
-            <a href="https://wa.me/6283181500947">💬 WA</a>
-        </div>
-        <div class="contact">
-            <a href="tel:083819023700">📞 0838-1902-3700</a>
-            <a href="https://wa.me/6283819023700">💬 WA</a>
-        </div>
-    </div>
-
-    <div class="card">
-        <h2>💰 Harga</h2>
-        <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f0f5;">Kemeja <strong>Rp 8.000</strong></div>
-        <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f0f5;">Celana <strong>Rp 10.000</strong></div>
-        <div style="display:flex;justify-content:space-between;padding:8px 0;">Gaun <strong>Rp 15.000</strong></div>
-    </div>
-
-    <div class="card">
-        <h2>📍 Area Layanan</h2>
-        <p>Kabupaten Pandeglang & sekitarnya</p>
-        <p style="font-size:13px;color:#888;margin-top:4px;">339 Desa • 1 Desa = 1 Kurir</p>
-    </div>
-
-    <div class="footer">
-        &copy; 2026 Zeevanna Digital
-    </div>
-
-</body>
-</html>
+        /* ============================================================
+           BOTTOM NAV
+           =====================================================
