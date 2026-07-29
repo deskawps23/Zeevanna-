@@ -1,0 +1,20 @@
+{
+  "name": "Zeevanna Digital",
+  "short_name": "Zeevanna",
+  "start_url": "/zeevanna/",
+  "display": "standalone",
+  "background_color": "#6C3CE1",
+  "theme_color": "#6C3CE1",
+  "icons": [
+    {
+      "src": "https://via.placeholder.com/192x192/6C3CE1/FFFFFF?text=Z",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://via.placeholder.com/512x512/6C3CE1/FFFFFF?text=Z",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
