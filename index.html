@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Zeevanna Digital</title>
     
     <!-- Firebase SDK -->
@@ -11,11 +11,7 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
 
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: Arial, sans-serif;
             background: #f0f0f5;
@@ -32,13 +28,8 @@
             text-align: center;
             margin-bottom: 16px;
         }
-        .header h1 {
-            font-size: 24px;
-        }
-        .header p {
-            opacity: 0.9;
-            margin-top: 4px;
-        }
+        .header h1 { font-size: 24px; }
+        .header p { opacity: 0.9; margin-top: 4px; }
         .card {
             background: #fff;
             border-radius: 16px;
@@ -46,28 +37,20 @@
             margin-bottom: 12px;
             box-shadow: 0 2px 12px rgba(0,0,0,0.06);
         }
-        .card h2 {
-            color: #6C3CE1;
-            font-size: 18px;
-            margin-bottom: 12px;
-        }
+        .card h2 { color: #6C3CE1; font-size: 18px; margin-bottom: 12px; }
         .btn {
             display: block;
-            background: #25D366;
-            color: #fff;
             padding: 14px;
             border: none;
             border-radius: 50px;
             text-align: center;
             font-weight: bold;
-            text-decoration: none;
             font-size: 16px;
             width: 100%;
             cursor: pointer;
         }
-        .btn-primary {
-            background: linear-gradient(135deg, #6C3CE1, #8B5CF6);
-        }
+        .btn-primary { background: linear-gradient(135deg, #6C3CE1, #8B5CF6); color: #fff; }
+        .btn-wa { background: #25D366; color: #fff; }
         .contact {
             display: flex;
             gap: 10px;
@@ -96,9 +79,7 @@
             padding: 8px 0;
             border-bottom: 1px solid #f0f0f5;
         }
-        .price:last-child {
-            border-bottom: none;
-        }
+        .price:last-child { border-bottom: none; }
         input, select {
             width: 100%;
             padding: 12px 16px;
@@ -109,10 +90,7 @@
             font-family: inherit;
             background: #f8fafc;
         }
-        input:focus, select:focus {
-            border-color: #6C3CE1;
-            outline: none;
-        }
+        input:focus, select:focus { border-color: #6C3CE1; outline: none; }
         .order-card {
             background: #fff;
             border-radius: 12px;
@@ -124,34 +102,18 @@
             flex-wrap: wrap;
             gap: 6px;
         }
-        .order-card .info {
-            flex: 1;
-        }
-        .order-card .info .name {
-            font-weight: 700;
-        }
-        .order-card .info .desa {
-            font-size: 12px;
-            color: #6b7280;
-        }
+        .order-card .info { flex: 1; }
+        .order-card .info .name { font-weight: 700; }
+        .order-card .info .desa { font-size: 12px; color: #6b7280; }
         .order-card .status {
             font-size: 11px;
             font-weight: 700;
             padding: 4px 14px;
             border-radius: 50px;
         }
-        .order-card .status.menunggu {
-            background: #fef3c7;
-            color: #92400e;
-        }
-        .order-card .status.diproses {
-            background: #dbeafe;
-            color: #1e40af;
-        }
-        .order-card .status.selesai {
-            background: #d1fae5;
-            color: #065f46;
-        }
+        .order-card .status.menunggu { background: #fef3c7; color: #92400e; }
+        .order-card .status.diproses { background: #dbeafe; color: #1e40af; }
+        .order-card .status.selesai { background: #d1fae5; color: #065f46; }
         .order-card .status .update-btn {
             background: #6C3CE1;
             color: #fff;
@@ -173,12 +135,13 @@
             margin-left: 6px;
         }
         .chat-container {
-            background: #fff;
+            background: #f8fafc;
             border-radius: 16px;
             padding: 16px;
             max-height: 250px;
             overflow-y: auto;
             margin-bottom: 10px;
+            border: 1px solid #e5e7eb;
         }
         .chat-container .msg {
             display: flex;
@@ -199,11 +162,12 @@
             margin-right: 10px;
         }
         .chat-container .msg .bubble {
-            background: #f3f4f6;
+            background: #fff;
             padding: 8px 12px;
             border-radius: 12px;
             max-width: 80%;
             font-size: 14px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.04);
         }
         .chat-container .msg.own .bubble {
             background: #6C3CE1;
@@ -215,9 +179,7 @@
             margin-top: 2px;
             display: block;
         }
-        .chat-container .msg.own .bubble .time {
-            color: rgba(255,255,255,0.7);
-        }
+        .chat-container .msg.own .bubble .time { color: rgba(255,255,255,0.7); }
         .chat-input {
             display: flex;
             gap: 10px;
@@ -232,7 +194,6 @@
             outline: none;
             font-size: 15px;
             background: transparent;
-            font-family: inherit;
             padding: 8px 0;
             margin: 0;
         }
@@ -246,9 +207,7 @@
             font-size: 14px;
             cursor: pointer;
         }
-        .hidden {
-            display: none !important;
-        }
+        .hidden { display: none !important; }
         .login-box {
             background: #fff;
             border-radius: 16px;
@@ -257,10 +216,8 @@
             margin-bottom: 16px;
             text-align: center;
         }
-        .login-box input {
-            margin-bottom: 10px;
-        }
-        .login-box button {
+        .login-box input { margin-bottom: 10px; }
+        .login-box .btn-login {
             width: 100%;
             padding: 14px;
             background: linear-gradient(135deg, #6C3CE1, #8B5CF6);
@@ -270,6 +227,7 @@
             font-size: 16px;
             font-weight: 700;
             cursor: pointer;
+            margin-bottom: 10px;
         }
         .login-box .link {
             color: #6C3CE1;
@@ -303,9 +261,7 @@
             text-align: center;
             pointer-events: none;
         }
-        .toast.show {
-            transform: translateX(-50%) translateY(0);
-        }
+        .toast.show { transform: translateX(-50%) translateY(0); }
         .status-grid {
             display: flex;
             gap: 8px;
@@ -321,18 +277,9 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.04);
             border: 2px solid transparent;
         }
-        .status-grid .stat.active {
-            border-color: #6C3CE1;
-        }
-        .status-grid .stat .num {
-            font-size: 18px;
-            font-weight: 800;
-            color: #6C3CE1;
-        }
-        .status-grid .stat .label {
-            font-size: 10px;
-            color: #6b7280;
-        }
+        .status-grid .stat.active { border-color: #6C3CE1; }
+        .status-grid .stat .num { font-size: 18px; font-weight: 800; color: #6C3CE1; }
+        .status-grid .stat .label { font-size: 10px; color: #6b7280; }
         .saldo-card {
             background: #fff;
             border-radius: 16px;
@@ -344,28 +291,11 @@
             flex-wrap: wrap;
             gap: 8px;
         }
-        .saldo-card .item {
-            text-align: center;
-            flex: 1;
-            min-width: 50px;
-        }
-        .saldo-card .label {
-            font-size: 10px;
-            color: #9ca3af;
-            text-transform: uppercase;
-            font-weight: 700;
-        }
-        .saldo-card .value {
-            font-size: 18px;
-            font-weight: 800;
-            color: #6C3CE1;
-        }
-        .saldo-card .value.gold {
-            color: #f59e0b;
-        }
-        .saldo-card .value.green {
-            color: #22c55e;
-        }
+        .saldo-card .item { text-align: center; flex: 1; min-width: 50px; }
+        .saldo-card .label { font-size: 10px; color: #9ca3af; text-transform: uppercase; font-weight: 700; }
+        .saldo-card .value { font-size: 18px; font-weight: 800; color: #6C3CE1; }
+        .saldo-card .value.gold { color: #f59e0b; }
+        .saldo-card .value.green { color: #22c55e; }
     </style>
 </head>
 <body>
@@ -382,7 +312,7 @@
             <h3 id="authTitle" style="margin-bottom:12px;">🔐 Login</h3>
             <input type="email" id="authEmail" placeholder="Email" />
             <input type="password" id="authPassword" placeholder="Password" />
-            <button onclick="handleAuth()" id="authBtn">Login</button>
+            <button class="btn-login" id="authBtn" onclick="handleAuth()">Login</button>
             <p style="font-size:13px;color:#6b7280;margin-top:10px;">
                 <span id="authToggleText">Belum punya akun?</span>
                 <span class="link" onclick="toggleAuth()" id="authToggleLink">Daftar</span>
@@ -496,9 +426,7 @@
     JAVASCRIPT - FIREBASE
     ============================================================ -->
     <script>
-        // ============================================================
         // 🔥 KONFIGURASI FIREBASE (GANTI DENGAN PUNYA ANDA!)
-        // ============================================================
         const firebaseConfig = {
             apiKey: "AIzaSyCjHxAtx6aRILxJCJqU0-2bpE",
             authDomain: "zeevanma.firebaseapp.com",
@@ -509,14 +437,8 @@
             measurementId: "G-JOK4H6W7PJ"
         };
 
-        // ============================================================
         // INISIALISASI FIREBASE
-        // ============================================================
-        try {
-            firebase.initializeApp(firebaseConfig);
-        } catch (e) {
-            console.error('Firebase init error:', e);
-        }
+        firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
         const auth = firebase.auth();
 
@@ -524,9 +446,7 @@
         let chatUnsubscribe = null;
         let orderUnsubscribe = null;
 
-        // ============================================================
         // TOAST
-        // ============================================================
         const toast = document.getElementById('toast');
         let toastTimer;
 
@@ -537,9 +457,7 @@
             toastTimer = setTimeout(() => toast.classList.remove('show'), 3500);
         }
 
-        // ============================================================
-        // AUTH
-        // ============================================================
+        // AUTH - Toggle Login/Daftar
         let isLogin = true;
 
         function toggleAuth() {
@@ -550,6 +468,7 @@
             document.getElementById('authToggleLink').textContent = isLogin ? 'Daftar' : 'Login';
         }
 
+        // AUTH - Handle Login/Daftar
         function handleAuth() {
             const email = document.getElementById('authEmail').value.trim();
             const password = document.getElementById('authPassword').value.trim();
@@ -560,26 +479,39 @@
             }
 
             if (isLogin) {
+                // LOGIN
                 auth.signInWithEmailAndPassword(email, password)
-                    .then(() => {
+                    .then((userCredential) => {
                         showToast('✅ Login berhasil!');
                         document.getElementById('authContainer').classList.add('hidden');
                         document.getElementById('appContainer').classList.remove('hidden');
+                        currentUser = userCredential.user.email || 'Admin';
+                        document.getElementById('userDisplay').textContent = '👑 ' + currentUser;
                         initApp();
                     })
-                    .catch(err => showToast('❌ ' + err.message));
+                    .catch(err => {
+                        showToast('❌ ' + err.message);
+                        console.error('Login error:', err);
+                    });
             } else {
+                // REGISTER
                 auth.createUserWithEmailAndPassword(email, password)
-                    .then(() => {
+                    .then((userCredential) => {
                         showToast('✅ Pendaftaran berhasil!');
                         document.getElementById('authContainer').classList.add('hidden');
                         document.getElementById('appContainer').classList.remove('hidden');
+                        currentUser = userCredential.user.email || 'Admin';
+                        document.getElementById('userDisplay').textContent = '👑 ' + currentUser;
                         initApp();
                     })
-                    .catch(err => showToast('❌ ' + err.message));
+                    .catch(err => {
+                        showToast('❌ ' + err.message);
+                        console.error('Register error:', err);
+                    });
             }
         }
 
+        // LOGOUT
         function logoutUser() {
             auth.signOut().then(() => {
                 document.getElementById('appContainer').classList.add('hidden');
@@ -587,4 +519,17 @@
                 if (chatUnsubscribe) chatUnsubscribe();
                 if (orderUnsubscribe) orderUnsubscribe();
                 showToast('👋 Logout berhasil');
-  
+            });
+        }
+
+        // CEK STATUS LOGIN (Otomatis)
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                document.getElementById('authContainer').classList.add('hidden');
+                document.getElementById('appContainer').classList.remove('hidden');
+                currentUser = user.email || 'Admin';
+                document.getElementById('userDisplay').textContent = '👑 ' + currentUser;
+                initApp();
+                console.log('✅ User login:', user.email);
+            } else {
+                documen
