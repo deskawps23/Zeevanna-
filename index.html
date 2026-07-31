@@ -2,8 +2,15 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <meta name="theme-color" content="#6C3CE1">
     <title>Zeevanna Digital</title>
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+
     <style>
         * {
             margin: 0;
@@ -11,22 +18,23 @@
             box-sizing: border-box;
         }
         body {
-            font-family: Arial, sans-serif;
+            font-family: -apple-system, Arial, sans-serif;
             background: #f0f0f5;
             padding: 16px;
             max-width: 480px;
             margin: 0 auto;
-            text-align: center;
+            color: #1a1a2e;
         }
         .header {
             background: linear-gradient(135deg, #6C3CE1, #8B5CF6);
             color: #fff;
-            padding: 30px;
+            padding: 24px 20px;
             border-radius: 20px;
-            margin-bottom: 20px;
+            text-align: center;
+            margin-bottom: 16px;
         }
         .header h1 {
-            font-size: 28px;
+            font-size: 24px;
         }
         .header p {
             opacity: 0.9;
@@ -41,6 +49,7 @@
         }
         .card h2 {
             color: #6C3CE1;
+            font-size: 18px;
             margin-bottom: 12px;
         }
         .btn {
@@ -48,11 +57,17 @@
             background: #25D366;
             color: #fff;
             padding: 14px;
+            border: none;
             border-radius: 50px;
             text-align: center;
             font-weight: bold;
             text-decoration: none;
             font-size: 16px;
+            width: 100%;
+            cursor: pointer;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #6C3CE1, #8B5CF6);
         }
         .contact {
             display: flex;
@@ -68,11 +83,13 @@
             color: #1a1a2e;
             border: 1px solid #e5e7eb;
             font-size: 13px;
+            text-align: center;
         }
         .footer {
             color: #999;
             font-size: 12px;
             margin-top: 16px;
+            text-align: center;
         }
         .price {
             display: flex;
@@ -83,44 +100,475 @@
         .price:last-child {
             border-bottom: none;
         }
+        input, select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 15px;
+            margin-bottom: 10px;
+            font-family: inherit;
+            background: #f8fafc;
+        }
+        input:focus, select:focus {
+            border-color: #6C3CE1;
+            outline: none;
+        }
+        .order-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 12px 16px;
+            margin-bottom: 8px;
+            border-left: 4px solid #6C3CE1;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .order-card .info {
+            flex: 1;
+        }
+        .order-card .info .name {
+            font-weight: 700;
+        }
+        .order-card .info .desa {
+            font-size: 12px;
+            color: #6b7280;
+        }
+        .order-card .status {
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 14px;
+            border-radius: 50px;
+        }
+        .order-card .status.menunggu {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        .order-card .status.diproses {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+        .order-card .status.selesai {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        .order-card .status .update-btn {
+            background: #6C3CE1;
+            color: #fff;
+            border: none;
+            padding: 2px 10px;
+            border-radius: 50px;
+            font-size: 10px;
+            cursor: pointer;
+            margin-left: 4px;
+        }
+        .order-card .status .hapus-btn {
+            background: #ef4444;
+            color: #fff;
+            border: none;
+            padding: 2px 10px;
+            border-radius: 50px;
+            font-size: 10px;
+            cursor: pointer;
+            margin-left: 6px;
+        }
+        .chat-container {
+            background: #fff;
+            border-radius: 16px;
+            padding: 16px;
+            max-height: 250px;
+            overflow-y: auto;
+            margin-bottom: 10px;
+        }
+        .chat-container .msg {
+            display: flex;
+            margin-bottom: 8px;
+        }
+        .chat-container .msg .avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #6C3CE1;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 12px;
+            flex-shrink: 0;
+            margin-right: 10px;
+        }
+        .chat-container .msg .bubble {
+            background: #f3f4f6;
+            padding: 8px 12px;
+            border-radius: 12px;
+            max-width: 80%;
+            font-size: 14px;
+        }
+        .chat-container .msg.own .bubble {
+            background: #6C3CE1;
+            color: #fff;
+        }
+        .chat-container .msg .bubble .time {
+            font-size: 10px;
+            color: #6b7280;
+            margin-top: 2px;
+            display: block;
+        }
+        .chat-container .msg.own .bubble .time {
+            color: rgba(255,255,255,0.7);
+        }
+        .chat-input {
+            display: flex;
+            gap: 10px;
+            background: #fff;
+            padding: 8px 16px;
+            border-radius: 50px;
+            border: 1px solid #e5e7eb;
+        }
+        .chat-input input {
+            flex: 1;
+            border: none;
+            outline: none;
+            font-size: 15px;
+            background: transparent;
+            font-family: inherit;
+            padding: 8px 0;
+            margin: 0;
+        }
+        .chat-input button {
+            background: #6C3CE1;
+            color: #fff;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .hidden {
+            display: none !important;
+        }
+        .login-box {
+            background: #fff;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            margin-bottom: 16px;
+            text-align: center;
+        }
+        .login-box input {
+            margin-bottom: 10px;
+        }
+        .login-box button {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #6C3CE1, #8B5CF6);
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .login-box .link {
+            color: #6C3CE1;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .logout-btn {
+            background: rgba(255,255,255,0.2);
+            color: #fff;
+            border: none;
+            padding: 4px 16px;
+            border-radius: 50px;
+            font-size: 12px;
+            cursor: pointer;
+            margin-top: 8px;
+        }
+        .toast {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-100px);
+            background: #1e293b;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 14px;
+            z-index: 999;
+            transition: transform 0.4s ease;
+            max-width: 90%;
+            text-align: center;
+            pointer-events: none;
+        }
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <h1>🧺 Zeevanna Digital</h1>
-        <p>Jasa Setrika & Laundry Online • Pandeglang</p>
-    </div>
+    <div class="toast" id="toast">✅ Berhasil!</div>
 
-    <div class="card">
-        <h2>📋 Pesan Sekarang</h2>
-        <a href="https://wa.me/6283819023700" class="btn">💬 Pesan via WhatsApp</a>
-        <div class="contact">
-            <a href="tel:083181500947">📞 0831-8150-0947</a>
-            <a href="https://wa.me/6283181500947">💬 WA</a>
+    <!-- ===== LOGIN ===== -->
+    <div id="authContainer">
+        <div class="header">
+            <h1>🧺 Zeevanna Digital</h1>
+            <p>Login untuk mulai menggunakan platform</p>
         </div>
-        <div class="contact">
-            <a href="tel:083819023700">📞 0838-1902-3700</a>
-            <a href="https://wa.me/6283819023700">💬 WA</a>
+        <div class="login-box">
+            <h3 id="authTitle" style="margin-bottom:12px;">🔐 Login</h3>
+            <input type="email" id="authEmail" placeholder="Email" />
+            <input type="password" id="authPassword" placeholder="Password" />
+            <button onclick="handleAuth()" id="authBtn">Login</button>
+            <p style="font-size:13px;color:#6b7280;margin-top:10px;">
+                <span id="authToggleText">Belum punya akun?</span>
+                <span class="link" onclick="toggleAuth()" id="authToggleLink">Daftar</span>
+            </p>
         </div>
     </div>
 
-    <div class="card">
-        <h2>💰 Harga</h2>
-        <div class="price"><span>Kemeja</span> <strong>Rp 8.000</strong></div>
-        <div class="price"><span>Celana</span> <strong>Rp 10.000</strong></div>
-        <div class="price"><span>Gaun</span> <strong>Rp 15.000</strong></div>
+    <!-- ===== APP ===== -->
+    <div id="appContainer" class="hidden">
+
+        <div class="header">
+            <h1>🧺 Zeevanna Digital</h1>
+            <p>Platform Digital • 339 Desa Pandeglang</p>
+            <span id="userDisplay" style="display:inline-block;background:rgba(255,255,255,0.2);padding:4px 16px;border-radius:50px;font-size:12px;margin-top:8px;">👑 Admin</span>
+            <button class="logout-btn" onclick="logoutUser()">🚪 Logout</button>
+        </div>
+
+        <!-- ===== PESAN ===== -->
+        <div class="card">
+            <h2>📋 Pesan Sekarang</h2>
+            <input type="text" id="orderNama" placeholder="Nama Lengkap" />
+            <input type="tel" id="orderHp" placeholder="Nomor HP" />
+            <select id="orderDesa">
+                <option value="">Pilih Desa</option>
+                <option value="Kadupandak">Kadupandak</option>
+                <option value="Cigeulis">Cigeulis</option>
+                <option value="Saketi">Saketi</option>
+                <option value="Carita">Carita</option>
+                <option value="Labuan">Labuan</option>
+                <option value="Pandeglang">Pandeglang</option>
+            </select>
+            <select id="orderLayanan">
+                <option value="Setrika Biasa">Setrika Biasa</option>
+                <option value="Setrika Premium">Setrika Premium</option>
+                <option value="Setrika Sprei">Setrika Sprei</option>
+                <option value="Cuci Kering">Cuci Kering</option>
+                <option value="Dry Clean">Dry Clean</option>
+            </select>
+            <input type="number" id="orderJumlah" placeholder="Jumlah (min 1)" min="1" />
+            <button class="btn btn-primary" onclick="simpanPesanan()">✅ Kirim Pesanan</button>
+        </div>
+
+        <!-- ===== DAFTAR PESANAN ===== -->
+        <div class="card">
+            <h2>📦 Daftar Pesanan</h2>
+            <div id="daftarPesanan"></div>
+        </div>
+
+        <!-- ===== CHAT ===== -->
+        <div class="card">
+            <h2>💬 Chat Real-time</h2>
+            <div class="chat-container" id="chatContainer"></div>
+            <div class="chat-input">
+                <input type="text" id="chatInput" placeholder="Ketik pesan..." />
+                <button onclick="sendMessage()">Kirim</button>
+            </div>
+        </div>
+
+        <!-- ===== KONTAK ===== -->
+        <div class="card">
+            <h2>📞 Kontak</h2>
+            <div class="contact">
+                <a href="tel:083181500947">📞 0831-8150-0947</a>
+                <a href="https://wa.me/6283181500947">💬 WA</a>
+            </div>
+            <div class="contact">
+                <a href="tel:083819023700">📞 0838-1902-3700</a>
+                <a href="https://wa.me/6283819023700">💬 WA</a>
+            </div>
+        </div>
+
+        <!-- ===== HARGA ===== -->
+        <div class="card">
+            <h2>💰 Harga</h2>
+            <div class="price"><span>👕 Kemeja</span> <strong>Rp 8.000</strong></div>
+            <div class="price"><span>👖 Celana</span> <strong>Rp 10.000</strong></div>
+            <div class="price"><span>👗 Gaun</span> <strong>Rp 15.000</strong></div>
+        </div>
+
+        <!-- ===== AREA ===== -->
+        <div class="card">
+            <h2>📍 Area Layanan</h2>
+            <p>Kabupaten Pandeglang & sekitarnya</p>
+            <p style="font-size:13px;color:#888;margin-top:4px;">339 Desa • 1 Desa = 1 Kurir</p>
+        </div>
+
+        <div class="footer">
+            &copy; 2026 Zeevanna Digital • 339 Desa Pandeglang
+        </div>
+
     </div>
 
-    <div class="card">
-        <h2>📍 Area Layanan</h2>
-        <p>Kabupaten Pandeglang & sekitarnya</p>
-        <p style="font-size:13px;color:#888;margin-top:4px;">339 Desa • 1 Desa = 1 Kurir</p>
-    </div>
+    <!-- ============================================================
+    JAVASCRIPT - FIREBASE
+    ============================================================ -->
+    <script>
+        // ============================================================
+        // 🔥 KONFIGURASI FIREBASE (GANTI DENGAN PUNYA ANDA!)
+        // ============================================================
+        const firebaseConfig = {
+            apiKey: "AIzaSyCjHxAtx6aRILxJCJqU0-2bpE",
+            authDomain: "zeevanma.firebaseapp.com",
+            projectId: "zeevanma",
+            storageBucket: "zeevanma.firebasestorage.googleapis.com",
+            messagingSenderId: "137282041355",
+            appId: "1:137282041355:web:2eabeb14ff3d9ade52b90e",
+            measurementId: "G-JOK4H6W7PJ"
+        };
 
-    <div class="footer">
-        &copy; 2026 Zeevanna Digital • 339 Desa Pandeglang
-    </div>
+        // ============================================================
+        // INISIALISASI FIREBASE
+        // ============================================================
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        const auth = firebase.auth();
 
-</body>
-</html>
+        let currentUser = 'Admin';
+        let chatUnsubscribe = null;
+        let orderUnsubscribe = null;
+
+        // ============================================================
+        // TOAST
+        // ============================================================
+        const toast = document.getElementById('toast');
+        let toastTimer;
+
+        function showToast(msg) {
+            toast.textContent = msg || '✅ Berhasil!';
+            toast.classList.add('show');
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => toast.classList.remove('show'), 3500);
+        }
+
+        // ============================================================
+        // AUTH
+        // ============================================================
+        let isLogin = true;
+
+        function toggleAuth() {
+            isLogin = !isLogin;
+            document.getElementById('authTitle').textContent = isLogin ? '🔐 Login' : '📝 Daftar';
+            document.getElementById('authBtn').textContent = isLogin ? 'Login' : 'Daftar';
+            document.getElementById('authToggleText').textContent = isLogin ? 'Belum punya akun?' : 'Sudah punya akun?';
+            document.getElementById('authToggleLink').textContent = isLogin ? 'Daftar' : 'Login';
+        }
+
+        function handleAuth() {
+            const email = document.getElementById('authEmail').value.trim();
+            const password = document.getElementById('authPassword').value.trim();
+
+            if (!email || !password) {
+                showToast('⚠️ Isi email dan password!');
+                return;
+            }
+
+            if (isLogin) {
+                auth.signInWithEmailAndPassword(email, password)
+                    .then(() => {
+                        showToast('✅ Login berhasil!');
+                        document.getElementById('authContainer').classList.add('hidden');
+                        document.getElementById('appContainer').classList.remove('hidden');
+                        initApp();
+                    })
+                    .catch(err => showToast('❌ ' + err.message));
+            } else {
+                auth.createUserWithEmailAndPassword(email, password)
+                    .then(() => {
+                        showToast('✅ Pendaftaran berhasil!');
+                        document.getElementById('authContainer').classList.add('hidden');
+                        document.getElementById('appContainer').classList.remove('hidden');
+                        initApp();
+                    })
+                    .catch(err => showToast('❌ ' + err.message));
+            }
+        }
+
+        function logoutUser() {
+            auth.signOut().then(() => {
+                document.getElementById('appContainer').classList.add('hidden');
+                document.getElementById('authContainer').classList.remove('hidden');
+                if (chatUnsubscribe) chatUnsubscribe();
+                if (orderUnsubscribe) orderUnsubscribe();
+                showToast('👋 Logout berhasil');
+            });
+        }
+
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                document.getElementById('authContainer').classList.add('hidden');
+                document.getElementById('appContainer').classList.remove('hidden');
+                initApp();
+            } else {
+                document.getElementById('authContainer').classList.remove('hidden');
+                document.getElementById('appContainer').classList.add('hidden');
+            }
+        });
+
+        // ============================================================
+        // INIT
+        // ============================================================
+        function initApp() {
+            document.getElementById('userDisplay').textContent = '👑 ' + (auth.currentUser?.email || 'Admin');
+            loadChat();
+            loadOrders();
+        }
+
+        // ============================================================
+        // SIMPAN PESANAN
+        // ============================================================
+        function simpanPesanan() {
+            const nama = document.getElementById('orderNama').value.trim();
+            const hp = document.getElementById('orderHp').value.trim();
+            const desa = document.getElementById('orderDesa').value;
+            const layanan = document.getElementById('orderLayanan').value;
+            const jumlah = parseInt(document.getElementById('orderJumlah').value);
+
+            if (!nama || !hp || !desa || !layanan || !jumlah) {
+                showToast('⚠️ Harap isi semua data!');
+                return;
+            }
+            if (hp.length < 10) {
+                showToast('⚠️ Nomor HP tidak valid!');
+                return;
+            }
+            if (jumlah < 1) {
+                showToast('⚠️ Jumlah minimal 1');
+                return;
+            }
+
+            const harga = { 'Setrika Biasa': 8000, 'Setrika Premium': 15000, 'Setrika Sprei': 25000, 'Cuci Kering': 10000,
+                'Dry Clean': 20000 };
+
+            db.collection('pesanan').add({
+                nama: nama,
+                hp: hp,
+                desa: desa,
+                layanan: layanan,
+                jumlah: jumlah,
+                total: harga[layanan] * jumlah,
+                status: 'menunggu',
+                tanggal: new Date().toISOString(),
+                userId: auth.currentUser ? auth.currentUser.uid : 'anonymous'
+            }).then(() => {
+                showToast('✅ Pesanan berhasil disimpan!');
+                document.getElementById('orderNama').value = '';
+                document.getElementById('orderHp').value = '';
+                document.getElementById('orderJumlah').value = '';
+            }).catch(err => sh
