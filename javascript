@@ -2,26 +2,25 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebas
 import { 
     getAuth, 
     signInWithEmailAndPassword,
-    createUserWithEmailAndPassword,
-    signOut 
+    createUserWithEmailAndPassword 
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-// ===== KONFIGURASI FIREBASE =====
-// GANTI dengan konfigurasi dari Firebase Console Anda!
+// ===== 🔥 GANTI API KEY DI BAWAH INI! =====
+// CARI API KEY YANG DIMULAI "AIzaSy..." DARI FIREBASE CONSOLE
 const firebaseConfig = {
-    apiKey: "AIzaSyContohApiKeyAnda",
-    authDomain: "nama-project.firebaseapp.com",
-    projectId: "nama-project",
-    storageBucket: "nama-project.appspot.com",
-    messagingSenderId: "123456789",
-    appId: "1:123456789:web:abcdef123456"
+    apiKey: "AIzaSy...",  // ⚠️ GANTI DENGAN YANG BENAR!
+    authDomain: "zeevanna-8ab95.firebaseapp.com",
+    projectId: "zeevanna-8ab95",
+    storageBucket: "zeevanna-8ab95.firebaseapp.com",
+    messagingSenderId: "1085862593528",
+    appId: "1:1085862593528:web:b02cb69fa978ea685d4c0d"
 };
 
-// ===== INISIALISASI =====
+console.log("🔥 Inisialisasi Firebase...");
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+console.log("✅ Firebase terhubung!");
 
-// ===== ELEMEN DOM =====
 const form = document.getElementById("loginForm");
 const emailInput = document.getElementById("email");
 const passwordInput = document.getElementById("password");
@@ -29,72 +28,59 @@ const loginBtn = document.getElementById("loginBtn");
 const errorDiv = document.getElementById("errorMessage");
 const registerLink = document.getElementById("registerLink");
 
-// ===== FUNGSI LOGIN =====
 async function handleLogin(email, password) {
+    console.log("📝 Login dengan:", email);
+    
     try {
         loginBtn.disabled = true;
-        loginBtn.textContent = "Memproses...";
+        loginBtn.textContent = "⏳ Memproses...";
         errorDiv.style.display = "none";
 
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
-        const user = userCredential.user;
-
-        console.log("✅ Login berhasil!", user.email);
-        alert("Selamat datang kembali, " + user.email + "! 🎉");
+        console.log("✅ Login berhasil!", userCredential.user);
+        alert("🎉 Selamat datang, " + userCredential.user.email + "!");
         
-        // Redirect ke halaman dashboard (ubah sesuai kebutuhan)
-        // window.location.href = "dashboard.html";
-
     } catch (error) {
-        console.error("❌ Login gagal:", error.code, error.message);
-        showError(error.code);
+        console.error("❌ Error:", error.code, error.message);
+        
+        let pesan = "❌ Login gagal! ";
+        switch(error.code) {
+            case "auth/user-not-found":
+                pesan += "Email tidak terdaftar.";
+                break;
+            case "auth/wrong-password":
+                pesan += "Password salah.";
+                break;
+            case "auth/invalid-email":
+                pesan += "Email tidak valid.";
+                break;
+            case "auth/too-many-requests":
+                pesan += "Terlalu banyak percobaan. Tunggu.";
+                break;
+            case "auth/network-request-failed":
+                pesan += "Cek koneksi internet.";
+                break;
+            case "auth/api-key-not-valid":
+                pesan += "⚠️ API KEY SALAH! Ambil dari Firebase Console.";
+                break;
+            default:
+                pesan += error.message;
+        }
+        errorDiv.textContent = pesan;
+        errorDiv.style.display = "block";
     } finally {
         loginBtn.disabled = false;
         loginBtn.textContent = "Login";
     }
 }
 
-// ===== FUNGSI REGISTRASI =====
-async function handleRegister(email, password) {
-    try {
-        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-        const user = userCredential.user;
-        console.log("✅ Registrasi berhasil!", user.email);
-        alert("Akun berhasil dibuat! Silakan login.");
-        return true;
-    } catch (error) {
-        console.error("❌ Registrasi gagal:", error.code, error.message);
-        showError(error.code);
-        return false;
-    }
-}
-
-// ===== TAMPILKAN ERROR =====
-function showError(errorCode) {
-    const messages = {
-        "auth/user-not-found": "Email tidak ditemukan. Silakan daftar terlebih dahulu.",
-        "auth/wrong-password": "Password salah. Coba lagi.",
-        "auth/invalid-email": "Format email tidak valid.",
-        "auth/too-many-requests": "Terlalu banyak percobaan. Tunggu sebentar.",
-        "auth/email-already-in-use": "Email sudah digunakan. Gunakan email lain.",
-        "auth/weak-password": "Password harus minimal 6 karakter.",
-        "auth/network-request-failed": "Koneksi internet bermasalah.",
-        "auth/internal-error": "Terjadi kesalahan internal. Coba lagi.",
-    };
-
-    const message = messages[errorCode] || "Login gagal. Periksa email dan password.";
-    errorDiv.textContent = message;
-    errorDiv.style.display = "block";
-}
-
-// ===== EVENT LISTENER LOGIN =====
 form.addEventListener("submit", (e) => {
     e.preventDefault();
     const email = emailInput.value.trim();
     const password = passwordInput.value.trim();
 
     if (!email || !password) {
-        errorDiv.textContent = "Email dan password harus diisi!";
+        errorDiv.textContent = "❌ Email dan password harus diisi!";
         errorDiv.style.display = "block";
         return;
     }
@@ -102,34 +88,36 @@ form.addEventListener("submit", (e) => {
     handleLogin(email, password);
 });
 
-// ===== EVENT LISTENER REGISTER =====
 registerLink.addEventListener("click", async (e) => {
     e.preventDefault();
-    const email = prompt("Masukkan email untuk daftar:");
+    
+    const email = prompt("📧 Masukkan email untuk daftar:");
     if (!email) return;
 
-    const password = prompt("Buat password (minimal 6 karakter):");
+    const password = prompt("🔑 Buat password (minimal 6 karakter):");
     if (!password || password.length < 6) {
-        alert("Password minimal 6 karakter!");
+        alert("⚠️ Password minimal 6 karakter!");
         return;
     }
 
-    const success = await handleRegister(email, password);
-    if (success) {
-        // Isi form dengan email yang baru didaftar
+    try {
+        await createUserWithEmailAndPassword(auth, email, password);
+        alert("✅ Akun berhasil dibuat! Silakan login.");
         emailInput.value = email;
         passwordInput.value = "";
         errorDiv.style.display = "none";
+    } catch (error) {
+        console.error("Register error:", error);
+        alert("❌ Gagal daftar: " + error.message);
     }
 });
 
-// ===== CEK STATUS AUTH (untuk debugging) =====
 auth.onAuthStateChanged((user) => {
     if (user) {
-        console.log("👤 User sedang login:", user.email);
-        // Jika sudah login dan di halaman login, redirect ke dashboard
-        // window.location.href = "dashboard.html";
+        console.log("👤 User login:", user.email);
     } else {
-        console.log("👤 User belum login");
+        console.log("👤 User logout");
     }
 });
+
+console.log("✅ Aplikasi siap!");
