@@ -2,8 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <meta name="theme-color" content="#6C3CE1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zeevanna Digital</title>
     
     <!-- Firebase SDK -->
@@ -18,7 +17,7 @@
             box-sizing: border-box;
         }
         body {
-            font-family: -apple-system, Arial, sans-serif;
+            font-family: Arial, sans-serif;
             background: #f0f0f5;
             padding: 16px;
             max-width: 480px;
@@ -307,6 +306,66 @@
         .toast.show {
             transform: translateX(-50%) translateY(0);
         }
+        .status-grid {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+        .status-grid .stat {
+            flex: 1;
+            background: #fff;
+            padding: 10px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            border: 2px solid transparent;
+        }
+        .status-grid .stat.active {
+            border-color: #6C3CE1;
+        }
+        .status-grid .stat .num {
+            font-size: 18px;
+            font-weight: 800;
+            color: #6C3CE1;
+        }
+        .status-grid .stat .label {
+            font-size: 10px;
+            color: #6b7280;
+        }
+        .saldo-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .saldo-card .item {
+            text-align: center;
+            flex: 1;
+            min-width: 50px;
+        }
+        .saldo-card .label {
+            font-size: 10px;
+            color: #9ca3af;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+        .saldo-card .value {
+            font-size: 18px;
+            font-weight: 800;
+            color: #6C3CE1;
+        }
+        .saldo-card .value.gold {
+            color: #f59e0b;
+        }
+        .saldo-card .value.green {
+            color: #22c55e;
+        }
     </style>
 </head>
 <body>
@@ -337,8 +396,25 @@
         <div class="header">
             <h1>🧺 Zeevanna Digital</h1>
             <p>Platform Digital • 339 Desa Pandeglang</p>
-            <span id="userDisplay" style="display:inline-block;background:rgba(255,255,255,0.2);padding:4px 16px;border-radius:50px;font-size:12px;margin-top:8px;">👑 Admin</span>
-            <button class="logout-btn" onclick="logoutUser()">🚪 Logout</button>
+            <div style="display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap;margin-top:8px;">
+                <span id="userDisplay" style="display:inline-block;background:rgba(255,255,255,0.2);padding:4px 16px;border-radius:50px;font-size:12px;">👑 Admin</span>
+                <button class="logout-btn" onclick="logoutUser()">🚪 Logout</button>
+            </div>
+        </div>
+
+        <!-- ===== SALDO ===== -->
+        <div class="saldo-card">
+            <div class="item"><div class="label">💰 Saldo</div><div class="value" id="saldoValue">Rp 0</div></div>
+            <div class="item"><div class="label">⭐ Poin</div><div class="value gold" id="poinValue">0</div></div>
+            <div class="item"><div class="label">📦 Pesanan</div><div class="value" id="orderCount">0</div></div>
+        </div>
+
+        <!-- ===== STATUS ===== -->
+        <div class="status-grid">
+            <div class="stat active"><div class="num" id="countAll">0</div><div class="label">Semua</div></div>
+            <div class="stat"><div class="num" id="countMenunggu">0</div><div class="label">Menunggu</div></div>
+            <div class="stat"><div class="num" id="countDiproses">0</div><div class="label">Diproses</div></div>
+            <div class="stat"><div class="num" id="countSelesai">0</div><div class="label">Selesai</div></div>
         </div>
 
         <!-- ===== PESAN ===== -->
@@ -436,7 +512,11 @@
         // ============================================================
         // INISIALISASI FIREBASE
         // ============================================================
-        firebase.initializeApp(firebaseConfig);
+        try {
+            firebase.initializeApp(firebaseConfig);
+        } catch (e) {
+            console.error('Firebase init error:', e);
+        }
         const db = firebase.firestore();
         const auth = firebase.auth();
 
@@ -507,68 +587,4 @@
                 if (chatUnsubscribe) chatUnsubscribe();
                 if (orderUnsubscribe) orderUnsubscribe();
                 showToast('👋 Logout berhasil');
-            });
-        }
-
-        auth.onAuthStateChanged(user => {
-            if (user) {
-                document.getElementById('authContainer').classList.add('hidden');
-                document.getElementById('appContainer').classList.remove('hidden');
-                initApp();
-            } else {
-                document.getElementById('authContainer').classList.remove('hidden');
-                document.getElementById('appContainer').classList.add('hidden');
-            }
-        });
-
-        // ============================================================
-        // INIT
-        // ============================================================
-        function initApp() {
-            document.getElementById('userDisplay').textContent = '👑 ' + (auth.currentUser?.email || 'Admin');
-            loadChat();
-            loadOrders();
-        }
-
-        // ============================================================
-        // SIMPAN PESANAN
-        // ============================================================
-        function simpanPesanan() {
-            const nama = document.getElementById('orderNama').value.trim();
-            const hp = document.getElementById('orderHp').value.trim();
-            const desa = document.getElementById('orderDesa').value;
-            const layanan = document.getElementById('orderLayanan').value;
-            const jumlah = parseInt(document.getElementById('orderJumlah').value);
-
-            if (!nama || !hp || !desa || !layanan || !jumlah) {
-                showToast('⚠️ Harap isi semua data!');
-                return;
-            }
-            if (hp.length < 10) {
-                showToast('⚠️ Nomor HP tidak valid!');
-                return;
-            }
-            if (jumlah < 1) {
-                showToast('⚠️ Jumlah minimal 1');
-                return;
-            }
-
-            const harga = { 'Setrika Biasa': 8000, 'Setrika Premium': 15000, 'Setrika Sprei': 25000, 'Cuci Kering': 10000,
-                'Dry Clean': 20000 };
-
-            db.collection('pesanan').add({
-                nama: nama,
-                hp: hp,
-                desa: desa,
-                layanan: layanan,
-                jumlah: jumlah,
-                total: harga[layanan] * jumlah,
-                status: 'menunggu',
-                tanggal: new Date().toISOString(),
-                userId: auth.currentUser ? auth.currentUser.uid : 'anonymous'
-            }).then(() => {
-                showToast('✅ Pesanan berhasil disimpan!');
-                document.getElementById('orderNama').value = '';
-                document.getElementById('orderHp').value = '';
-                document.getElementById('orderJumlah').value = '';
-            }).catch(err => sh
+  
