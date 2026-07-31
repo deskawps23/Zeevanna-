@@ -4,11 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <meta name="theme-color" content="#6C3CE1">
-    <title>Zeevanna Digital - Platform Terintegrasi</title>
+    <title>Zeevanna Digital</title>
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+
     <style>
-        /* ============================================================
-           RESET & BASE
-           ============================================================ */
+        /* ===== RESET ===== */
         * {
             margin: 0;
             padding: 0;
@@ -16,134 +20,80 @@
         }
         :root {
             --primary: #6C3CE1;
-            --primary-light: #8B5CF6;
             --gradient: linear-gradient(135deg, #6C3CE1, #8B5CF6);
             --bg: #f0f0f5;
             --card: #ffffff;
             --text: #1a1a2e;
             --text-secondary: #6b7280;
             --success: #22c55e;
-            --warning: #f59e0b;
-            --danger: #ef4444;
             --radius: 16px;
-            --shadow: 0 8px 30px rgba(108, 60, 225, 0.12);
+            --shadow: 0 8px 30px rgba(108,60,225,0.12);
             --safe-bottom: env(safe-area-inset-bottom, 0px);
         }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            font-family: -apple-system, Arial, sans-serif;
             background: var(--bg);
             padding-bottom: calc(80px + var(--safe-bottom));
             max-width: 480px;
             margin: 0 auto;
             color: var(--text);
         }
-        /* ============================================================
-           HEADER
-           ============================================================ */
         .header {
             background: var(--gradient);
             padding: 20px 16px 30px;
             border-radius: 0 0 30px 30px;
             color: #fff;
             position: relative;
-            overflow: hidden;
-        }
-        .header::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 250px;
-            height: 250px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 50%;
         }
         .header-top {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: relative;
-            z-index: 2;
         }
         .header-top .brand {
             font-size: 22px;
             font-weight: 800;
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
-        .header-top .brand .badge-live {
+        .header-top .brand .badge {
             font-size: 9px;
             background: var(--success);
             padding: 2px 12px;
             border-radius: 50px;
         }
         .header-top .notif {
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(255,255,255,0.15);
             padding: 8px 14px;
             border-radius: 50px;
             text-decoration: none;
             color: #fff;
             font-size: 18px;
-            position: relative;
-        }
-        .header-top .notif .dot {
-            position: absolute;
-            top: 4px;
-            right: 6px;
-            width: 10px;
-            height: 10px;
-            background: var(--danger);
-            border-radius: 50%;
-            border: 2px solid var(--primary);
-            animation: pulse 1.5s infinite;
-        }
-        @keyframes pulse {
-            0%,
-            100% {
-                opacity: 1;
-            }
-            50% {
-                opacity: 0.4;
-            }
         }
         .header .greeting {
             font-size: 16px;
             font-weight: 600;
             margin-top: 10px;
-            position: relative;
-            z-index: 2;
         }
         .header .sub {
             font-size: 13px;
             opacity: 0.8;
-            position: relative;
-            z-index: 2;
         }
         .header .role-badge {
             display: inline-block;
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(255,255,255,0.15);
             padding: 4px 16px;
             border-radius: 50px;
             font-size: 12px;
             margin-top: 8px;
-            position: relative;
-            z-index: 2;
         }
         .header .location {
             font-size: 12px;
             opacity: 0.85;
             margin-top: 8px;
-            background: rgba(0, 0, 0, 0.15);
+            background: rgba(0,0,0,0.15);
             padding: 4px 16px;
             border-radius: 50px;
             display: inline-block;
-            position: relative;
-            z-index: 2;
         }
-        /* ============================================================
-           SALDO CARD
-           ============================================================ */
         .saldo-card {
             background: var(--card);
             margin: -16px 16px 16px;
@@ -156,7 +106,6 @@
             gap: 8px;
             position: relative;
             z-index: 3;
-            border: 1px solid rgba(108, 60, 225, 0.06);
         }
         .saldo-card .item {
             text-align: center;
@@ -168,7 +117,6 @@
             color: #9ca3af;
             text-transform: uppercase;
             font-weight: 700;
-            letter-spacing: 0.5px;
         }
         .saldo-card .value {
             font-size: 18px;
@@ -177,24 +125,16 @@
             margin-top: 2px;
         }
         .saldo-card .value.gold {
-            color: var(--warning);
+            color: #f59e0b;
         }
         .saldo-card .value.green {
             color: var(--success);
         }
-        /* ============================================================
-           ROLE SWITCH
-           ============================================================ */
         .role-switch {
             display: flex;
             gap: 8px;
             padding: 0 16px 14px;
             overflow-x: auto;
-            flex-wrap: nowrap;
-            scrollbar-width: none;
-        }
-        .role-switch::-webkit-scrollbar {
-            display: none;
         }
         .role-btn {
             padding: 8px 18px;
@@ -207,20 +147,11 @@
             cursor: pointer;
             white-space: nowrap;
             font-family: inherit;
-            transition: all 0.3s;
-            flex-shrink: 0;
         }
         .role-btn.active {
             background: var(--primary);
             color: #fff;
-            box-shadow: 0 4px 20px rgba(108, 60, 225, 0.3);
         }
-        .role-btn:active {
-            transform: scale(0.95);
-        }
-        /* ============================================================
-           STATUS GRID
-           ============================================================ */
         .status-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -232,15 +163,9 @@
             border-radius: 14px;
             padding: 12px 6px;
             text-align: center;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
             border: 2px solid transparent;
-            transition: all 0.3s;
             cursor: pointer;
-            text-decoration: none;
-            color: var(--text);
-        }
-        .status-item:active {
-            transform: scale(0.95);
         }
         .status-item.active {
             border-color: var(--primary);
@@ -261,9 +186,6 @@
             color: var(--primary);
             margin-top: 2px;
         }
-        /* ============================================================
-           MENU GRID
-           ============================================================ */
         .menu-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -277,14 +199,7 @@
             text-align: center;
             text-decoration: none;
             color: var(--text);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-            transition: all 0.3s;
-            border: 1px solid rgba(0, 0, 0, 0.02);
-        }
-        .menu-item:active {
-            transform: scale(0.95);
-            background: #f8f5ff;
-            border-color: var(--primary);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
         }
         .menu-item .icon {
             font-size: 26px;
@@ -296,9 +211,6 @@
             margin-top: 4px;
             color: var(--text-secondary);
         }
-        /* ============================================================
-           SECTION
-           ============================================================ */
         .section {
             padding: 0 16px 20px;
         }
@@ -316,11 +228,138 @@
             font-size: 11px;
             padding: 2px 14px;
             border-radius: 50px;
-            font-weight: 600;
         }
-        /* ============================================================
-           CHAT
-           ============================================================ */
+        .btn-wa {
+            display: block;
+            background: #25D366;
+            color: #fff;
+            padding: 16px;
+            border: none;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 16px;
+            font-weight: 700;
+            text-decoration: none;
+            margin: 12px 0;
+        }
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .contact-grid a {
+            background: var(--card);
+            border: 1px solid #e5e7eb;
+            border-radius: 14px;
+            padding: 12px;
+            text-align: center;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 600;
+            font-size: 13px;
+        }
+        .register-form {
+            background: var(--card);
+            border-radius: var(--radius);
+            padding: 20px;
+            box-shadow: var(--shadow);
+        }
+        .register-form input, .register-form select {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 15px;
+            margin-bottom: 10px;
+            font-family: inherit;
+            background: #f8fafc;
+        }
+        .register-form input:focus, .register-form select:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+        .register-form .btn-register {
+            width: 100%;
+            padding: 16px;
+            background: var(--gradient);
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .register-form .geo-status {
+            font-size: 13px;
+            color: var(--success);
+            text-align: center;
+            margin-bottom: 12px;
+            padding: 8px;
+            background: #f0fdf4;
+            border-radius: 12px;
+        }
+        .order-card {
+            background: var(--card);
+            border-radius: 14px;
+            padding: 14px 16px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            border-left: 4px solid var(--primary);
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .order-card .info {
+            flex: 2;
+            min-width: 120px;
+        }
+        .order-card .info .name {
+            font-weight: 700;
+        }
+        .order-card .info .desa {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+        .order-card .status {
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 14px;
+            border-radius: 50px;
+        }
+        .order-card .status.menunggu {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        .order-card .status.diproses {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+        .order-card .status.selesai {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        .order-card .status .update-btn {
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            padding: 2px 10px;
+            border-radius: 50px;
+            font-size: 10px;
+            cursor: pointer;
+            margin-left: 4px;
+        }
+        .order-card .status .hapus-btn {
+            background: #ef4444;
+            color: #fff;
+            border: none;
+            padding: 2px 10px;
+            border-radius: 50px;
+            font-size: 10px;
+            cursor: pointer;
+            margin-left: 6px;
+        }
         .chat-container {
             background: var(--card);
             border-radius: var(--radius);
@@ -351,15 +390,14 @@
         .chat-container .msg .bubble {
             background: #f3f4f6;
             padding: 10px 14px;
-            border-radius: 14px 14px 14px 4px;
+            border-radius: 14px;
             max-width: 80%;
             font-size: 14px;
         }
         .chat-container .msg.own .bubble {
             background: var(--primary);
             color: #fff;
-            border-radius: 14px 14px 4px 14px;
-            margin-left: auto;
+            border-radius: 14px;
         }
         .chat-container .msg .bubble .time {
             font-size: 10px;
@@ -368,7 +406,7 @@
             display: block;
         }
         .chat-container .msg.own .bubble .time {
-            color: rgba(255, 255, 255, 0.7);
+            color: rgba(255,255,255,0.7);
         }
         .chat-input {
             display: flex;
@@ -376,7 +414,6 @@
             background: var(--card);
             padding: 10px 16px;
             border-radius: 50px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
             border: 1px solid #e5e7eb;
         }
         .chat-input input {
@@ -396,18 +433,212 @@
             font-weight: 700;
             font-size: 14px;
             cursor: pointer;
-            font-family: inherit;
-            transition: all 0.3s;
         }
-        .chat-input button:active {
-            transform: scale(0.95);
+        .qr-container {
+            background: var(--card);
+            border-radius: var(--radius);
+            padding: 20px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            margin-top: 12px;
+        }
+        .qr-container img {
+            width: 180px;
+            height: 180px;
+            object-fit: contain;
+            background: #f8fafc;
+            padding: 8px;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+        }
+        .qr-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 12px;
+        }
+        .qr-buttons a {
+            background: var(--primary);
+            color: #fff;
+            padding: 8px 24px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 13px;
+        }
+        .qr-buttons a.download {
+            background: #25D366;
+        }
+        .desa-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+        .desa-card {
+            background: var(--card);
+            border-radius: 14px;
+            padding: 12px 8px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        .desa-card .name {
+            font-weight: 700;
+            font-size: 13px;
+        }
+        .desa-card .kurir {
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+        .desa-card .online {
+            font-size: 10px;
+            color: var(--success);
+        }
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(20px);
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 0 calc(12px + var(--safe-bottom));
+            border-top: 1px solid rgba(0,0,0,0.04);
+            z-index: 100;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+        .bottom-nav a {
+            text-decoration: none;
+            text-align: center;
+            color: #9ca3af;
+            font-size: 10px;
+            font-weight: 600;
+            flex: 1;
+        }
+        .bottom-nav a.active {
+            color: var(--primary);
+        }
+        .bottom-nav a .icon {
+            font-size: 22px;
+            display: block;
+            margin-bottom: 2px;
+        }
+        .toast {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-100px);
+            background: #1e293b;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 14px;
+            z-index: 999;
+            transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            max-width: 92%;
+            text-align: center;
+            pointer-events: none;
+        }
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
+        .footer {
+            text-align: center;
+            font-size: 12px;
+            color: #9ca3af;
+            padding: 20px 0 10px;
+        }
+        .footer .credit {
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .hidden {
+            display: none !important;
+        }
+        @media (max-width:400px) {
+            .desa-grid { grid-template-columns: repeat(2, 1fr); }
+            .saldo-card .value { font-size: 15px; }
+        }
+        .login-box {
+            background: var(--card);
+            border-radius: var(--radius);
+            padding: 24px;
+            box-shadow: var(--shadow);
+            margin: 20px 16px;
+            text-align: center;
+        }
+        .login-box input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 15px;
+            margin-bottom: 10px;
+        }
+        .login-box button {
+            width: 100%;
+            padding: 14px;
+            background: var(--gradient);
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .login-box .link {
+            color: var(--primary);
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .logout-btn {
+            background: rgba(255,255,255,0.15);
+            color: #fff;
+            border: none;
+            padding: 4px 16px;
+            border-radius: 50px;
+            font-size: 12px;
+            cursor: pointer;
+            margin-top: 8px;
+        }
+        .earning-card {
+            background: var(--card);
+            border-radius: var(--radius);
+            padding: 16px;
+            box-shadow: var(--shadow);
+            margin-top: 10px;
+        }
+        .earning-card .row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #f3f4f6;
+        }
+        .earning-card .row:last-child { border-bottom: none; }
+        .earning-card .label { color: var(--text-secondary); }
+        .earning-card .value { font-weight: 700; }
+        .earning-card .value.green { color: var(--success); }
+        .earning-card .value.gold { color: #f59e0b; }
+        .progress-bar {
+            height: 8px;
+            background: #f3f4f6;
+            border-radius: 10px;
+            margin: 8px 0;
+            overflow: hidden;
+        }
+        .progress-bar .fill {
+            height: 100%;
+            background: var(--gradient);
+            border-radius: 10px;
+            transition: width 1s ease;
         }
         .online-users {
             display: flex;
             gap: 8px;
             padding: 8px 0;
             overflow-x: auto;
-            flex-wrap: nowrap;
         }
         .online-users .user {
             display: flex;
@@ -431,9 +662,6 @@
             border: 2px solid var(--success);
             margin-bottom: 4px;
         }
-        /* ============================================================
-           GRAFIK
-           ============================================================ */
         .chart-container {
             background: var(--card);
             border-radius: var(--radius);
@@ -452,193 +680,4 @@
         .chart-container .chart-bar .bar {
             flex: 1;
             background: var(--gradient);
-            border-radius: 6px 6px 0 0;
-            min-height: 10px;
-            max-height: 110px;
-            transition: height 0.8s ease;
-            position: relative;
-        }
-        .chart-container .chart-bar .bar .val {
-            position: absolute;
-            top: -18px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 10px;
-            font-weight: 700;
-            color: var(--text-secondary);
-        }
-        .chart-container .chart-labels {
-            display: flex;
-            justify-content: space-around;
-            font-size: 10px;
-            color: var(--text-secondary);
-            padding-top: 6px;
-            border-top: 1px solid #f3f4f6;
-        }
-        .chart-container .chart-stats {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 0 4px;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-        .chart-container .chart-stats .stat {
-            text-align: center;
-            flex: 1;
-            min-width: 60px;
-        }
-        .chart-container .chart-stats .stat .num {
-            font-size: 16px;
-            font-weight: 800;
-            color: var(--primary);
-        }
-        .chart-container .chart-stats .stat .label {
-            font-size: 10px;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-        }
-        /* ============================================================
-           ORDER CARD
-           ============================================================ */
-        .order-card {
-            background: var(--card);
-            border-radius: 14px;
-            padding: 14px 16px;
-            margin-bottom: 10px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-            border-left: 4px solid var(--primary);
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 6px;
-            transition: all 0.3s;
-        }
-        .order-card:active {
-            transform: scale(0.98);
-        }
-        .order-card .info {
-            flex: 2;
-            min-width: 120px;
-        }
-        .order-card .info .name {
-            font-weight: 700;
-        }
-        .order-card .info .desa {
-            font-size: 12px;
-            color: var(--text-secondary);
-        }
-        .order-card .status {
-            font-size: 11px;
-            font-weight: 700;
-            padding: 4px 14px;
-            border-radius: 50px;
-        }
-        .order-card .status.process {
-            background: #dbeafe;
-            color: #1e40af;
-        }
-        .order-card .status.pending {
-            background: #fef3c7;
-            color: #92400e;
-        }
-        .order-card .status.done {
-            background: #d1fae5;
-            color: #065f46;
-        }
-        .order-card .earning {
-            font-weight: 700;
-            color: var(--success);
-            font-size: 15px;
-        }
-        /* ============================================================
-           BUTTON WA
-           ============================================================ */
-        .btn-wa {
-            display: block;
-            background: #25D366;
-            color: #fff;
-            padding: 16px;
-            border: none;
-            border-radius: 50px;
-            text-align: center;
-            font-size: 16px;
-            font-weight: 700;
-            text-decoration: none;
-            margin: 12px 0;
-            box-shadow: 0 8px 30px rgba(37, 211, 102, 0.3);
-            transition: all 0.3s;
-        }
-        .btn-wa:active {
-            transform: scale(0.97);
-        }
-        /* ============================================================
-           CONTACT GRID
-           ============================================================ */
-        .contact-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-top: 10px;
-        }
-        .contact-grid a {
-            background: var(--card);
-            border: 1px solid #e5e7eb;
-            border-radius: 14px;
-            padding: 12px;
-            text-align: center;
-            text-decoration: none;
-            color: var(--text);
-            font-weight: 600;
-            font-size: 13px;
-            transition: all 0.3s;
-        }
-        .contact-grid a:active {
-            background: #f8f5ff;
-            border-color: var(--primary);
-        }
-        /* ============================================================
-           REGISTER FORM
-           ============================================================ */
-        .register-form {
-            background: var(--card);
-            border-radius: var(--radius);
-            padding: 20px;
-            box-shadow: var(--shadow);
-        }
-        .register-form input,
-        .register-form select {
-            width: 100%;
-            padding: 14px 16px;
-            border: 2px solid #e5e7eb;
-            border-radius: 12px;
-            font-size: 15px;
-            margin-bottom: 10px;
-            font-family: inherit;
-            background: #f8fafc;
-            transition: all 0.3s;
-        }
-        .register-form input:focus,
-        .register-form select:focus {
-            border-color: var(--primary);
-            outline: none;
-            box-shadow: 0 0 0 4px rgba(108, 60, 225, 0.08);
-        }
-        .register-form .btn-register {
-            width: 100%;
-            padding: 16px;
-            background: var(--gradient);
-            color: #fff;
-            border: none;
-            border-radius: 50px;
-            font-size: 16px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 8px 30px rgba(108, 60, 225, 0.3);
-        }
-        .register-form .btn-register:active {
-            transform: scale(0.97);
-        }
-        .register-form .geo-status {
-            font-size: 13px;
-        
+            bord
