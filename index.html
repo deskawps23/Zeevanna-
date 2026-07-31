@@ -2,682 +2,125 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <meta name="theme-color" content="#6C3CE1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zeevanna Digital</title>
-    
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
-
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        :root {
-            --primary: #6C3CE1;
-            --gradient: linear-gradient(135deg, #6C3CE1, #8B5CF6);
-            --bg: #f0f0f5;
-            --card: #ffffff;
-            --text: #1a1a2e;
-            --text-secondary: #6b7280;
-            --success: #22c55e;
-            --radius: 16px;
-            --shadow: 0 8px 30px rgba(108,60,225,0.12);
-            --safe-bottom: env(safe-area-inset-bottom, 0px);
-        }
         body {
-            font-family: -apple-system, Arial, sans-serif;
-            background: var(--bg);
-            padding-bottom: calc(80px + var(--safe-bottom));
+            font-family: Arial, sans-serif;
+            background: #f0f0f5;
+            padding: 16px;
             max-width: 480px;
             margin: 0 auto;
-            color: var(--text);
+            text-align: center;
         }
         .header {
-            background: var(--gradient);
-            padding: 20px 16px 30px;
-            border-radius: 0 0 30px 30px;
+            background: linear-gradient(135deg, #6C3CE1, #8B5CF6);
             color: #fff;
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 20px;
         }
-        .header-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .header h1 {
+            font-size: 28px;
         }
-        .header-top .brand {
-            font-size: 22px;
-            font-weight: 800;
-        }
-        .header-top .brand .badge {
-            font-size: 9px;
-            background: var(--success);
-            padding: 2px 12px;
-            border-radius: 50px;
-        }
-        .header-top .notif {
-            background: rgba(255,255,255,0.15);
-            padding: 8px 14px;
-            border-radius: 50px;
-            text-decoration: none;
-            color: #fff;
-            font-size: 18px;
-        }
-        .header .greeting {
-            font-size: 16px;
-            font-weight: 600;
-            margin-top: 10px;
-        }
-        .header .sub {
-            font-size: 13px;
-            opacity: 0.8;
-        }
-        .header .role-badge {
-            display: inline-block;
-            background: rgba(255,255,255,0.15);
-            padding: 4px 16px;
-            border-radius: 50px;
-            font-size: 12px;
-            margin-top: 8px;
-        }
-        .header .location {
-            font-size: 12px;
-            opacity: 0.85;
-            margin-top: 8px;
-            background: rgba(0,0,0,0.15);
-            padding: 4px 16px;
-            border-radius: 50px;
-            display: inline-block;
-        }
-        .saldo-card {
-            background: var(--card);
-            margin: -16px 16px 16px;
-            border-radius: var(--radius);
-            padding: 16px;
-            box-shadow: var(--shadow);
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            gap: 8px;
-            position: relative;
-            z-index: 3;
-        }
-        .saldo-card .item {
-            text-align: center;
-            flex: 1;
-            min-width: 50px;
-        }
-        .saldo-card .label {
-            font-size: 10px;
-            color: #9ca3af;
-            text-transform: uppercase;
-            font-weight: 700;
-        }
-        .saldo-card .value {
-            font-size: 18px;
-            font-weight: 800;
-            color: var(--primary);
-            margin-top: 2px;
-        }
-        .saldo-card .value.gold {
-            color: #f59e0b;
-        }
-        .saldo-card .value.green {
-            color: var(--success);
-        }
-        .role-switch {
-            display: flex;
-            gap: 8px;
-            padding: 0 16px 14px;
-            overflow-x: auto;
-        }
-        .role-btn {
-            padding: 8px 18px;
-            border-radius: 50px;
-            border: 2px solid var(--primary);
-            background: transparent;
-            color: var(--primary);
-            font-weight: 700;
-            font-size: 12px;
-            cursor: pointer;
-            white-space: nowrap;
-            font-family: inherit;
-        }
-        .role-btn.active {
-            background: var(--primary);
-            color: #fff;
-        }
-        .status-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-            padding: 0 16px 16px;
-        }
-        .status-item {
-            background: var(--card);
-            border-radius: 14px;
-            padding: 12px 6px;
-            text-align: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-            border: 2px solid transparent;
-            cursor: pointer;
-        }
-        .status-item.active {
-            border-color: var(--primary);
-            background: #f8f5ff;
-        }
-        .status-item .icon {
-            font-size: 24px;
-            display: block;
-        }
-        .status-item .label {
-            font-size: 10px;
-            color: var(--text-secondary);
-            font-weight: 600;
-        }
-        .status-item .count {
-            font-size: 14px;
-            font-weight: 800;
-            color: var(--primary);
-            margin-top: 2px;
-        }
-        .menu-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
-            padding: 0 16px 16px;
-        }
-        .menu-item {
-            background: var(--card);
-            border-radius: var(--radius);
-            padding: 14px 6px;
-            text-align: center;
-            text-decoration: none;
-            color: var(--text);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-        }
-        .menu-item .icon {
-            font-size: 26px;
-            display: block;
-        }
-        .menu-item .label {
-            font-size: 11px;
-            font-weight: 600;
+        .header p {
+            opacity: 0.9;
             margin-top: 4px;
-            color: var(--text-secondary);
         }
-        .section {
-            padding: 0 16px 20px;
-        }
-        .section-title {
-            font-size: 18px;
-            font-weight: 700;
+        .card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 20px;
             margin-bottom: 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
         }
-        .section-title .badge {
-            background: var(--primary);
-            color: #fff;
-            font-size: 11px;
-            padding: 2px 14px;
-            border-radius: 50px;
+        .card h2 {
+            color: #6C3CE1;
+            margin-bottom: 12px;
         }
-        .btn-wa {
+        .btn {
             display: block;
             background: #25D366;
             color: #fff;
-            padding: 16px;
-            border: none;
+            padding: 14px;
             border-radius: 50px;
             text-align: center;
-            font-size: 16px;
-            font-weight: 700;
+            font-weight: bold;
             text-decoration: none;
-            margin: 12px 0;
+            font-size: 16px;
         }
-        .contact-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+        .contact {
+            display: flex;
             gap: 10px;
             margin-top: 10px;
         }
-        .contact-grid a {
-            background: var(--card);
-            border: 1px solid #e5e7eb;
-            border-radius: 14px;
+        .contact a {
+            flex: 1;
+            background: #f8f8fc;
             padding: 12px;
-            text-align: center;
+            border-radius: 12px;
             text-decoration: none;
-            color: var(--text);
-            font-weight: 600;
-            font-size: 13px;
-        }
-        .register-form {
-            background: var(--card);
-            border-radius: var(--radius);
-            padding: 20px;
-            box-shadow: var(--shadow);
-        }
-        .register-form input, .register-form select {
-            width: 100%;
-            padding: 14px 16px;
-            border: 2px solid #e5e7eb;
-            border-radius: 12px;
-            font-size: 15px;
-            margin-bottom: 10px;
-            font-family: inherit;
-            background: #f8fafc;
-        }
-        .register-form input:focus, .register-form select:focus {
-            border-color: var(--primary);
-            outline: none;
-        }
-        .register-form .btn-register {
-            width: 100%;
-            padding: 16px;
-            background: var(--gradient);
-            color: #fff;
-            border: none;
-            border-radius: 50px;
-            font-size: 16px;
-            font-weight: 700;
-            cursor: pointer;
-        }
-        .register-form .geo-status {
-            font-size: 13px;
-            color: var(--success);
-            text-align: center;
-            margin-bottom: 12px;
-            padding: 8px;
-            background: #f0fdf4;
-            border-radius: 12px;
-        }
-        .order-card {
-            background: var(--card);
-            border-radius: 14px;
-            padding: 14px 16px;
-            margin-bottom: 10px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-            border-left: 4px solid var(--primary);
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 6px;
-        }
-        .order-card .info {
-            flex: 2;
-            min-width: 120px;
-        }
-        .order-card .info .name {
-            font-weight: 700;
-        }
-        .order-card .info .desa {
-            font-size: 12px;
-            color: var(--text-secondary);
-        }
-        .order-card .status {
-            font-size: 11px;
-            font-weight: 700;
-            padding: 4px 14px;
-            border-radius: 50px;
-        }
-        .order-card .status.menunggu {
-            background: #fef3c7;
-            color: #92400e;
-        }
-        .order-card .status.diproses {
-            background: #dbeafe;
-            color: #1e40af;
-        }
-        .order-card .status.selesai {
-            background: #d1fae5;
-            color: #065f46;
-        }
-        .order-card .status .update-btn {
-            background: var(--primary);
-            color: #fff;
-            border: none;
-            padding: 2px 10px;
-            border-radius: 50px;
-            font-size: 10px;
-            cursor: pointer;
-            margin-left: 4px;
-        }
-        .order-card .status .hapus-btn {
-            background: #ef4444;
-            color: #fff;
-            border: none;
-            padding: 2px 10px;
-            border-radius: 50px;
-            font-size: 10px;
-            cursor: pointer;
-            margin-left: 6px;
-        }
-        .chat-container {
-            background: var(--card);
-            border-radius: var(--radius);
-            padding: 16px;
-            box-shadow: var(--shadow);
-            max-height: 300px;
-            overflow-y: auto;
-            margin-bottom: 10px;
-        }
-        .chat-container .msg {
-            display: flex;
-            margin-bottom: 10px;
-        }
-        .chat-container .msg .avatar {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: var(--gradient);
-            color: #fff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 14px;
-            flex-shrink: 0;
-            margin-right: 10px;
-        }
-        .chat-container .msg .bubble {
-            background: #f3f4f6;
-            padding: 10px 14px;
-            border-radius: 14px;
-            max-width: 80%;
-            font-size: 14px;
-        }
-        .chat-container .msg.own .bubble {
-            background: var(--primary);
-            color: #fff;
-            border-radius: 14px;
-        }
-        .chat-container .msg .bubble .time {
-            font-size: 10px;
-            color: var(--text-secondary);
-            margin-top: 4px;
-            display: block;
-        }
-        .chat-container .msg.own .bubble .time {
-            color: rgba(255,255,255,0.7);
-        }
-        .chat-input {
-            display: flex;
-            gap: 10px;
-            background: var(--card);
-            padding: 10px 16px;
-            border-radius: 50px;
+            color: #1a1a2e;
             border: 1px solid #e5e7eb;
-        }
-        .chat-input input {
-            flex: 1;
-            border: none;
-            outline: none;
-            font-size: 15px;
-            background: transparent;
-            font-family: inherit;
-        }
-        .chat-input button {
-            background: var(--gradient);
-            color: #fff;
-            border: none;
-            padding: 8px 18px;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 14px;
-            cursor: pointer;
-        }
-        .qr-container {
-            background: var(--card);
-            border-radius: var(--radius);
-            padding: 20px;
-            text-align: center;
-            box-shadow: var(--shadow);
-            margin-top: 12px;
-        }
-        .qr-container img {
-            width: 180px;
-            height: 180px;
-            object-fit: contain;
-            background: #f8fafc;
-            padding: 8px;
-            border: 1px solid #e5e7eb;
-            border-radius: 12px;
-        }
-        .qr-buttons {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            margin-top: 12px;
-        }
-        .qr-buttons a {
-            background: var(--primary);
-            color: #fff;
-            padding: 8px 24px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
             font-size: 13px;
-        }
-        .qr-buttons a.download {
-            background: #25D366;
-        }
-        .desa-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-        }
-        .desa-card {
-            background: var(--card);
-            border-radius: 14px;
-            padding: 12px 8px;
-            text-align: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-        }
-        .desa-card .name {
-            font-weight: 700;
-            font-size: 13px;
-        }
-        .desa-card .kurir {
-            font-size: 11px;
-            color: var(--text-secondary);
-        }
-        .desa-card .online {
-            font-size: 10px;
-            color: var(--success);
-        }
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(20px);
-            display: flex;
-            justify-content: space-around;
-            padding: 8px 0 calc(12px + var(--safe-bottom));
-            border-top: 1px solid rgba(0,0,0,0.04);
-            z-index: 100;
-            max-width: 480px;
-            margin: 0 auto;
-        }
-        .bottom-nav a {
-            text-decoration: none;
-            text-align: center;
-            color: #9ca3af;
-            font-size: 10px;
-            font-weight: 600;
-            flex: 1;
-        }
-        .bottom-nav a.active {
-            color: var(--primary);
-        }
-        .bottom-nav a .icon {
-            font-size: 22px;
-            display: block;
-            margin-bottom: 2px;
-        }
-        .toast {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%) translateY(-100px);
-            background: #1e293b;
-            color: #fff;
-            padding: 12px 24px;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 14px;
-            z-index: 999;
-            transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-            max-width: 92%;
-            text-align: center;
-            pointer-events: none;
-        }
-        .toast.show {
-            transform: translateX(-50%) translateY(0);
         }
         .footer {
-            text-align: center;
+            color: #999;
             font-size: 12px;
-            color: #9ca3af;
-            padding: 20px 0 10px;
+            margin-top: 16px;
         }
-        .footer .credit {
-            font-weight: 700;
-            color: var(--primary);
-        }
-        .hidden {
-            display: none !important;
-        }
-        @media (max-width:400px) {
-            .desa-grid { grid-template-columns: repeat(2, 1fr); }
-            .saldo-card .value { font-size: 15px; }
-        }
-        .login-box {
-            background: var(--card);
-            border-radius: var(--radius);
-            padding: 24px;
-            box-shadow: var(--shadow);
-            margin: 20px 16px;
-            text-align: center;
-        }
-        .login-box input {
-            width: 100%;
-            padding: 14px 16px;
-            border: 2px solid #e5e7eb;
-            border-radius: 12px;
-            font-size: 15px;
-            margin-bottom: 10px;
-        }
-        .login-box button {
-            width: 100%;
-            padding: 14px;
-            background: var(--gradient);
-            color: #fff;
-            border: none;
-            border-radius: 50px;
-            font-size: 16px;
-            font-weight: 700;
-            cursor: pointer;
-        }
-        .login-box .link {
-            color: var(--primary);
-            cursor: pointer;
-            font-weight: 600;
-        }
-        .logout-btn {
-            background: rgba(255,255,255,0.15);
-            color: #fff;
-            border: none;
-            padding: 4px 16px;
-            border-radius: 50px;
-            font-size: 12px;
-            cursor: pointer;
-            margin-top: 8px;
-        }
-        .earning-card {
-            background: var(--card);
-            border-radius: var(--radius);
-            padding: 16px;
-            box-shadow: var(--shadow);
-            margin-top: 10px;
-        }
-        .earning-card .row {
+        .price {
             display: flex;
             justify-content: space-between;
-            padding: 10px 0;
-            border-bottom: 1px solid #f3f4f6;
-        }
-        .earning-card .row:last-child { border-bottom: none; }
-        .earning-card .label { color: var(--text-secondary); }
-        .earning-card .value { font-weight: 700; }
-        .earning-card .value.green { color: var(--success); }
-        .earning-card .value.gold { color: #f59e0b; }
-        .progress-bar {
-            height: 8px;
-            background: #f3f4f6;
-            border-radius: 10px;
-            margin: 8px 0;
-            overflow: hidden;
-        }
-        .progress-bar .fill {
-            height: 100%;
-            background: var(--gradient);
-            border-radius: 10px;
-            transition: width 1s ease;
-        }
-        .online-users {
-            display: flex;
-            gap: 8px;
             padding: 8px 0;
-            overflow-x: auto;
+            border-bottom: 1px solid #f0f0f5;
         }
-        .online-users .user {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            font-size: 11px;
-            color: var(--text-secondary);
-            flex-shrink: 0;
+        .price:last-child {
+            border-bottom: none;
         }
-        .online-users .user .avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: var(--gradient);
-            color: #fff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 16px;
-            border: 2px solid var(--success);
-            margin-bottom: 4px;
-        }
-        .chart-container {
-            background: var(--card);
-            border-radius: var(--radius);
-            padding: 16px;
-            box-shadow: var(--shadow);
-            margin-top: 10px;
-        }
-        .chart-container .chart-bar {
-            display: flex;
-            align-items: flex-end;
-            justify-content: space-around;
-            height: 120px;
-            gap: 6px;
-            padding: 10px 0;
-        }
-        .chart-container .chart-bar .bar {
-            flex: 1;
-            background: var(--gradient);
-            border-radius: 6px 6px 0 0;
-            min-height: 10px;
-          
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>🧺 Zeevanna Digital</h1>
+        <p>Jasa Setrika & Laundry Online • Pandeglang</p>
+    </div>
+
+    <div class="card">
+        <h2>📋 Pesan Sekarang</h2>
+        <a href="https://wa.me/6283819023700" class="btn">💬 Pesan via WhatsApp</a>
+        <div class="contact">
+            <a href="tel:083181500947">📞 0831-8150-0947</a>
+            <a href="https://wa.me/6283181500947">💬 WA</a>
+        </div>
+        <div class="contact">
+            <a href="tel:083819023700">📞 0838-1902-3700</a>
+            <a href="https://wa.me/6283819023700">💬 WA</a>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>💰 Harga</h2>
+        <div class="price"><span>Kemeja</span> <strong>Rp 8.000</strong></div>
+        <div class="price"><span>Celana</span> <strong>Rp 10.000</strong></div>
+        <div class="price"><span>Gaun</span> <strong>Rp 15.000</strong></div>
+    </div>
+
+    <div class="card">
+        <h2>📍 Area Layanan</h2>
+        <p>Kabupaten Pandeglang & sekitarnya</p>
+        <p style="font-size:13px;color:#888;margin-top:4px;">339 Desa • 1 Desa = 1 Kurir</p>
+    </div>
+
+    <div class="footer">
+        &copy; 2026 Zeevanna Digital • 339 Desa Pandeglang
+    </div>
+
+</body>
+</html>
