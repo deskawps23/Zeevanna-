@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard Kasir - Zeevanna Digital</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    body {
+      margin: 0;
+      background: #f4f6f9;
+      color: #1f2937;
+    }
+    header {
+      background: #111827;
+      color: #ffffff;
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .brand {
+      font-size: 18px;
+      font-weight: 700;
+    }
+    .user-bar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 14px;
+    }
+    button.logout-btn {
+      background: #ef4444;
+      color: #fff;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    button.logout-btn:hover {
+      background: #dc2626;
+    }
+    main {
+      max-width: 960px;
+      margin: 28px auto;
+      padding: 0 20px;
+    }
+    .card {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      margin-bottom: 20px;
+    }
+    h1 {
+      margin: 0 0 8px;
+      font-size: 22px;
+    }
+    p {
+      margin: 0;
+      color: #4b5563;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">Zeevanna Digital — Kasir</div>
+    <div class="user-bar">
+      <span id="userEmail">Memeriksa sesi...</span>
+      <button id="logoutBtn" class="logout-btn" type="button">Logout</button>
+    </div>
+  </header>
+
+  <main>
+    <div class="card">
+      <h1>Selamat Datang di Dashboard Kasir</h1>
+      <p>Sesi login Firebase Anda sudah aktif. Halaman ini siap dikembangkan untuk fitur transaksi, katalog produk/layanan, dan rekap harian.</p>
+    </div>
+  </main>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCGyMG1kC_lhykbWDU0lgBERvZlH-1hydc",
+      authDomain: "zeevanna-digital-service.firebaseapp.com",
+      projectId: "zeevanna-digital-service",
+      storageBucket: "zeevanna-digital-service.firebasestorage.app",
+      messagingSenderId: "39278240980",
+      appId: "1:39278240980:web:c51305627f4625cc124741"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    const userEmailEl = document.getElementById("userEmail");
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        window.location.href = "index.html";
+        return;
+      }
+      userEmailEl.textContent = user.email;
+    });
+
+    logoutBtn.addEventListener("click", async () => {
+      await signOut(auth);
+      window.location.href = "index.html";
+    });
+  </script>
+</body>
+</html>
