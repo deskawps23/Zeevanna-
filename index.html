@@ -344,5 +344,64 @@
     });
     renderHist();
   </script>
+
+<section id="daftar-driver" style="margin:24px 0;padding:16px;border:1px solid #ddd;border-radius:12px;">
+  <h2>Pendaftaran Mitra Driver (Zeevanna Jek)</h2>
+  <p>Tarif berbasis jarak (tarif dasar + per km). Rekap harian pukul 20.00 WIB, batas tunai Rp100.000.</p>
+  <form id="driverForm">
+    <p><label>Nama Lengkap<br><input type="text" id="drvNama" required></label></p>
+    <p><label>Nomor WhatsApp<br><input type="tel" id="drvWa" placeholder="08xxxxxxxxxx" required></label></p>
+    <p><label>Kecamatan (Zona 1)<br>
+      <select id="drvKec">
+        <option>Pandeglang</option>
+        <option>Majasari</option>
+        <option>Karangtanjung</option>
+        <option>Cadasari</option>
+        <option>Koroncong</option>
+        <option>Kaduhejo</option>
+      </select>
+    </label></p>
+    <p><label>Jenis &amp; Tahun Motor<br><input type="text" id="drvMotor" placeholder="Contoh: Honda Beat 2021" required></label></p>
+    <p><label>Plat Nomor<br><input type="text" id="drvPlat" placeholder="Contoh: A 1234 XY" required></label></p>
+    <p><label>Alamat Domisili &amp; Patokan<br><input type="text" id="drvAlamat" required></label></p>
+    <button type="submit" id="drvBtn">Daftar Mitra Driver</button>
+  </form>
+  <pre id="drvOut">Lengkapi data untuk mendaftar sebagai mitra driver Zeevanna Jek.</pre>
+</section>
+<script>
+document.getElementById('driverForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const btn = document.getElementById('drvBtn');
+  const out = document.getElementById('drvOut');
+  const payload = {
+    action: 'register_driver',
+    nama_lengkap: document.getElementById('drvNama').value.trim(),
+    no_wa: document.getElementById('drvWa').value.trim(),
+    kecamatan_zona_1: document.getElementById('drvKec').value,
+    jenis_kendaraan: document.getElementById('drvMotor').value.trim(),
+    plat_nomor: document.getElementById('drvPlat').value.trim(),
+    alamat_domisili: document.getElementById('drvAlamat').value.trim()
+  };
+  btn.disabled = true;
+  out.textContent = 'Mengirim pendaftaran mitra driver...';
+  try {
+    const endpoint = (typeof API_URL !== 'undefined') ? API_URL : '';
+    if (!endpoint) throw new Error('API_URL belum terdefinisi di index.html');
+    const r = await fetch(endpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(payload)
+    });
+    const j = await r.json().catch(() => ({}));
+    out.textContent = j.id_driver
+      ? 'Pendaftaran diterima! ID Driver: ' + j.id_driver + ' (' + (j.status_mitra || 'Menunggu Verifikasi') + ')'
+      : (j.message || 'Pendaftaran terkirim.');
+  } catch (err) {
+    out.textContent = 'Gagal kirim: ' + err.message;
+  }
+  btn.disabled = false;
+});
+</script>
+
 </body>
 </html>
