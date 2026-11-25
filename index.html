@@ -49,6 +49,17 @@
     .nav { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; border-top: 1px solid var(--border); padding: 8px; display: flex; justify-content: space-around; z-index: 30; }
     .nav a { text-decoration: none; color: var(--muted); font-size: 0.68rem; font-weight: 700; display: flex; flex-direction: column; align-items: center; gap: 2px; }
     .nav i { color: var(--primary); }
+
+    .svc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+    .svc-card { border: 1px solid #E2E8F0; border-radius: 14px; padding: 12px; background: #F8FAFC; display: flex; flex-direction: column; justify-content: space-between; gap: 8px; }
+    .svc-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 6px; }
+    .svc-title { font-size: 0.88rem; font-weight: 800; color: #0F172A; }
+    .svc-desc { font-size: 0.75rem; color: #475569; line-height: 1.4; }
+    .tag-on { background: #DCFCE7; color: #166534; font-size: 0.65rem; font-weight: 700; padding: 3px 8px; border-radius: 999px; white-space: nowrap; }
+    .tag-soon { background: #FEF3C7; color: #92400E; font-size: 0.65rem; font-weight: 700; padding: 3px 8px; border-radius: 999px; white-space: nowrap; }
+    .svc-btn { display: inline-block; text-align: center; text-decoration: none; font-size: 0.74rem; font-weight: 700; padding: 8px 10px; border-radius: 10px; }
+    .svc-btn-on { background: var(--grad); color: #fff; }
+    .svc-btn-soon { background: #E2E8F0; color: #475569; }
   </style>
 </head>
 <body>
@@ -86,6 +97,41 @@
         <div class="step" data-s="5">5. Selesai</div>
       </div>
       <div class="box" id="trackOut">Masukkan Order ID lalu klik Lacak.</div>
+    </section>
+
+    <section class="card" id="layanan-lain">
+      <h2>Unit Layanan Zeevanna</h2>
+      <p class="sub">Jasa Setrika sudah aktif di Zona 1; unit lainnya dalam penyiapan.</p>
+      <div class="svc-grid">
+        <div class="svc-card">
+          <div>
+            <div class="svc-top"><span class="svc-title">Jasa Setrika</span><span class="tag-on">Aktif</span></div>
+            <p class="svc-desc">Kiloan &amp; satuan, reguler/ekspres, jemput-antar Zona 1.</p>
+          </div>
+          <a href="#order" class="svc-btn svc-btn-on">Pesan Setrika</a>
+        </div>
+        <div class="svc-card">
+          <div>
+            <div class="svc-top"><span class="svc-title">Cleaning Service</span><span class="tag-soon">Segera Hadir</span></div>
+            <p class="svc-desc">Pembersihan rumah &amp; ruang (tahap penyiapan).</p>
+          </div>
+          <a href="https://wa.me/6283819023700?text=Halo%20Zeevanna%2C%20info%20Cleaning%20Service" target="_blank" class="svc-btn svc-btn-soon">Tanya Info</a>
+        </div>
+        <div class="svc-card">
+          <div>
+            <div class="svc-top"><span class="svc-title">Laundry</span><span class="tag-soon">Segera Hadir</span></div>
+            <p class="svc-desc">Layanan cuci &amp; perawatan pakaian (segera dibuka).</p>
+          </div>
+          <a href="https://wa.me/6283819023700?text=Halo%20Zeevanna%2C%20info%20Laundry" target="_blank" class="svc-btn svc-btn-soon">Tanya Info</a>
+        </div>
+        <div class="svc-card">
+          <div>
+            <div class="svc-top"><span class="svc-title">Zeevanna Jek</span><span class="tag-soon">Segera Hadir</span></div>
+            <p class="svc-desc">Layanan antar-jemput &amp; mobilitas lokal (segera hadir).</p>
+          </div>
+          <a href="https://wa.me/6283819023700?text=Halo%20Zeevanna%2C%20info%20Zeevanna%20Jek" target="_blank" class="svc-btn svc-btn-soon">Tanya Info</a>
+        </div>
+      </div>
     </section>
 
     <section class="card" id="promo">
