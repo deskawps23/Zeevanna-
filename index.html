@@ -1,454 +1,214 @@
 <!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
+<html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Zeevanna Digital & Service — Solusi Operasional & Layanan Terpadu</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+  <meta name="theme-color" content="#6C3CE1" />
+  <title>Zeevanna Digital &amp; Service — Layanan Pelanggan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
-    @keyframes floatSlow {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-8px); }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --primary: #6C3CE1;
+      --primary-gradient: linear-gradient(135deg, #6C3CE1 0%, #A78BFA 100%);
+      --bg: #F8FAFC;
+      --card: #FFFFFF;
+      --text: #0F172A;
+      --muted: #475569;
     }
-    .animate-float-slow { animation: floatSlow 4s ease-in-out infinite; }
-    .card-anim { transition: transform 0.25s ease, box-shadow 0.25s ease; }
-    .card-anim:hover { transform: translateY(-4px); }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      padding: 0 16px 48px;
+      line-height: 1.55;
+    }
+    .container { max-width: 520px; margin: 0 auto; }
+    .header {
+      position: sticky;
+      top: 0;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(108,60,225,0.1);
+      padding: 12px 0;
+      margin-bottom: 20px;
+      z-index: 20;
+    }
+    .header-inner { display: flex; justify-content: space-between; align-items: center; }
+    .brand { font-weight: 800; font-size: 1.1rem; color: var(--text); text-decoration: none; }
+    .brand span { color: var(--primary); }
+    .wa-links { display: flex; gap: 8px; }
+    .wa-pill {
+      background: #25D366;
+      color: #fff;
+      text-decoration: none;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+    .card {
+      background: var(--card);
+      border-radius: 18px;
+      padding: 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 4px 18px rgba(15,23,42,0.05);
+      border: 1px solid rgba(15,23,42,0.05);
+    }
+    h1 { font-size: 1.65rem; font-weight: 800; margin-bottom: 6px; }
+    h2 { font-size: 1.15rem; font-weight: 800; margin-bottom: 10px; }
+    p.sub { color: var(--muted); font-size: 0.9rem; margin-bottom: 14px; }
+    .form-group { margin-bottom: 14px; }
+    label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 5px; }
+    input, select, textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1.5px solid #E2E8F0;
+      font-family: inherit;
+      font-size: 0.95rem;
+      background: #F8FAFC;
+    }
+    .row { display: flex; gap: 10px; flex-wrap: wrap; }
+    .row input { flex: 1; min-width: 180px; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 13px 18px;
+      border-radius: 999px;
+      border: none;
+      background: var(--primary-gradient);
+      color: #fff;
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+    }
+    .btn-sm { width: auto; border-radius: 12px; padding: 12px 16px; }
+    .result-box {
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 12px;
+      background: #F1F5F9;
+      font-size: 0.85rem;
+      white-space: pre-wrap;
+    }
+    .info-list { font-size: 0.88rem; color: var(--muted); }
+    .info-list li { margin-bottom: 6px; list-style: none; }
   </style>
 </head>
-<body class="bg-slate-950 text-slate-100 antialiased selection:bg-indigo-500 selection:text-white">
-  <!-- Progress Bar -->
-  <div id="scrollBar" class="fixed top-0 left-0 h-1 bg-gradient-to-r from-indigo-500 via-cyan-400 to-emerald-400 z-50 w-0"></div>
-
-  <!-- Navbar -->
-  <header class="sticky top-0 z-40 backdrop-blur-md bg-slate-950/85 border-b border-slate-800">
-    <div class="max-w-6xl mx-auto px-4 py-3.5 flex items-center justify-between">
-      <a href="#top" class="flex items-center gap-2.5 font-bold text-lg tracking-tight">
-        <span class="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-cyan-400 flex items-center justify-center text-slate-950 font-extrabold">Z</span>
-        <span>Zeevanna <span class="text-cyan-400">Digital &amp; Service</span></span>
-      </a>
-      <nav class="hidden md:flex items-center gap-6 text-sm text-slate-300">
-        <a href="#layanan" class="hover:text-white transition">Layanan</a>
-        <a href="#alur-sistem" class="hover:text-white transition">Alur Sistem</a>
-        <a href="#pemesanan" class="hover:text-white transition">Pemesanan &amp; Sheets</a>
-      </nav>
-      <a href="#pemesanan" class="px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-sm font-semibold transition">
-        Pesan Sekarang
-      </a>
+<body>
+  <header class="header">
+    <div class="container header-inner">
+      <a href="#" class="brand">Zeevanna <span>Digital &amp; Service</span></a>
+      <div class="wa-links">
+        <a href="https://wa.me/6283819023700" target="_blank" class="wa-pill"><i class="fab fa-whatsapp"></i> Admin 1</a>
+        <a href="https://wa.me/6281285526012" target="_blank" class="wa-pill"><i class="fab fa-whatsapp"></i> Admin 2</a>
+      </div>
     </div>
   </header>
 
-  <!-- Hero -->
-  <section id="top" class="relative overflow-hidden py-16 md:py-24 border-b border-slate-800/80">
-    <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-10 items-center">
-      <div>
-        <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-indigo-500/15 text-indigo-300 border border-indigo-500/30 mb-4">
-          Operasional Terintegrasi • Pelanggan ke Pembagian Hasil
-        </span>
-        <h1 class="text-3xl md:text-5xl font-extrabold leading-tight mb-4">
-          Layanan Jasa &amp; Sistem Operasional <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-300">Zeevanna</span>
-        </h1>
-        <p class="text-slate-300 text-base md:text-lg mb-6 leading-relaxed">
-          Kelola pesanan pelanggan, antrean kasir, pengerjaan operator, penjemputan/pengantaran kurir, kontrol admin, hingga pencatatan otomatis ke Google Spreadsheets dan pembagian hasil.
-        </p>
-        <div class="flex flex-wrap gap-3">
-          <a href="#alur-sistem" class="px-5 py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-sm transition">
-            Lihat Alur Sistem
-          </a>
-          <a href="#pemesanan" class="px-5 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold text-sm border border-slate-700 transition">
-            Input Pesanan &amp; Sheets
-          </a>
+  <main class="container">
+    <section class="card">
+      <h1>Pesan Layanan Cepat &amp; Rapi</h1>
+      <p class="sub">Halaman khusus pelanggan untuk pemesanan dan pelacakan status pesanan Anda.</p>
+      <ul class="info-list">
+        <li><i class="fas fa-qrcode"></i> Pembayaran QRIS — NMID: <strong>ID1026556910978</strong></li>
+        <li><i class="fab fa-whatsapp"></i> Admin WA: <strong>0838-1902-3700</strong> / <strong>0812-8552-6012</strong></li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>Lacak Status Pesanan</h2>
+      <p class="sub">Masukkan Order ID Anda untuk melihat status pesanan terkini.</p>
+      <div class="row">
+        <input type="text" id="trackOrderId" placeholder="Contoh: ZVN-20261126-001" />
+        <button type="button" id="trackBtn" class="btn btn-sm"><i class="fas fa-search"></i> Lacak</button>
+      </div>
+      <div class="result-box" id="trackResult">Belum ada Order ID yang dilacak.</div>
+    </section>
+
+    <section class="card">
+      <h2>Formulir Pesanan Pelanggan</h2>
+      <form id="orderForm">
+        <div class="form-group">
+          <label for="nama">Nama Lengkap</label>
+          <input type="text" id="nama" placeholder="Nama Anda" required />
         </div>
-      </div>
-
-      <!-- Animated Service Scene (No Human Photos) -->
-      <div class="relative flex items-center justify-center">
-        <div class="w-full max-w-md rounded-2xl bg-gradient-to-br from-slate-900 via-slate-900 to-indigo-950/60 border border-slate-800 p-6 shadow-2xl animate-float-slow">
-          <div class="flex items-center justify-between mb-6">
-            <span class="text-xs uppercase tracking-wider text-cyan-300 font-semibold">Live System Preview</span>
-            <span class="px-2.5 py-0.5 rounded-full text-xs bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">Active</span>
-          </div>
-          <div class="grid grid-cols-3 gap-3 text-center">
-            <div class="p-3.5 rounded-xl bg-slate-800/80 border border-slate-700/70">
-              <div class="text-2xl mb-1 animate-bounce">🧺</div>
-              <div class="text-xs font-semibold text-slate-200">Jasa Setrika</div>
-            </div>
-            <div class="p-3.5 rounded-xl bg-slate-800/80 border border-slate-700/70">
-              <div class="text-2xl mb-1 animate-pulse">📊</div>
-              <div class="text-xs font-semibold text-slate-200">Spreadsheets</div>
-            </div>
-            <div class="p-3.5 rounded-xl bg-slate-800/80 border border-slate-700/70">
-              <div class="text-2xl mb-1">💸</div>
-              <div class="text-xs font-semibold text-slate-200">Auto-Split</div>
-            </div>
-          </div>
-          <div class="mt-5 p-3.5 rounded-xl bg-slate-950/80 border border-slate-800 text-xs text-slate-300 font-mono">
-            Pelanggan → Kasir → Operator → Kurir → Admin → Sheets &amp; Bagi Hasil
-          </div>
+        <div class="form-group">
+          <label for="noHp">Nomor WhatsApp</label>
+          <input type="tel" id="noHp" placeholder="08xxxxxxxxxx" required />
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Layanan -->
-  <section id="layanan" class="py-16 border-b border-slate-800/80">
-    <div class="max-w-6xl mx-auto px-4">
-      <div class="mb-8">
-        <h2 class="text-2xl md:text-3xl font-bold mb-2">Layanan Unggulan</h2>
-        <p class="text-slate-400 text-sm md:text-base">Pilih layanan untuk mengisi otomatis formulir pemesanan di bawah.</p>
-      </div>
-      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        <div class="card-anim p-6 rounded-2xl bg-slate-900 border border-slate-800 flex flex-col justify-between">
-          <div>
-            <div class="text-3xl mb-3">👕</div>
-            <h3 class="font-bold text-lg mb-1.5">Setrika Harian &amp; Kiloan</h3>
-            <p class="text-slate-400 text-sm mb-4">Penjemputan terjadwal, pengerjaan operator rapi, wangi tahan lama, dan pengantaran tepat waktu.</p>
-          </div>
-          <button type="button" onclick="pilihLayanan('Setrika Harian & Kiloan')" class="w-full py-2.5 rounded-xl bg-indigo-600/90 hover:bg-indigo-500 text-sm font-semibold transition">
-            Pilih Layanan
-          </button>
+        <div class="form-group">
+          <label for="alamat">Alamat / Lokasi Penjemputan</label>
+          <input type="text" id="alamat" placeholder="Alamat lengkap / patokan" required />
         </div>
-
-        <div class="card-anim p-6 rounded-2xl bg-slate-900 border border-slate-800 flex flex-col justify-between">
-          <div>
-            <div class="text-3xl mb-3">🏠</div>
-            <h3 class="font-bold text-lg mb-1.5">Housekeeping &amp; Facility</h3>
-            <p class="text-slate-400 text-sm mb-4">Layanan kebersihan &amp; perawatan ruang dengan standar operasional terukur dan laporan transparan.</p>
-          </div>
-          <button type="button" onclick="pilihLayanan('Housekeeping & Facility')" class="w-full py-2.5 rounded-xl bg-indigo-600/90 hover:bg-indigo-500 text-sm font-semibold transition">
-            Pilih Layanan
-          </button>
+        <div class="form-group">
+          <label for="layanan">Layanan &amp; Detail</label>
+          <input type="text" id="layanan" placeholder="Contoh: Setrika 5 kg / Cetak & Jilid" required />
         </div>
-
-        <div class="card-anim p-6 rounded-2xl bg-slate-900 border border-slate-800 flex flex-col justify-between">
-          <div>
-            <div class="text-3xl mb-3">⚙️</div>
-            <h3 class="font-bold text-lg mb-1.5">Sistem Kasir, Sheets &amp; Bagi Hasil</h3>
-            <p class="text-slate-400 text-sm mb-4">Pencatatan transaksi real-time ke Google Spreadsheets serta perhitungan porsi operator, kurir, dan tim.</p>
-          </div>
-          <button type="button" onclick="pilihLayanan('Sistem Kasir, Sheets & Bagi Hasil')" class="w-full py-2.5 rounded-xl bg-indigo-600/90 hover:bg-indigo-500 text-sm font-semibold transition">
-            Pilih Layanan
-          </button>
+        <div class="form-group">
+          <label for="catatan">Catatan Tambahan</label>
+          <textarea id="catatan" rows="2" placeholder="Catatan khusus jika ada"></textarea>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Alur Sistem Operasional -->
-  <section id="alur-sistem" class="py-16 border-b border-slate-800/80">
-    <div class="max-w-6xl mx-auto px-4">
-      <div class="mb-8">
-        <h2 class="text-2xl md:text-3xl font-bold mb-2">Alur Sistem Operasional</h2>
-        <p class="text-slate-400 text-sm md:text-base">Klik setiap tahap peran untuk melihat tugas utama dan output sistem.</p>
-      </div>
-
-      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 mb-6" id="stepButtons"></div>
-
-      <div id="stepDetailBox" class="p-6 rounded-2xl bg-slate-900 border border-slate-800">
-        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
-          <h3 id="stepTitle" class="text-xl font-bold text-cyan-300"></h3>
-          <span id="stepBadge" class="px-3 py-1 rounded-full text-xs font-semibold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30"></span>
-        </div>
-        <p id="stepDesc" class="text-slate-300 text-sm md:text-base mb-4"></p>
-        <div id="stepOutput" class="p-3.5 rounded-xl bg-slate-950 border border-slate-800 text-xs md:text-sm text-emerald-300 font-mono"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Pemesanan & Spreadsheets -->
-  <section id="pemesanan" class="py-16">
-    <div class="max-w-3xl mx-auto px-4">
-      <div class="p-6 md:p-8 rounded-2xl bg-slate-900 border border-slate-800">
-        <h2 class="text-2xl font-bold mb-2">Formulir Pemesanan &amp; Integrasi Google Sheets</h2>
-        <p class="text-slate-400 text-sm mb-6">
-          Kirim data pesanan ke Google Spreadsheets (via Apps Script Web App) dan/atau lanjutkan konfirmasi ke WhatsApp.
-        </p>
-
-        <form id="orderForm" class="space-y-4">
-          <div class="grid sm:grid-cols-2 gap-4">
-            <div>
-              <label class="block text-xs font-semibold text-slate-300 mb-1.5">Nama Pelanggan</label>
-              <input id="nama" type="text" required placeholder="Contoh: Budi Santoso" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-sm focus:outline-none focus:border-cyan-400" />
-            </div>
-            <div>
-              <label class="block text-xs font-semibold text-slate-300 mb-1.5">No. WhatsApp Pelanggan</label>
-              <input id="noWa" type="tel" placeholder="Contoh: 0812xxxxxxxx atau 62812xxxxxxxx" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-sm focus:outline-none focus:border-cyan-400" />
-            </div>
-            <div>
-              <label class="block text-xs font-semibold text-slate-300 mb-1.5">Zona / Wilayah</label>
-              <select id="zona" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-sm focus:outline-none focus:border-cyan-400">
-                <option value="Zona 1 - Kec. Pandeglang (Kab. Pandeglang)" selected>Zona 1 - Kec. Pandeglang (Kab. Pandeglang)</option>
-                <option value="Zona 1 - Kec. Majasari (Kab. Pandeglang)">Zona 1 - Kec. Majasari (Kab. Pandeglang)</option>
-                <option value="Zona 1 - Kec. Karangtanjung (Kab. Pandeglang)">Zona 1 - Kec. Karangtanjung (Kab. Pandeglang)</option>
-                <option value="Zona 1 - Kec. Cadasari (Kab. Pandeglang)">Zona 1 - Kec. Cadasari (Kab. Pandeglang)</option>
-                <option value="Zona 1 - Kec. Koroncong (Kab. Pandeglang)">Zona 1 - Kec. Koroncong (Kab. Pandeglang)</option>
-                <option value="Zona 1 - Kec. Kaduhejo (Kab. Pandeglang)">Zona 1 - Kec. Kaduhejo (Kab. Pandeglang)</option>
-                <option value="Zona 1 - Wilayah Lain Kab. Pandeglang">Zona 1 - Wilayah Lain Kab. Pandeglang</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="grid sm:grid-cols-2 gap-4">
-            <div>
-              <label class="block text-xs font-semibold text-slate-300 mb-1.5">Unit / Bisnis</label>
-              <input id="bisnis" type="text" value="Zeevanna Digital & Service" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-sm focus:outline-none focus:border-cyan-400" />
-            </div>
-            <div>
-              <label class="block text-xs font-semibold text-slate-300 mb-1.5">Layanan</label>
-              <select id="layananInput" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-sm focus:outline-none focus:border-cyan-400">
-                <option value="Setrika Harian & Kiloan">Setrika Harian &amp; Kiloan</option>
-                <option value="Housekeeping & Facility">Housekeeping &amp; Facility</option>
-                <option value="Sistem Kasir, Sheets & Bagi Hasil">Sistem Kasir, Sheets &amp; Bagi Hasil</option>
-              </select>
-            </div>
-          </div>
-
-          <div>
-            <label class="block text-xs font-semibold text-slate-300 mb-1.5">Detail Pesanan / Catatan</label>
-            <textarea id="detail" rows="3" placeholder="Jumlah item/kg, jadwal jemput/antar, atau kebutuhan sistem..." class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-sm focus:outline-none focus:border-cyan-400"></textarea>
-          </div>
-
-          <div id="statusMsg" class="hidden p-3.5 rounded-xl text-xs font-medium"></div>
-
-          <div class="flex flex-wrap gap-3 pt-2">
-            <button type="submit" class="px-5 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 font-semibold text-sm transition">
-              Kirim ke Google Sheets
-            </button>
-            <button type="button" id="waBtn" class="px-5 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 font-semibold text-sm transition">
-              Kirim ke WhatsApp
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </section>
-
-  <!-- Lacak Status Pesanan -->
-  <section id="lacak-pesanan" class="py-12 border-t border-slate-800/80">
-    <div class="max-w-3xl mx-auto px-4">
-      <div class="p-6 md:p-8 rounded-2xl bg-slate-900 border border-slate-800">
-        <h2 class="text-xl md:text-2xl font-bold mb-2">Lacak Status Pesanan</h2>
-        <p class="text-slate-400 text-sm mb-5">
-          Masukkan ID Pesanan (contoh: <span class="font-mono text-cyan-300">ZVN-123456</span>) untuk memantau alur layanan dari Kasir hingga Selesai.
-        </p>
-
-        <div class="flex flex-col sm:flex-row gap-3">
-          <input id="trackOrderId" type="text" placeholder="Masukkan ID Pesanan (ZVN-...)" class="flex-1 px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-sm font-mono uppercase focus:outline-none focus:border-cyan-400" />
-          <button type="button" id="trackBtn" class="px-5 py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-sm transition">
-            Cek Status
-          </button>
-        </div>
-
-        <div id="trackResult" class="hidden mt-4 p-4 rounded-xl bg-slate-950 border border-slate-800 text-xs md:text-sm space-y-1.5"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="py-8 border-t border-slate-800 text-center text-xs text-slate-400 space-y-1">
-    <p>&copy; <span id="year"></span> Zeevanna Digital &amp; Service. Semua hak cipta dilindungi.</p>
-    <p class="text-slate-300 font-medium">Create design &amp; development by deskawps</p>
-  </footer>
+        <button type="submit" class="btn"><i class="fas fa-paper-plane"></i> Kirim Pesanan ke WhatsApp Admin</button>
+      </form>
+    </section>
+  </main>
 
   <script>
-    const ZEEVANNA_SPREADSHEETS_WEBAPP_URL = 'URL_WEBAPP_ANDA';
-    const ZEEVANNA_WA_NUMBER = '6281234567890';
+    const ZEEVANNA_API_URL = 'https://script.google.com/macros/s/GANTI_DENGAN_URL_WEB_APP_EXEC_ANDA/exec';
 
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    window.addEventListener('scroll', () => {
-      const h = document.documentElement;
-      const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight || 1)) * 100;
-      document.getElementById('scrollBar').style.width = pct + '%';
-    });
-
-    function pilihLayanan(namaLayanan) {
-      document.getElementById('layananInput').value = namaLayanan;
-      document.getElementById('pemesanan').scrollIntoView({ behavior: 'smooth' });
-    }
-
-    const steps = [
-      {
-        role: '1. Pelanggan',
-        badge: 'Order Masuk',
-        desc: 'Pelanggan memilih layanan (setrika, housekeeping, atau paket layanan), mengisi alamat/zona, serta menentukan jadwal jemput atau pengantaran.',
-        output: 'Output: Tiket Pesanan Baru (#ORD) + Status Menunggu Konfirmasi Kasir'
-      },
-      {
-        role: '2. Kasir',
-        badge: 'Verifikasi & Nota',
-        desc: 'Kasir memverifikasi detail pesanan, menimbang/menghitung item, menerbitkan nota digital, dan mencatat metode pembayaran (tunai / QRIS / transfer).',
-        output: 'Output: Nota Terverifikasi + Status Pembayaran Tercatat'
-      },
-      {
-        role: '3. Operator',
-        badge: 'Pengerjaan Teknis',
-        desc: 'Operator mengeksekusi pekerjaan sesuai SOP layanan (penyetrikaan, pembersihan, atau proses teknis) serta memperbarui progres pengerjaan.',
-        output: 'Output: Progres Pengerjaan (Diproses -> Selesai QC)'
-      },
-      {
-        role: '4. Kurir / Antar-Jemput',
-        badge: 'Logistik Zona',
-        desc: 'Kurir menangani penjemputan dari lokasi pelanggan ke workshop/unit dan pengantaran kembali setelah pekerjaan dinyatakan selesai.',
-        output: 'Output: Bukti Jemput & Bukti Serah Terima (POD)'
-      },
-      {
-        role: '5. Admin / Supervisor',
-        badge: 'Kontrol & Audit',
-        desc: 'Admin/Supervisor memantau SLA per zona, menangani kendala/komplain, merekonsiliasi kas & QRIS, serta menyetujui rekap operasional harian.',
-        output: 'Output: Rekap Harian Tervalidasi + Kontrol Kualitas'
-      },
-      {
-        role: '6. Sheets & Bagi Hasil',
-        badge: 'Laporan & Auto-Split',
-        desc: 'Data transaksi otomatis masuk ke Google Spreadsheets dan dihitung pembagian porsinya untuk operator, kurir, admin/PIC, serta kas usaha.',
-        output: 'Output: Baris Baru di Google Sheets + Rincian Pembagian Hasil'
-      }
-    ];
-
-    const stepButtonsEl = document.getElementById('stepButtons');
-    function renderStep(index) {
-      const s = steps[index];
-      document.getElementById('stepTitle').textContent = s.role;
-      document.getElementById('stepBadge').textContent = s.badge;
-      document.getElementById('stepDesc').textContent = s.desc;
-      document.getElementById('stepOutput').textContent = s.output;
-
-      [...stepButtonsEl.children].forEach((btn, idx) => {
-        btn.className = idx === index
-          ? 'px-3 py-2.5 rounded-xl bg-indigo-600 text-white text-xs font-bold text-left transition'
-          : 'px-3 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 text-xs font-semibold text-left transition';
-      });
-    }
-
-    steps.forEach((s, idx) => {
-      const btn = document.createElement('button');
-      btn.type = 'button';
-      btn.textContent = s.role;
-      btn.addEventListener('click', () => renderStep(idx));
-      stepButtonsEl.appendChild(btn);
-    });
-    renderStep(0);
-
-
-    function normalizeWaNumber(raw) {
-      const digits = String(raw || '').replace(/\D/g, '');
-      if (!digits) return '';
-      if (digits.startsWith('0')) return '62' + digits.slice(1);
-      if (digits.startsWith('8')) return '62' + digits;
-      return digits;
-    }
-
-    function getFormPayload() {
-      return {
-        order_id: 'ZVN-' + Date.now().toString().slice(-6),
-        timestamp: new Date().toISOString(),
-        no_wa: normalizeWaNumber(document.getElementById('noWa').value),
-        zona: document.getElementById('zona').value.trim(),
-        nama: document.getElementById('nama').value.trim(),
-        bisnis: document.getElementById('bisnis').value.trim(),
-        layanan: document.getElementById('layananInput').value,
-        detail: document.getElementById('detail').value.trim()
-      };
-    }
-
-    function showStatus(msg, isError) {
-      const box = document.getElementById('statusMsg');
-      box.classList.remove('hidden');
-      box.className = isError
-        ? 'p-3.5 rounded-xl text-xs font-medium bg-rose-500/15 text-rose-300 border border-rose-500/30'
-        : 'p-3.5 rounded-xl text-xs font-medium bg-emerald-500/15 text-emerald-300 border border-emerald-500/30';
-      box.textContent = msg;
-    }
-
-    document.getElementById('orderForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const payload = getFormPayload();
-      if (!payload.nama) {
-        showStatus('Nama pelanggan wajib diisi.', true);
-        return;
-      }
-      if (!ZEEVANNA_SPREADSHEETS_WEBAPP_URL || ZEEVANNA_SPREADSHEETS_WEBAPP_URL.includes('REPLACE_WITH_YOUR_APPS_SCRIPT_WEBAPP_URL')) {
-        showStatus('URL Google Spreadsheets belum diisi pada ZEEVANNA_SPREADSHEETS_WEBAPP_URL.', true);
-        return;
-      }
-      try {
-        await fetch(ZEEVANNA_SPREADSHEETS_WEBAPP_URL, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        });
-        localStorage.setItem('zeevanna_last_order_id', payload.order_id);
-        document.getElementById('trackOrderId').value = payload.order_id;
-        showStatus(
-          `Pesanan <strong>${payload.order_id}</strong> berhasil dikirim ke Google Spreadsheets. Gunakan ID ini di kolom Lacak Status Pesanan di bawah.`,
-          false
-        );
-      } catch (err) {
-        showStatus('Gagal mengirim ke Google Spreadsheets: ' + err.message, true);
-      }
-    });
-
-    document.getElementById('waBtn').addEventListener('click', () => {
-      const p = getFormPayload();
-      const text = encodeURIComponent(
-        `Halo Zeevanna Digital & Service, saya ingin memesan:\n` +
-        `ID Pesanan: ${p.order_id}\n` +
-        `No. WA: ${p.no_wa || '-'}\n` +
-        `Nama: ${p.nama || '-'}\n` +
-        `Zona: ${p.zona || '-'}\n` +
-        `Bisnis: ${p.bisnis || '-'}\n` +
-        `Layanan: ${p.layanan}\n` +
-        `Detail: ${p.detail || '-'}`
-      );
-      window.open(`https://wa.me/${ZEEVANNA_WA_NUMBER}?text=${text}`, '_blank');
-    });
-
-    const savedOrderId = localStorage.getItem('zeevanna_last_order_id');
-    if (savedOrderId) {
-      document.getElementById('trackOrderId').value = savedOrderId;
-    }
-
-    document.getElementById('trackBtn').addEventListener('click', async () => {
-      const orderId = document.getElementById('trackOrderId').value.trim().toUpperCase();
+    document.getElementById('trackBtn').addEventListener('click', async function () {
+      const orderId = document.getElementById('trackOrderId').value.trim();
       const box = document.getElementById('trackResult');
-      box.classList.remove('hidden');
-
       if (!orderId) {
-        box.innerHTML = '<span class="text-rose-300">Silakan masukkan ID Pesanan terlebih dahulu.</span>';
+        box.textContent = 'Silakan masukkan Order ID terlebih dahulu.';
         return;
       }
-      if (!ZEEVANNA_SPREADSHEETS_WEBAPP_URL || ZEEVANNA_SPREADSHEETS_WEBAPP_URL.includes('REPLACE_WITH_YOUR_APPS_SCRIPT_WEBAPP_URL')) {
-        box.innerHTML = '<span class="text-amber-300">URL WebApp Google Spreadsheets belum terpasang.</span>';
+      if (ZEEVANNA_API_URL.includes('GANTI_DENGAN_URL_WEB_APP_EXEC_ANDA')) {
+        box.textContent = 'Endpoint API belum dikonfigurasi.';
         return;
       }
-
-      box.innerHTML = '<span class="text-slate-400">Mengecek status pesanan...</span>';
+      box.textContent = 'Mencari status pesanan...';
       try {
-        const url = `${ZEEVANNA_SPREADSHEETS_WEBAPP_URL}?action=status&order_id=${encodeURIComponent(orderId)}`;
-        const res = await fetch(url);
+        const res = await fetch(`${ZEEVANNA_API_URL}?action=status&order_id=${encodeURIComponent(orderId)}`);
         const data = await res.json();
-
-        if (data.status === 'success') {
-          box.innerHTML =
-            `<div><span class="text-slate-400">ID Pesanan:</span> <strong class="font-mono text-cyan-300">${data.order_id}</strong></div>` +
-            `<div><span class="text-slate-400">Nama:</span> <span class="text-slate-200">${data.nama || '-'}</span></div>` +
-            `<div><span class="text-slate-400">Zona:</span> <span class="text-slate-200">${data.zona || '-'}</span></div>` +
-            `<div><span class="text-slate-400">Layanan:</span> <span class="text-slate-200">${data.layanan || '-'}</span></div>` +
-            `<div><span class="text-slate-400">Status Alur:</span> <strong class="text-emerald-300">${data.alur_status || '-'}</strong></div>`;
-        } else {
-          box.innerHTML = `<span class="text-rose-300">${data.message || 'Pesanan tidak ditemukan.'}</span>`;
-        }
+        box.textContent = JSON.stringify(data, null, 2);
       } catch (err) {
-        box.innerHTML = `<span class="text-rose-300">Gagal memuat status: ${err.message}</span>`;
+        box.textContent = 'Terjadi kesalahan saat melacak status: ' + err.message;
       }
     });
 
-    document.getElementById('metodeBayar').addEventListener('change', (e) => {
-      const box = document.getElementById('qrisBox');
-      if (e.target.value.includes('QRIS')) {
-        box.classList.remove('hidden');
+    document.getElementById('orderForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const nama = document.getElementById('nama').value.trim();
+      const noHp = document.getElementById('noHp').value.trim();
+      const alamat = document.getElementById('alamat').value.trim();
+      const layanan = document.getElementById('layanan').value.trim();
+      const catatan = document.getElementById('catatan').value.trim();
+
+      if (!nama || !noHp || !alamat || !layanan) {
+        alert('Harap lengkapi data yang wajib diisi.');
+        return;
       }
+
+      const pesan =
+        `Halo Zeevanna Digital & Service, saya ingin memesan layanan:%0A` +
+        `Nama: ${encodeURIComponent(nama)}%0A` +
+        `No WA: ${encodeURIComponent(noHp)}%0A` +
+        `Alamat: ${encodeURIComponent(alamat)}%0A` +
+        `Layanan: ${encodeURIComponent(layanan)}%0A` +
+        `Catatan: ${encodeURIComponent(catatan || '-')}%0A` +
+        `QRIS NMID: ID1026556910978`;
+
+      window.open(`https://wa.me/6283819023700?text=${pesan}`, '_blank');
     });
   </script>
 </body>

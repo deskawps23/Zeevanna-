@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#6C3CE1" />
+  <title>Zeevanna Ops — Panel Operasional & Bagi Hasil</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #0F172A;
+      color: #F1F5F9;
+      padding: 20px 16px 48px;
+      line-height: 1.5;
+    }
+    .wrap { max-width: 640px; margin: 0 auto; }
+    .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .title h1 { font-size: 1.35rem; font-weight: 800; }
+    .title p { font-size: 0.85rem; color: #94A3B8; }
+    .btn-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border-radius: 12px;
+      background: #1E293B;
+      color: #E2E8F0;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .card {
+      background: #1E293B;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px;
+      padding: 18px;
+      margin-bottom: 16px;
+    }
+    .card h2 { font-size: 1rem; font-weight: 700; margin-bottom: 10px; }
+    .row { display: flex; gap: 10px; flex-wrap: wrap; }
+    input {
+      flex: 1;
+      min-width: 200px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: #0F172A;
+      color: #F8FAFC;
+      font-family: inherit;
+      font-size: 0.95rem;
+    }
+    button {
+      padding: 12px 18px;
+      border-radius: 12px;
+      border: none;
+      background: linear-gradient(135deg, #6C3CE1 0%, #A78BFA 100%);
+      color: #fff;
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-top: 8px;
+    }
+    .stat-box {
+      background: #0F172A;
+      border-radius: 12px;
+      padding: 12px;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    .stat-box .k { font-size: 0.75rem; color: #94A3B8; }
+    .stat-box .v { font-size: 1.05rem; font-weight: 800; color: #C4B5FD; margin-top: 2px; }
+    .stages { display: flex; flex-direction: column; gap: 8px; font-size: 0.85rem; color: #CBD5E1; }
+    .stage-pill {
+      background: #0F172A;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border-left: 3px solid #8B5CF6;
+    }
+    pre {
+      margin-top: 12px;
+      background: #0F172A;
+      padding: 12px;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      overflow-x: auto;
+      color: #E2E8F0;
+      white-space: pre-wrap;
+    }
+    .meta { font-size: 0.8rem; color: #94A3B8; margin-top: 8px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top">
+      <div class="title">
+        <h1>Zeevanna Digital &amp; Service — Ops</h1>
+        <p>Panel Operasional &amp; Pembagian Hasil (Terpisah dari Tampilan Pelanggan)</p>
+      </div>
+      <a href="./index.html" class="btn-link">
+        <i class="fas fa-arrow-left"></i> Halaman Pelanggan
+      </a>
+    </div>
+
+    <div class="card">
+      <h2>Cek Status Pesanan via API</h2>
+      <div class="row">
+        <input type="text" id="orderIdInput" placeholder="Masukkan Order ID (misal: ZVN-...)" />
+        <button type="button" id="btnCekStatus"><i class="fas fa-search"></i> Cek Status</button>
+      </div>
+      <pre id="hasilStatus">Masukkan Order ID lalu klik Cek Status untuk mengambil data dari endpoint Web App.</pre>
+    </div>
+
+    <div class="card">
+      <h2>Skema Pembagian Hasil Standar</h2>
+      <div class="grid-4">
+        <div class="stat-box">
+          <div class="k">Operator Layanan</div>
+          <div class="v">35%</div>
+        </div>
+        <div class="stat-box">
+          <div class="k">Kurir Operasional</div>
+          <div class="v">20%</div>
+        </div>
+        <div class="stat-box">
+          <div class="k">Admin / PIC</div>
+          <div class="v">15%</div>
+        </div>
+        <div class="stat-box">
+          <div class="k">Kas Usaha Zeevanna</div>
+          <div class="v">30%</div>
+        </div>
+      </div>
+      <p class="meta">Admin WA: 083819023700 / 081285526012 · QRIS NMID: ID1026556910978</p>
+    </div>
+
+    <div class="card">
+      <h2>5 Tahap Alur Operasional</h2>
+      <div class="stages">
+        <div class="stage-pill">1. Pelanggan (Menunggu Kasir)</div>
+        <div class="stage-pill">2. Kasir (Verifikasi &amp; Bayar)</div>
+        <div class="stage-pill">3. Operator (Proses Layanan)</div>
+        <div class="stage-pill">4. Kurir (Pengantaran)</div>
+        <div class="stage-pill">5. Selesai</div>
+      </div>
+      <p class="meta">Rekap &amp; laporan harian dikelola langsung di Google Sheets melalui menu <strong>Zeevanna Ops</strong>.</p>
+    </div>
+  </div>
+
+  <script>
+    const ZEEVANNA_API_URL = 'https://script.google.com/macros/s/GANTI_DENGAN_URL_WEB_APP_EXEC_ANDA/exec';
+    const inputEl = document.getElementById('orderIdInput');
+    const outEl = document.getElementById('hasilStatus');
+    const btnEl = document.getElementById('btnCekStatus');
+
+    btnEl.addEventListener('click', async function () {
+      const orderId = inputEl.value.trim();
+      if (!orderId) {
+        outEl.textContent = 'Harap isi Order ID terlebih dahulu.';
+        return;
+      }
+      if (ZEEVANNA_API_URL.includes('GANTI_DENGAN_URL_WEB_APP_EXEC_ANDA')) {
+        outEl.textContent = 'URL Web App (/exec) belum dipasang pada ZEEVANNA_API_URL.';
+        return;
+      }
+      outEl.textContent = 'Mengambil status pesanan...';
+      try {
+        const url = `${ZEEVANNA_API_URL}?action=status&order_id=${encodeURIComponent(orderId)}`;
+        const res = await fetch(url);
+        const data = await res.json();
+        outEl.textContent = JSON.stringify(data, null, 2);
+      } catch (err) {
+        outEl.textContent = 'Gagal menghubungi API: ' + err.message;
+      }
+    });
+  </script>
+</body>
+</html>
