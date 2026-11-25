@@ -304,7 +304,39 @@
       const arr = JSON.parse(localStorage.getItem(KEY_HIST) || '[]');
       arr.unshift({ order_id: orderId, pelanggan: nama, kecamatan_zona_1: kec, layanan_detail: det, metode_pembayaran: bayar, nominal: est.tot });
       localStorage.setItem(KEY_HIST, JSON.stringify(arr.slice(0, 15)));
-      renderHist();
+  
+    document.getElementById('driverForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const btn = document.getElementById('drvBtn');
+      const out = document.getElementById('drvOut');
+      const payload = {
+        action: 'register_driver',
+        nama_lengkap: document.getElementById('drvNama').value.trim(),
+        no_wa: document.getElementById('drvWa').value.trim(),
+        kecamatan_zona_1: document.getElementById('drvKec').value,
+        jenis_kendaraan: document.getElementById('drvMotor').value.trim(),
+        plat_nomor: document.getElementById('drvPlat').value.trim(),
+        alamat_domisili: document.getElementById('drvAlamat').value.trim()
+      };
+      btn.disabled = true;
+      out.textContent = 'Mengirim pendaftaran mitra driver...';
+      try {
+        const r = await fetch(API_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify(payload)
+        });
+        const j = await r.json().catch(() => ({}));
+        out.textContent = j.id_driver
+          ? `Pendaftaran diterima! ID Driver: ${j.id_driver} (Status: ${j.status_mitra || 'Menunggu Verifikasi'}). Kirim foto KTP, SIM C & STNK ke WA admin.`
+          : (j.message || 'Pendaftaran terkirim.');
+      } catch (err) {
+        out.textContent = 'Gagal kirim ke API: ' + err.message;
+      }
+      btn.disabled = false;
+    });
+
+    renderHist();
 
       const msg = `Halo Zeevanna, saya pesan:%0AOrder ID: ${encodeURIComponent(orderId)}%0ANama: ${encodeURIComponent(nama)}%0AWA: ${encodeURIComponent(noHp)}%0AKec: ${encodeURIComponent(kec)}%0AAlamat: ${encodeURIComponent(alamat)}%0ADetail: ${encodeURIComponent(det)}%0ABayar: ${encodeURIComponent(bayar)} (${encodeURIComponent(rp(est.tot))})`;
       window.open(`https://wa.me/6283819023700?text=${msg}`, '_blank');
