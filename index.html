@@ -5,282 +5,266 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
   <meta name="theme-color" content="#6C3CE1" />
   <title>Zeevanna Digital &amp; Service — Layanan Pelanggan</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
-      --primary: #6C3CE1;
-      --primary-gradient: linear-gradient(135deg, #6C3CE1 0%, #A78BFA 100%);
-      --bg: #F8FAFC;
-      --card: #FFFFFF;
-      --text: #0F172A;
-      --muted: #475569;
+      --primary: #6C3CE1; --primary-dark: #5B2FC9;
+      --grad: linear-gradient(135deg, #6C3CE1 0%, #A78BFA 100%);
+      --bg: #F8FAFC; --card: #FFFFFF; --text: #0F172A; --muted: #475569; --border: #E2E8F0;
     }
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      padding: 0 16px 48px;
-      line-height: 1.55;
-    }
-    .container { max-width: 520px; margin: 0 auto; }
-    .header {
-      position: sticky;
-      top: 0;
-      background: rgba(255,255,255,0.92);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(108,60,225,0.1);
-      padding: 12px 0;
-      margin-bottom: 20px;
-      z-index: 20;
-    }
-    .header-inner { display: flex; justify-content: space-between; align-items: center; }
-    .brand { font-weight: 800; font-size: 1.1rem; color: var(--text); text-decoration: none; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); padding: 0 16px 88px; line-height: 1.5; }
+    .wrap { max-width: 520px; margin: 0 auto; }
+    .hdr { position: sticky; top: 0; background: rgba(255,255,255,0.92); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); padding: 11px 0; margin-bottom: 16px; z-index: 20; }
+    .hdr-in { display: flex; justify-content: space-between; align-items: center; gap: 6px; }
+    .brand { font-weight: 800; font-size: 1rem; color: var(--text); text-decoration: none; }
     .brand span { color: var(--primary); }
-    .wa-links { display: flex; gap: 8px; }
-    .wa-pill {
-      background: #25D366;
-      color: #fff;
-      text-decoration: none;
-      padding: 8px 12px;
-      border-radius: 999px;
-      font-size: 0.78rem;
-      font-weight: 700;
-    }
-    .card {
-      background: var(--card);
-      border-radius: 18px;
-      padding: 18px;
-      margin-bottom: 16px;
-      box-shadow: 0 4px 18px rgba(15,23,42,0.05);
-      border: 1px solid rgba(15,23,42,0.05);
-    }
-    h1 { font-size: 1.65rem; font-weight: 800; margin-bottom: 6px; }
-    h2 { font-size: 1.15rem; font-weight: 800; margin-bottom: 10px; }
-    p.sub { color: var(--muted); font-size: 0.9rem; margin-bottom: 14px; }
-    .form-group { margin-bottom: 14px; }
-    label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 5px; }
-    input, select, textarea {
-      width: 100%;
-      padding: 12px 14px;
-      border-radius: 12px;
-      border: 1.5px solid #E2E8F0;
-      font-family: inherit;
-      font-size: 0.95rem;
-      background: #F8FAFC;
-    }
-    .row { display: flex; gap: 10px; flex-wrap: wrap; }
-    .row input { flex: 1; min-width: 180px; }
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      width: 100%;
-      padding: 13px 18px;
-      border-radius: 999px;
-      border: none;
-      background: var(--primary-gradient);
-      color: #fff;
-      font-family: inherit;
-      font-weight: 700;
-      font-size: 0.95rem;
-      cursor: pointer;
-    }
-    .btn:disabled { opacity: 0.65; cursor: not-allowed; }
-    .btn-sm { width: auto; border-radius: 12px; padding: 12px 16px; }
-    .result-box {
-      margin-top: 12px;
-      padding: 12px;
-      border-radius: 12px;
-      background: #F1F5F9;
-      font-size: 0.85rem;
-      white-space: pre-wrap;
-    }
-    .info-list { font-size: 0.88rem; color: var(--muted); }
-    .info-list li { margin-bottom: 6px; list-style: none; }
+    .wa-pill { background: #25D366; color: #fff; text-decoration: none; padding: 6px 10px; border-radius: 999px; font-size: 0.72rem; font-weight: 700; }
+    .card { background: var(--card); border-radius: 16px; padding: 16px; margin-bottom: 14px; border: 1px solid var(--border); box-shadow: 0 3px 14px rgba(15,23,42,0.04); }
+    .badge { display: inline-block; background: #EDE9FE; color: var(--primary-dark); font-size: 0.7rem; font-weight: 700; padding: 4px 10px; border-radius: 999px; margin-bottom: 8px; }
+    h1 { font-size: 1.55rem; font-weight: 800; margin-bottom: 6px; }
+    h2 { font-size: 1.1rem; font-weight: 800; margin-bottom: 6px; }
+    .sub { color: var(--muted); font-size: 0.85rem; margin-bottom: 12px; }
+    .qa { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .qa a { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 10px 6px; border-radius: 12px; background: #F8FAFC; border: 1px solid var(--border); text-decoration: none; color: var(--text); font-size: 0.75rem; font-weight: 700; }
+    .qa i { color: var(--primary); }
+    .fg { margin-bottom: 12px; }
+    .g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    label { display: block; font-size: 0.8rem; font-weight: 600; margin-bottom: 4px; }
+    input, select { width: 100%; padding: 10px 12px; border-radius: 10px; border: 1.5px solid var(--border); font-family: inherit; font-size: 0.9rem; background: #F8FAFC; }
+    .row { display: flex; gap: 8px; }
+    .row input { flex: 1; }
+    .btn { width: 100%; padding: 12px 16px; border-radius: 999px; border: none; background: var(--grad); color: #fff; font-weight: 700; font-size: 0.92rem; cursor: pointer; }
+    .btn-sm { width: auto; border-radius: 10px; padding: 10px 14px; font-size: 0.85rem; }
+    .steps { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; margin-top: 10px; }
+    .step { padding: 6px 3px; border-radius: 8px; background: #F1F5F9; color: #64748B; font-size: 0.65rem; font-weight: 700; text-align: center; }
+    .step.on { background: var(--grad); color: #fff; }
+    .box { margin-top: 10px; padding: 11px; border-radius: 10px; background: #F1F5F9; font-size: 0.82rem; white-space: pre-wrap; }
+    .sum { background: #F8FAFC; border: 1px solid var(--border); border-radius: 12px; padding: 11px; margin-bottom: 12px; font-size: 0.84rem; }
+    .line { display: flex; justify-content: space-between; margin-bottom: 4px; }
+    .tot { display: flex; justify-content: space-between; font-weight: 800; padding-top: 6px; border-top: 1px dashed #CBD5E1; color: var(--primary-dark); }
+    .hist { border: 1px solid var(--border); border-radius: 10px; padding: 10px; margin-bottom: 8px; background: #F8FAFC; font-size: 0.8rem; }
+    .nav { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; border-top: 1px solid var(--border); padding: 8px; display: flex; justify-content: space-around; z-index: 30; }
+    .nav a { text-decoration: none; color: var(--muted); font-size: 0.68rem; font-weight: 700; display: flex; flex-direction: column; align-items: center; gap: 2px; }
+    .nav i { color: var(--primary); }
   </style>
 </head>
 <body>
-  <header class="header">
-    <div class="container header-inner">
-      <a href="#" class="brand">Zeevanna <span>Digital &amp; Service</span></a>
-      <div class="wa-links">
-        <a href="https://wa.me/6283819023700" target="_blank" class="wa-pill"><i class="fab fa-whatsapp"></i> Admin 1</a>
-        <a href="https://wa.me/6281285526012" target="_blank" class="wa-pill"><i class="fab fa-whatsapp"></i> Admin 2</a>
-      </div>
+  <header class="hdr"><div class="wrap hdr-in">
+    <a href="#top" class="brand">Zeevanna <span>Digital &amp; Service</span></a>
+    <div class="row">
+      <a href="https://wa.me/6283819023700" target="_blank" class="wa-pill">0838-1902-3700</a>
+      <a href="https://wa.me/6281285526012" target="_blank" class="wa-pill">0812-8552-6012</a>
     </div>
-  </header>
+  </div></header>
 
-  <main class="container">
+  <main class="wrap" id="top">
     <section class="card">
-      <h1>Pesan Layanan Cepat &amp; Rapi</h1>
-      <p class="sub">Halaman khusus pelanggan untuk pemesanan dan pelacakan status pesanan Anda.</p>
-      <ul class="info-list">
-        <li><i class="fas fa-qrcode"></i> Pembayaran QRIS — NMID: <strong>ID1026556910978</strong></li>
-        <li><i class="fab fa-whatsapp"></i> Admin WA: <strong>0838-1902-3700</strong> / <strong>0812-8552-6012</strong></li>
-      </ul>
-    </section>
-
-    <section class="card">
-      <h2>Lacak Status Pesanan</h2>
-      <p class="sub">Masukkan Order ID Anda untuk melihat status pesanan terkini.</p>
-      <div class="row">
-        <input type="text" id="trackOrderId" placeholder="Contoh: ZVN-20261126-001" />
-        <button type="button" id="trackBtn" class="btn btn-sm"><i class="fas fa-search"></i> Lacak</button>
+      <div class="badge">Zona 1 · Kiloan &amp; Satuan</div>
+      <h1>Setrika Rapi &amp; Terjadwal</h1>
+      <p class="sub">Pesan layanan jemput-antar, cek promo, dan lacak status pesanan Anda.</p>
+      <div class="qa">
+        <a href="#order"><i class="fas fa-plus-circle"></i><span>Pesan Baru</span></a>
+        <a href="#track"><i class="fas fa-search"></i><span>Lacak Order</span></a>
+        <a href="#promo"><i class="fas fa-tags"></i><span>Tarif &amp; Promo</span></a>
       </div>
-      <div class="result-box" id="trackResult">Belum ada Order ID yang dilacak.</div>
     </section>
 
-    <section class="card">
-      <h2>Formulir Pesanan Pelanggan</h2>
+    <section class="card" id="track">
+      <h2>Pelacakan Status (5 Tahap)</h2>
+      <div class="row">
+        <input type="text" id="trackId" placeholder="Contoh: ZVN-20261126-001" />
+        <button type="button" id="trackBtn" class="btn btn-sm">Lacak</button>
+      </div>
+      <div class="steps" id="steps">
+        <div class="step" data-s="1">1. Menunggu Kasir</div>
+        <div class="step" data-s="2">2. Verifikasi</div>
+        <div class="step" data-s="3">3. Proses</div>
+        <div class="step" data-s="4">4. Pengantaran</div>
+        <div class="step" data-s="5">5. Selesai</div>
+      </div>
+      <div class="box" id="trackOut">Masukkan Order ID lalu klik Lacak.</div>
+    </section>
+
+    <section class="card" id="promo">
+      <h2>Tarif &amp; Promo</h2>
+      <div class="sum" style="margin-bottom:0;">
+        <div class="line"><span>Kiloan Reguler / Ekspres</span><strong>Rp 7.000 / Rp 11.000 per kg</strong></div>
+        <div class="line"><span>Satuan (Kemeja / Celana / Sprei / Jas)</span><strong>Rp 8.000 – Rp 25.000</strong></div>
+        <div class="line"><span>Diskon ≥ 5 kg atau ≥ Rp 100.000</span><strong>Potongan Rp 10.000</strong></div>
+      </div>
+    </section>
+
+    <section class="card" id="order">
+      <h2>Formulir Pesanan</h2>
       <form id="orderForm">
-        <div class="form-group">
-          <label for="nama">Nama Lengkap</label>
-          <input type="text" id="nama" placeholder="Nama Anda" required />
+        <div class="fg"><label>Nama Lengkap</label><input type="text" id="nama" required /></div>
+        <div class="fg"><label>Nomor WhatsApp</label><input type="tel" id="noHp" placeholder="08xxxxxxxxxx" required /></div>
+        <div class="g2">
+          <div class="fg"><label>Sistem Tarif</label><select id="tipe"><option value="kiloan">Kiloan</option><option value="satuan">Satuan</option></select></div>
+          <div class="fg"><label>Kecepatan</label><select id="speed"><option value="Reguler">Reguler</option><option value="Ekspres">Ekspres</option></select></div>
         </div>
-        <div class="form-group">
-          <label for="noHp">Nomor WhatsApp</label>
-          <input type="tel" id="noHp" placeholder="08xxxxxxxxxx" required />
+        <div class="fg" id="boxKg"><label>Estimasi Berat (kg)</label><input type="number" id="kg" min="1" step="0.5" value="3" /></div>
+        <div class="fg" id="boxSat" style="display:none;"><label>Item Satuan &amp; Jumlah</label><div class="g2">
+          <select id="item"><option value="Kemeja|8000">Kemeja (Rp 8.000)</option><option value="Celana|10000">Celana (Rp 10.000)</option><option value="Sprei Set|25000">Sprei Set (Rp 25.000)</option><option value="Jas|20000">Jas (Rp 20.000)</option></select>
+          <input type="number" id="qty" min="1" value="2" />
+        </div></div>
+        <div class="fg"><label>Kecamatan (Zona 1)</label><select id="kec"><option>Pandeglang</option><option>Majasari</option><option>Karangtanjung</option><option>Cadasari</option><option>Koroncong</option><option>Kaduhejo</option></select></div>
+        <div class="fg"><label>Alamat Lengkap (RT/RW, Patokan, Kode Pos)</label><input type="text" id="alamat" required /></div>
+        <div class="g2">
+          <div class="fg"><label>Jadwal Jemput</label><input type="datetime-local" id="jemput" required /></div>
+          <div class="fg"><label>Jadwal Antar</label><input type="datetime-local" id="antar" required /></div>
         </div>
-        <div class="form-group">
-          <label for="kecamatan">Kecamatan (Zona 1)</label>
-          <select id="kecamatan" required>
-            <option value="Pandeglang">Pandeglang</option>
-            <option value="Majasari">Majasari</option>
-            <option value="Karangtanjung">Karangtanjung</option>
-            <option value="Cadasari">Cadasari</option>
-            <option value="Koroncong">Koroncong</option>
-            <option value="Kaduhejo">Kaduhejo</option>
-          </select>
+        <div class="g2">
+          <div class="fg"><label>Lipatan</label><select id="lipat"><option>Dilipat Rapi</option><option>Digantung (Hanger)</option><option>Campuran</option></select></div>
+          <div class="fg"><label>Pewangi / Catatan</label><input type="text" id="catatan" placeholder="Opsional" /></div>
         </div>
-        <div class="form-group">
-          <label for="alamat">Alamat / Lokasi Penjemputan</label>
-          <input type="text" id="alamat" placeholder="Alamat lengkap / patokan" required />
+        <div class="fg"><label>Pembayaran</label><select id="bayar"><option value="QRIS">QRIS (NMID: ID1026556910978)</option><option value="Tunai">Tunai</option><option value="Transfer">Transfer</option></select></div>
+        <div class="sum">
+          <div class="line"><span>Subtotal</span><strong id="vSub">Rp 21.000</strong></div>
+          <div class="line"><span>Diskon</span><strong id="vDisc">Rp 0</strong></div>
+          <div class="tot"><span>Total Estimasi</span><span id="vTot">Rp 21.000</span></div>
         </div>
-        <div class="form-group">
-          <label for="layanan">Layanan &amp; Detail</label>
-          <input type="text" id="layanan" placeholder="Contoh: Setrika 5 kg / Cetak & Jilid" required />
-        </div>
-        <div class="form-group">
-          <label for="metodeBayar">Metode Pembayaran</label>
-          <select id="metodeBayar" required>
-            <option value="QRIS">QRIS (NMID: ID1026556910978)</option>
-            <option value="Tunai">Tunai</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="nominal">Estimasi Nominal (Rp)</label>
-          <input type="number" id="nominal" placeholder="Contoh: 50000" min="0" />
-        </div>
-        <div class="form-group">
-          <label for="catatan">Catatan Tambahan</label>
-          <textarea id="catatan" rows="2" placeholder="Catatan khusus jika ada"></textarea>
-        </div>
-        <button type="submit" id="submitBtn" class="btn"><i class="fas fa-paper-plane"></i> Kirim Pesanan</button>
+        <button type="submit" id="subBtn" class="btn">Kirim Pesanan</button>
       </form>
-      <div class="result-box" id="orderResult">Isi formulir di atas lalu klik Kirim Pesanan.</div>
+      <div class="box" id="orderOut">Siap mengirim pesanan.</div>
+    </section>
+
+    <section class="card" id="riwayat">
+      <h2>Riwayat &amp; Nota Digital</h2>
+      <div id="histList"><div class="box" style="margin-top:0;">Belum ada pesanan tersimpan di perangkat ini.</div></div>
     </section>
   </main>
 
+  <nav class="nav">
+    <a href="#top"><i class="fas fa-home"></i><span>Beranda</span></a>
+    <a href="#promo"><i class="fas fa-tags"></i><span>Tarif</span></a>
+    <a href="#track"><i class="fas fa-search"></i><span>Lacak</span></a>
+    <a href="#order"><i class="fas fa-clipboard-list"></i><span>Pesan</span></a>
+    <a href="https://wa.me/6283819023700" target="_blank"><i class="fab fa-whatsapp"></i><span>WA</span></a>
+  </nav>
   <script>
-    const ZEEVANNA_API_URL = 'URL_EXEC_ANDA_DI_SINI';
+    const API_URL = 'URL_EXEC_ANDA_DI_SINI';
+    const KEY_HIST = 'zvn_hist_v1';
+    const rp = (n) => 'Rp ' + Math.max(0, Math.round(n)).toLocaleString('id-ID');
+
+    function calcEst() {
+      const tipe = document.getElementById('tipe').value;
+      const speed = document.getElementById('speed').value;
+      const kg = parseFloat(document.getElementById('kg').value) || 0;
+      let sub = tipe === 'kiloan'
+        ? kg * (speed === 'Ekspres' ? 11000 : 7000)
+        : (parseInt(document.getElementById('item').value.split('|')[1], 10) || 0) * (parseInt(document.getElementById('qty').value, 10) || 1) * (speed === 'Ekspres' ? 1.25 : 1);
+      const disc = (tipe === 'kiloan' && kg >= 5) || sub >= 100000 ? 10000 : 0;
+      const tot = Math.max(0, sub - disc);
+      document.getElementById('vSub').textContent = rp(sub);
+      document.getElementById('vDisc').textContent = disc ? '- ' + rp(disc) : rp(0);
+      document.getElementById('vTot').textContent = rp(tot);
+      return { sub, disc, tot };
+    }
+
+    document.getElementById('tipe').addEventListener('change', function () {
+      const k = this.value === 'kiloan';
+      document.getElementById('boxKg').style.display = k ? 'block' : 'none';
+      document.getElementById('boxSat').style.display = k ? 'none' : 'block';
+      calcEst();
+    });
+    ['speed', 'kg', 'item', 'qty'].forEach((id) => document.getElementById(id).addEventListener('input', calcEst));
+    ['speed', 'kg', 'item', 'qty'].forEach((id) => document.getElementById(id).addEventListener('change', calcEst));
+    calcEst();
+
+    function markStep(st) {
+      const t = String(st || '').toLowerCase();
+      let n = 0;
+      if (t.includes('1.') || t.includes('menunggu')) n = 1;
+      else if (t.includes('2.') || t.includes('verifikasi') || t.includes('bayar')) n = 2;
+      else if (t.includes('3.') || t.includes('proses') || t.includes('operator')) n = 3;
+      else if (t.includes('4.') || t.includes('antar') || t.includes('kurir')) n = 4;
+      else if (t.includes('5.') || t.includes('selesai')) n = 5;
+      document.querySelectorAll('#steps .step').forEach((el) => el.classList.toggle('on', n > 0 && parseInt(el.dataset.s, 10) <= n));
+    }
 
     document.getElementById('trackBtn').addEventListener('click', async function () {
-      const orderId = document.getElementById('trackOrderId').value.trim();
-      const box = document.getElementById('trackResult');
-      if (!orderId) {
-        box.textContent = 'Silakan masukkan Order ID terlebih dahulu.';
-        return;
-      }
-      if (ZEEVANNA_API_URL.includes('GANTI_DENGAN_URL_WEB_APP_EXEC_ANDA')) {
-        box.textContent = 'Endpoint API belum dikonfigurasi.';
-        return;
-      }
-      box.textContent = 'Mencari status pesanan...';
+      const id = document.getElementById('trackId').value.trim();
+      const out = document.getElementById('trackOut');
+      if (!id) { out.textContent = 'Masukkan Order ID dulu.'; return; }
+      if (API_URL.includes('GANTI_DENGAN_URL_WEB_APP_EXEC_ANDA')) { out.textContent = 'URL API belum dipasang.'; return; }
+      out.textContent = 'Memeriksa status...';
       try {
-        const res = await fetch(`${ZEEVANNA_API_URL}?action=status&order_id=${encodeURIComponent(orderId)}`);
-        const data = await res.json();
-        box.textContent = JSON.stringify(data, null, 2);
-      } catch (err) {
-        box.textContent = 'Terjadi kesalahan saat melacak status: ' + err.message;
-      }
+        const d = await (await fetch(`${API_URL}?action=status&order_id=${encodeURIComponent(id)}`)).json();
+        if (d.status === 'found') {
+          markStep(d.status_alur);
+          out.textContent = `Order ID: ${d.order_id}\nPelanggan: ${d.pelanggan}\nKecamatan: ${d.kecamatan_zona_1}\nNominal: ${rp(d.nominal)}\nStatus: ${d.status_alur}`;
+        } else {
+          markStep('');
+          out.textContent = d.message || 'Order ID tidak ditemukan.';
+        }
+      } catch (e) { out.textContent = 'Error: ' + e.message; }
     });
+
+    function renderHist() {
+      const el = document.getElementById('histList');
+      const arr = JSON.parse(localStorage.getItem(KEY_HIST) || '[]');
+      if (!arr.length) { el.innerHTML = '<div class="box" style="margin-top:0;">Belum ada pesanan tersimpan di perangkat ini.</div>'; return; }
+      el.innerHTML = arr.map((x) => `<div class="hist"><strong>${x.order_id}</strong> · ${rp(x.nominal)}<br>${x.pelanggan} (${x.kecamatan_zona_1}) — ${x.metode_pembayaran}<br><span style="color:#64748B;">${x.layanan_detail}</span></div>`).join('');
+    }
 
     document.getElementById('orderForm').addEventListener('submit', async function (e) {
       e.preventDefault();
-      const submitBtn = document.getElementById('submitBtn');
-      const resultBox = document.getElementById('orderResult');
+      const btn = document.getElementById('subBtn');
+      const out = document.getElementById('orderOut');
+      const est = calcEst();
+      const tipe = document.getElementById('tipe').value;
+      const speed = document.getElementById('speed').value;
+      const lay = tipe === 'kiloan'
+        ? `Kiloan ${document.getElementById('kg').value}kg (${speed})`
+        : `Satuan ${document.getElementById('item').value.split('|')[0]} x${document.getElementById('qty').value} (${speed})`;
+      const lipat = document.getElementById('lipat').value;
+      const cat = document.getElementById('catatan').value.trim();
+      const jemput = document.getElementById('jemput').value.replace('T', ' ');
+      const antar = document.getElementById('antar').value.replace('T', ' ');
+      const det = `${lay} | ${lipat} | Jemput: ${jemput} | Antar: ${antar}` + (cat ? ` | ${cat}` : '');
 
       const nama = document.getElementById('nama').value.trim();
       const noHp = document.getElementById('noHp').value.trim();
-      const kecamatan = document.getElementById('kecamatan').value;
+      const kec = document.getElementById('kec').value;
       const alamat = document.getElementById('alamat').value.trim();
-      const layanan = document.getElementById('layanan').value.trim();
-      const metodeBayar = document.getElementById('metodeBayar').value;
-      const nominal = document.getElementById('nominal').value.trim();
-      const catatan = document.getElementById('catatan').value.trim();
+      const bayar = document.getElementById('bayar').value;
+      let orderId = 'ZVN-' + Date.now();
 
-      if (!nama || !noHp || !alamat || !layanan) {
-        resultBox.textContent = 'Harap lengkapi data yang wajib diisi.';
-        return;
-      }
-
-      const generatedId = 'ZVN-' + Date.now();
-      const payload = {
-        order_id: generatedId,
-        pelanggan: nama,
-        no_wa: noHp,
-        kecamatan_zona_1: kecamatan,
-        lokasi_jemput: alamat,
-        layanan_detail: layanan,
-        metode_pembayaran: metodeBayar,
-        nmid_qris: metodeBayar === 'QRIS' ? 'ID1026556910978' : '-',
-        nominal: nominal || '0',
-        catatan: catatan || '-'
-      };
-
-      submitBtn.disabled = true;
-      resultBox.textContent = 'Mengirim pesanan ke sistem...';
-
-      let finalOrderId = generatedId;
-      if (!ZEEVANNA_API_URL.includes('GANTI_DENGAN_URL_WEB_APP_EXEC_ANDA')) {
+      btn.disabled = true;
+      out.textContent = 'Mengirim pesanan...';
+      if (!API_URL.includes('GANTI_DENGAN_URL_WEB_APP_EXEC_ANDA')) {
         try {
-          const res = await fetch(ZEEVANNA_API_URL, {
+          const r = await fetch(API_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-            body: JSON.stringify(payload)
+            body: JSON.stringify({
+              order_id: orderId, pelanggan: nama, no_wa: noHp, kecamatan_zona_1: kec,
+              lokasi_jemput: alamat, layanan_detail: det, metode_pembayaran: bayar,
+              nmid_qris: bayar === 'QRIS' ? 'ID1026556910978' : '-', nominal: est.tot, catatan: cat || lipat
+            })
           });
-          const data = await res.json().catch(() => ({}));
-          if (data && (data.order_id || data.orderId)) {
-            finalOrderId = data.order_id || data.orderId;
-          }
-          resultBox.textContent = `Pesanan terkirim! Order ID: ${finalOrderId}`;
-          document.getElementById('trackOrderId').value = finalOrderId;
-        } catch (err) {
-          resultBox.textContent = `Gagal kirim otomatis ke API (${err.message}). Order ID lokal: ${finalOrderId}`;
-        }
-      } else {
-        resultBox.textContent = `URL API belum dipasang. Order ID: ${finalOrderId}`;
-      }
+          const j = await r.json().catch(() => ({}));
+          if (j && (j.order_id || j.orderId)) orderId = j.order_id || j.orderId;
+          out.textContent = `Terkirim! Order ID: ${orderId} (${rp(est.tot)})`;
+        } catch (err) { out.textContent = `Gagal API (${err.message}). Order ID: ${orderId}`; }
+      } else { out.textContent = `URL API belum dipasang. Order ID: ${orderId}`; }
 
-      const pesan =
-        `Halo Zeevanna Digital & Service, saya ingin memesan layanan:%0A` +
-        `Order ID: ${encodeURIComponent(finalOrderId)}%0A` +
-        `Nama: ${encodeURIComponent(nama)}%0A` +
-        `No WA: ${encodeURIComponent(noHp)}%0A` +
-        `Kecamatan: ${encodeURIComponent(kecamatan)}%0A` +
-        `Alamat: ${encodeURIComponent(alamat)}%0A` +
-        `Layanan: ${encodeURIComponent(layanan)}%0A` +
-        `Bayar: ${encodeURIComponent(metodeBayar)} | Nominal: ${encodeURIComponent(nominal || '0')}%0A` +
-        `Catatan: ${encodeURIComponent(catatan || '-')}`;
+      document.getElementById('trackId').value = orderId;
+      markStep('1. Menunggu Kasir');
+      const arr = JSON.parse(localStorage.getItem(KEY_HIST) || '[]');
+      arr.unshift({ order_id: orderId, pelanggan: nama, kecamatan_zona_1: kec, layanan_detail: det, metode_pembayaran: bayar, nominal: est.tot });
+      localStorage.setItem(KEY_HIST, JSON.stringify(arr.slice(0, 15)));
+      renderHist();
 
-      window.open(`https://wa.me/6283819023700?text=${pesan}`, '_blank');
-      submitBtn.disabled = false;
+      const msg = `Halo Zeevanna, saya pesan:%0AOrder ID: ${encodeURIComponent(orderId)}%0ANama: ${encodeURIComponent(nama)}%0AWA: ${encodeURIComponent(noHp)}%0AKec: ${encodeURIComponent(kec)}%0AAlamat: ${encodeURIComponent(alamat)}%0ADetail: ${encodeURIComponent(det)}%0ABayar: ${encodeURIComponent(bayar)} (${encodeURIComponent(rp(est.tot))})`;
+      window.open(`https://wa.me/6283819023700?text=${msg}`, '_blank');
+      btn.disabled = false;
     });
+    renderHist();
   </script>
 </body>
 </html>
