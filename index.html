@@ -329,11 +329,20 @@
     });
     renderStep(0);
 
+
+    function normalizeWaNumber(raw) {
+      const digits = String(raw || '').replace(/\D/g, '');
+      if (!digits) return '';
+      if (digits.startsWith('0')) return '62' + digits.slice(1);
+      if (digits.startsWith('8')) return '62' + digits;
+      return digits;
+    }
+
     function getFormPayload() {
       return {
         order_id: 'ZVN-' + Date.now().toString().slice(-6),
         timestamp: new Date().toISOString(),
-        no_wa: document.getElementById('noWa').value.trim(),
+        no_wa: normalizeWaNumber(document.getElementById('noWa').value),
         zona: document.getElementById('zona').value.trim(),
         nama: document.getElementById('nama').value.trim(),
         bisnis: document.getElementById('bisnis').value.trim(),
@@ -371,7 +380,10 @@
         });
         localStorage.setItem('zeevanna_last_order_id', payload.order_id);
         document.getElementById('trackOrderId').value = payload.order_id;
-        showStatus('Pesanan ' + payload.order_id + ' berhasil dikirim ke Google Spreadsheets.', false);
+        showStatus(
+          `Pesanan <strong>${payload.order_id}</strong> berhasil dikirim ke Google Spreadsheets. Gunakan ID ini di kolom Lacak Status Pesanan di bawah.`,
+          false
+        );
       } catch (err) {
         showStatus('Gagal mengirim ke Google Spreadsheets: ' + err.message, true);
       }
@@ -429,6 +441,13 @@
         }
       } catch (err) {
         box.innerHTML = `<span class="text-rose-300">Gagal memuat status: ${err.message}</span>`;
+      }
+    });
+
+    document.getElementById('metodeBayar').addEventListener('change', (e) => {
+      const box = document.getElementById('qrisBox');
+      if (e.target.value.includes('QRIS')) {
+        box.classList.remove('hidden');
       }
     });
   </script>
