@@ -170,6 +170,10 @@
               <input id="nama" type="text" required placeholder="Contoh: Budi Santoso" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-sm focus:outline-none focus:border-cyan-400" />
             </div>
             <div>
+              <label class="block text-xs font-semibold text-slate-300 mb-1.5">No. WhatsApp Pelanggan</label>
+              <input id="noWa" type="tel" placeholder="Contoh: 0812xxxxxxxx atau 62812xxxxxxxx" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-sm focus:outline-none focus:border-cyan-400" />
+            </div>
+            <div>
               <label class="block text-xs font-semibold text-slate-300 mb-1.5">Zona / Wilayah</label>
               <select id="zona" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-sm focus:outline-none focus:border-cyan-400">
                 <option value="Zona 1 - Kec. Pandeglang (Kab. Pandeglang)" selected>Zona 1 - Kec. Pandeglang (Kab. Pandeglang)</option>
@@ -306,7 +310,9 @@
 
     function getFormPayload() {
       return {
+        order_id: 'ZVN-' + Date.now().toString().slice(-6),
         timestamp: new Date().toISOString(),
+        no_wa: document.getElementById('noWa').value.trim(),
         zona: document.getElementById('zona').value.trim(),
         nama: document.getElementById('nama').value.trim(),
         bisnis: document.getElementById('bisnis').value.trim(),
@@ -352,6 +358,8 @@
       const p = getFormPayload();
       const text = encodeURIComponent(
         `Halo Zeevanna Digital & Service, saya ingin memesan:\n` +
+        `ID Pesanan: ${p.order_id}\n` +
+        `No. WA: ${p.no_wa || '-'}\n` +
         `Nama: ${p.nama || '-'}\n` +
         `Zona: ${p.zona || '-'}\n` +
         `Bisnis: ${p.bisnis || '-'}\n` +
