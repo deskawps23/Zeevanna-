@@ -222,6 +222,27 @@
     </div>
   </section>
 
+  <!-- Lacak Status Pesanan -->
+  <section id="lacak-pesanan" class="py-12 border-t border-slate-800/80">
+    <div class="max-w-3xl mx-auto px-4">
+      <div class="p-6 md:p-8 rounded-2xl bg-slate-900 border border-slate-800">
+        <h2 class="text-xl md:text-2xl font-bold mb-2">Lacak Status Pesanan</h2>
+        <p class="text-slate-400 text-sm mb-5">
+          Masukkan ID Pesanan (contoh: <span class="font-mono text-cyan-300">ZVN-123456</span>) untuk memantau alur layanan dari Kasir hingga Selesai.
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-3">
+          <input id="trackOrderId" type="text" placeholder="Masukkan ID Pesanan (ZVN-...)" class="flex-1 px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-sm font-mono uppercase focus:outline-none focus:border-cyan-400" />
+          <button type="button" id="trackBtn" class="px-5 py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-sm transition">
+            Cek Status
+          </button>
+        </div>
+
+        <div id="trackResult" class="hidden mt-4 p-4 rounded-xl bg-slate-950 border border-slate-800 text-xs md:text-sm space-y-1.5"></div>
+      </div>
+    </div>
+  </section>
+
   <!-- Footer -->
   <footer class="py-8 border-t border-slate-800 text-center text-xs text-slate-400 space-y-1">
     <p>&copy; <span id="year"></span> Zeevanna Digital &amp; Service. Semua hak cipta dilindungi.</p>
@@ -348,7 +369,9 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
         });
-        showStatus('Data pesanan berhasil dikirim ke Google Spreadsheets.', false);
+        localStorage.setItem('zeevanna_last_order_id', payload.order_id);
+        document.getElementById('trackOrderId').value = payload.order_id;
+        showStatus('Pesanan ' + payload.order_id + ' berhasil dikirim ke Google Spreadsheets.', false);
       } catch (err) {
         showStatus('Gagal mengirim ke Google Spreadsheets: ' + err.message, true);
       }
@@ -367,6 +390,46 @@
         `Detail: ${p.detail || '-'}`
       );
       window.open(`https://wa.me/${ZEEVANNA_WA_NUMBER}?text=${text}`, '_blank');
+    });
+
+    const savedOrderId = localStorage.getItem('zeevanna_last_order_id');
+    if (savedOrderId) {
+      document.getElementById('trackOrderId').value = savedOrderId;
+    }
+
+    document.getElementById('trackBtn').addEventListener('click', async () => {
+      const orderId = document.getElementById('trackOrderId').value.trim().toUpperCase();
+      const box = document.getElementById('trackResult');
+      box.classList.remove('hidden');
+
+      if (!orderId) {
+        box.innerHTML = '<span class="text-rose-300">Silakan masukkan ID Pesanan terlebih dahulu.</span>';
+        return;
+      }
+      if (!ZEEVANNA_SPREADSHEETS_WEBAPP_URL || ZEEVANNA_SPREADSHEETS_WEBAPP_URL.includes('REPLACE_WITH_YOUR_APPS_SCRIPT_WEBAPP_URL')) {
+        box.innerHTML = '<span class="text-amber-300">URL WebApp Google Spreadsheets belum terpasang.</span>';
+        return;
+      }
+
+      box.innerHTML = '<span class="text-slate-400">Mengecek status pesanan...</span>';
+      try {
+        const url = `${ZEEVANNA_SPREADSHEETS_WEBAPP_URL}?action=status&order_id=${encodeURIComponent(orderId)}`;
+        const res = await fetch(url);
+        const data = await res.json();
+
+        if (data.status === 'success') {
+          box.innerHTML =
+            `<div><span class="text-slate-400">ID Pesanan:</span> <strong class="font-mono text-cyan-300">${data.order_id}</strong></div>` +
+            `<div><span class="text-slate-400">Nama:</span> <span class="text-slate-200">${data.nama || '-'}</span></div>` +
+            `<div><span class="text-slate-400">Zona:</span> <span class="text-slate-200">${data.zona || '-'}</span></div>` +
+            `<div><span class="text-slate-400">Layanan:</span> <span class="text-slate-200">${data.layanan || '-'}</span></div>` +
+            `<div><span class="text-slate-400">Status Alur:</span> <strong class="text-emerald-300">${data.alur_status || '-'}</strong></div>`;
+        } else {
+          box.innerHTML = `<span class="text-rose-300">${data.message || 'Pesanan tidak ditemukan.'}</span>`;
+        }
+      } catch (err) {
+        box.innerHTML = `<span class="text-rose-300">Gagal memuat status: ${err.message}</span>`;
+      }
     });
   </script>
 </body>
