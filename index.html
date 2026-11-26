@@ -60,7 +60,21 @@
     .svc-btn { display: inline-block; text-align: center; text-decoration: none; font-size: 0.74rem; font-weight: 700; padding: 8px 10px; border-radius: 10px; }
     .svc-btn-on { background: var(--grad); color: #fff; }
     .svc-btn-soon { background: #E2E8F0; color: #475569; }
-  </style>
+  
+/* Audit UI: cegah teks terpotong & perjelas tombol aksi */
+#driverForm p, #driverForm small, #driverForm .hint, #driverForm .msg {
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+#driverForm button[type="submit"], #driverForm input[type="submit"] {
+  display: inline-block;
+  padding: 10px 16px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+}
+</style>
 </head>
 <body>
   <header class="hdr"><div class="wrap hdr-in">
