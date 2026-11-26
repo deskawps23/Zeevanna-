@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id">
+<html data-theme="minimal" lang="id">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
@@ -76,23 +76,141 @@
 }
 </style>
 
-<style id="zeevanna-clean-polish">
-  /* Rapikan wrapping tanpa memaksa patah di tengah kata pendek */
+<style id="zeevanna-style-pack">
+  /* Dasar aman: cegah kata terpotong & rapikan tombol */
   .step, .tahap, [class*="step"], [class*="stage"] {
     overflow-wrap: normal;
     word-break: normal;
-    hyphens: auto;
   }
   p, small, label, .hint, .note, .msg, #driverForm p, #driverForm small, #driverForm .hint, #driverForm .msg {
     max-width: 100%;
     white-space: normal;
     word-wrap: break-word;
   }
-  #driverForm button[type="submit"], #driverForm input[type="submit"] {
+  button, .btn, input[type="submit"], #driverForm button[type="submit"] {
     padding: 10px 16px;
     font-weight: 600;
-    border-radius: 8px;
     cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+  }
+
+  /* 1. MINIMALIST / FLAT UI (Default: bersih, ringan, ruang lega) */
+  :root, html[data-theme="minimal"] {
+    --card-bg: #ffffff;
+    --card-border: #e5e7eb;
+    --card-shadow: none;
+    --card-radius: 12px;
+    --card-blur: none;
+    --btn-bg: #111827;
+    --btn-fg: #ffffff;
+    --btn-border: #111827;
+    --btn-shadow: none;
+  }
+
+  /* 2. GLASSMORPHISM / FROST UI */
+  html[data-theme="minimal"] .card,
+  html[data-theme="minimal"] .box,
+  html[data-theme="minimal"] .panel,
+  html[data-theme="minimal"] form#driverForm {
+    background: rgba(255, 255, 255, 0.68);
+    backdrop-filter: blur(14px) saturate(130%);
+    -webkit-backdrop-filter: blur(14px) saturate(130%);
+    border: 1px solid rgba(255, 255, 255, 0.55);
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+  }
+  html[data-theme="minimal"] button[type="submit"],
+  html[data-theme="minimal"] .btn-primary {
+    background: rgba(17, 24, 39, 0.86);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    backdrop-filter: blur(8px);
+    border-radius: 12px;
+  }
+
+  /* 3. NEUMORPHISM / CLAYMORPHISM */
+  html[data-theme="minimal"] {
+    --clay-bg: #eef2f7;
+  }
+  html[data-theme="minimal"] body {
+    background-color: var(--clay-bg);
+    color: #1e293b;
+  }
+  html[data-theme="minimal"] .card,
+  html[data-theme="minimal"] .box,
+  html[data-theme="minimal"] .panel,
+  html[data-theme="minimal"] form#driverForm {
+    background: var(--clay-bg);
+    border: 1px solid rgba(255, 255, 255, 0.75);
+    border-radius: 22px;
+    box-shadow:
+      10px 10px 22px rgba(163, 177, 198, 0.55),
+      -10px -10px 22px rgba(255, 255, 255, 0.9),
+      inset 0 2px 4px rgba(255, 255, 255, 0.8);
+  }
+  html[data-theme="minimal"] input,
+  html[data-theme="minimal"] select,
+  html[data-theme="minimal"] textarea {
+    background: var(--clay-bg);
+    border: none;
+    border-radius: 14px;
+    box-shadow:
+      inset 5px 5px 10px rgba(163, 177, 198, 0.45),
+      inset -5px -5px 10px rgba(255, 255, 255, 0.85);
+  }
+  html[data-theme="minimal"] button[type="submit"],
+  html[data-theme="minimal"] .btn-primary {
+    background: #3b82f6;
+    color: #ffffff;
+    border: none;
+    border-radius: 16px;
+    box-shadow:
+      6px 6px 14px rgba(59, 130, 246, 0.32),
+      -4px -4px 10px rgba(255, 255, 255, 0.8),
+      inset 0 2px 3px rgba(255, 255, 255, 0.45);
+  }
+
+  /* 4. NEO-BRUTALISM */
+  html[data-theme="minimal"] body {
+    background-color: #fffdf5;
+    color: #09090b;
+  }
+  html[data-theme="minimal"] .card,
+  html[data-theme="minimal"] .box,
+  html[data-theme="minimal"] .panel,
+  html[data-theme="minimal"] form#driverForm {
+    background: #ffffff;
+    border: 3px solid #09090b;
+    border-radius: 4px;
+    box-shadow: 6px 6px 0px #09090b;
+  }
+  html[data-theme="minimal"] h1,
+  html[data-theme="minimal"] h2,
+  html[data-theme="minimal"] h3 {
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+  html[data-theme="minimal"] input,
+  html[data-theme="minimal"] select,
+  html[data-theme="minimal"] textarea {
+    background: #ffffff;
+    border: 2px solid #09090b;
+    border-radius: 4px;
+    box-shadow: 3px 3px 0px #09090b;
+  }
+  html[data-theme="minimal"] button[type="submit"],
+  html[data-theme="minimal"] .btn-primary {
+    background: #facc15;
+    color: #09090b;
+    border: 2.5px solid #09090b;
+    border-radius: 4px;
+    font-weight: 800;
+    box-shadow: 4px 4px 0px #09090b;
+  }
+  html[data-theme="minimal"] button[type="submit"]:active,
+  html[data-theme="minimal"] .btn-primary:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0px #09090b;
   }
 </style>
 </head>
@@ -451,7 +569,6 @@ document.getElementById('driverForm').addEventListener('submit', async function(
   btn.disabled = false;
 });
 </script>
-
 
 <footer id="zeevanna-footer" style="text-align:center;padding:14px 10px;font-size:12px;opacity:0.85;">Create design &amp; development by deskawps</footer>
 </body>
