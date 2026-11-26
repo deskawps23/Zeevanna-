@@ -75,6 +75,196 @@
   cursor: pointer;
 }
 </style>
+<style id="zeevanna-luxury-theme">
+:root {
+  --bg-obsidian: #090d14;
+  --bg-elevated: #101724;
+  --surface-glass: rgba(18, 25, 39, 0.86);
+  --surface-card: linear-gradient(155deg, rgba(24, 33, 50, 0.92), rgba(12, 17, 28, 0.95));
+  --gold-main: #d4af37;
+  --gold-bright: #f2d379;
+  --gold-soft: rgba(212, 175, 55, 0.16);
+  --border-gold: rgba(212, 175, 55, 0.28);
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --accent-emerald: #10b981;
+  --shadow-megah: 0 22px 50px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(212, 175, 55, 0.14);
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--bg-obsidian);
+}
+
+body {
+  background:
+    radial-gradient(circle at 50% -8%, rgba(212, 175, 55, 0.18), transparent 48%),
+    radial-gradient(circle at 90% 18%, rgba(30, 64, 175, 0.14), transparent 42%),
+    linear-gradient(180deg, #090d14 0%, #0d131f 55%, #080c12 100%);
+  color: var(--text-primary);
+  font-family: "Plus Jakarta Sans", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.6;
+  letter-spacing: -0.005em;
+  padding-bottom: 88px;
+  overflow-x: hidden;
+}
+
+/* Angka nominal, tarif, dan waktu agar sejajar presisi */
+.num, .price, .tarif, .rp, [class*="harga"], [class*="tarif"], [class*="total"], [class*="est"] {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Header megah berkelas */
+header, .hdr, .topbar, nav.top-nav {
+  background: rgba(9, 13, 20, 0.82) !important;
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  border-bottom: 1px solid var(--border-gold) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+.brand, header a[href="#top"], .logo {
+  color: var(--text-primary) !important;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.brand span, header .brand span {
+  color: var(--gold-bright) !important;
+  font-weight: 600;
+}
+
+/* Kartu & panel utama bergaya mewah */
+section, .card, .panel, .box, .wrap > div[style*="background"], form {
+  border-radius: 18px;
+}
+
+.card, .panel, .box, form#driverForm, [class*="card"], [class*="box"] {
+  background: var(--surface-card);
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-megah);
+}
+
+/* Judul elegan dengan sentuhan emas champagne */
+h1, .hero-title {
+  background: linear-gradient(135deg, #ffffff 15%, #f2d379 65%, #c59b27 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent !important;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.18;
+}
+
+h2, h3 {
+  color: var(--text-primary);
+  font-weight: 700;
+  letter-spacing: -0.015em;
+}
+
+h2::after {
+  content: "";
+  display: block;
+  width: 44px;
+  height: 2px;
+  margin-top: 8px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--gold-main), transparent);
+}
+
+/* Label, input, select & textarea profesional */
+label {
+  display: block;
+  color: var(--gold-bright);
+  font-size: 0.86rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  margin-top: 12px;
+  margin-bottom: 6px;
+}
+
+input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="button"]),
+select,
+textarea {
+  width: 100%;
+  box-sizing: border-box;
+  background: rgba(8, 12, 20, 0.78) !important;
+  color: var(--text-primary) !important;
+  border: 1px solid rgba(148, 163, 184, 0.26) !important;
+  border-radius: 12px !important;
+  padding: 12px 14px !important;
+  font-size: 0.95rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+input::placeholder, textarea::placeholder {
+  color: var(--text-muted) !important;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none !important;
+  border-color: var(--gold-main) !important;
+  background: rgba(11, 17, 29, 0.96) !important;
+  box-shadow: 0 0 0 3px var(--gold-soft) !important;
+}
+
+/* Tombol utama & sekunder mewah */
+button, .btn, input[type="submit"], input[type="button"] {
+  border-radius: 12px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  transition: transform 0.16s ease, box-shadow 0.2s ease, filter 0.2s ease;
+  cursor: pointer;
+}
+
+button[type="submit"], .btn-primary, #driverForm button[type="submit"] {
+  background: linear-gradient(135deg, #f3d57e 0%, #d4af37 52%, #a67c16 100%) !important;
+  color: #090d14 !important;
+  border: 1px solid rgba(255, 236, 179, 0.55) !important;
+  padding: 12px 20px !important;
+  box-shadow: 0 10px 24px rgba(212, 175, 55, 0.28);
+}
+
+button[type="submit"]:hover, .btn-primary:hover, #driverForm button[type="submit"]:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.05);
+  box-shadow: 0 14px 30px rgba(212, 175, 55, 0.38);
+}
+
+button[type="submit"]:active, .btn-primary:active, #driverForm button[type="submit"]:active {
+  transform: translateY(0);
+}
+
+/* Cegah teks terpotong di layar sempit */
+p, small, span, div, label, .hint, .note, .msg, #driverForm p, #driverForm small, #driverForm .hint, #driverForm .msg {
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+/* Navigasi bawah elegan */
+nav.bottom-nav, .bottom-nav, [class*="bottom-nav"], [class*="nav-bar"] {
+  background: rgba(9, 13, 20, 0.9) !important;
+  backdrop-filter: blur(18px) saturate(150%);
+  -webkit-backdrop-filter: blur(18px) saturate(150%);
+  border-top: 1px solid var(--border-gold) !important;
+  box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.45);
+}
+
+/* Footer eksklusif deskawps */
+#zeevanna-footer, footer {
+  color: var(--text-muted) !important;
+  border-top: 1px solid rgba(212, 175, 55, 0.16);
+  margin-top: 28px;
+  padding: 18px 14px !important;
+  font-size: 0.78rem !important;
+  letter-spacing: 0.04em;
+  opacity: 0.95 !important;
+}
+</style>
 </head>
 <body>
   <header class="hdr"><div class="wrap hdr-in">
