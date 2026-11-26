@@ -76,27 +76,64 @@
 }
 </style>
 
-<style id="zeevanna-ui-v2">
+<style id="zeevanna-palette-v3">
   :root {
-    --zv-bg: #f6f8fb;
-    --zv-surface: #ffffff;
-    --zv-ink: #0f172a;
-    --zv-muted: #475569;
-    --zv-line: #e2e8f0;
-    --zv-accent: #0f766e;
-    --zv-accent-ink: #ffffff;
-    --zv-radius: 14px;
+    --bone-base: #f7f5f0;
+    --bone-card: #fffdf9;
+    --navy-deep: #0f2447;
+    --mint-soft: #86efac;
+    --mint-vivid: #22c55e;
+    --tosca-main: #0d9488;
+    --tosca-bright: #2dd4bf;
+    --burgundy-main: #6b1d2f;
+    --burgundy-dark: #4a1220;
+    --black-flare: #050505;
+    --ink-dark: #0f172a;
+    --ink-muted: #475569;
+    --line-soft: #e2ddd2;
   }
 
   body {
-    background-color: var(--zv-bg);
-    color: var(--zv-ink);
+    background-color: var(--bone-base);
+    color: var(--ink-dark);
     font-family: "Inter", "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    line-height: 1.55;
     overflow-x: hidden;
   }
 
-  /* Cegah teks terpotong atau kata patah aneh di layar kecil */
+  /* Header biru navy dengan aksen tosca & slide hitam menyala */
+  header, .hdr, .topbar {
+    background-color: var(--navy-deep);
+    color: var(--bone-base);
+    border-bottom: 2px solid var(--tosca-main);
+  }
+
+  /* Slide / drawer / panel geser hitam menyala */
+  .slide, .drawer, .sidebar, .menu-slide, [class*="slide"], [class*="drawer"] {
+    background-color: var(--black-flare);
+    color: var(--bone-base);
+    border-color: var(--tosca-bright);
+    box-shadow: 0 10px 28px rgba(5, 5, 5, 0.45), 0 0 0 1px rgba(45, 212, 191, 0.35);
+  }
+
+  /* Badge & aksen hijau muda + tosca */
+  .badge-aktif, .status-aktif, .tag-mint, [class*="badge"] {
+    background-color: var(--mint-soft);
+    color: var(--navy-deep);
+    border: 1px solid var(--mint-vivid);
+  }
+
+  a, .link-tosca, [class*="tosca"] {
+    color: var(--tosca-main);
+  }
+
+  /* Aksen merah burgundy pada tombol / highlight tertentu */
+  .btn-burgundy, .badge-burgundy, [class*="burgundy"] {
+    background-color: var(--burgundy-main);
+    color: var(--bone-base);
+    border-color: var(--burgundy-dark);
+  }
+
+  /* Cegah teks terpotong atau patah aneh */
   p, small, span, div, label, li, .hint, .note, .msg,
   #driverForm p, #driverForm small, #driverForm .hint, #driverForm .msg {
     max-width: 100%;
@@ -106,17 +143,19 @@
   }
 
   .step, .tahap, [class*="step"], [class*="stage"] {
+    font-size: 0.82rem;
     overflow-wrap: normal;
     word-break: normal;
     min-width: 0;
   }
 
-  /* Konsistensi kontrol form & tombol */
   input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="button"]),
   select,
   textarea {
     max-width: 100%;
     box-sizing: border-box;
+    background-color: var(--bone-card);
+    border-color: var(--line-soft);
     border-radius: 10px;
   }
 
@@ -126,12 +165,10 @@
     border-radius: 10px;
     font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.15s ease, border-color 0.15s ease, opacity 0.15s ease;
   }
 
-  /* Footer tetap rapi dan terbaca */
   #zeevanna-footer, footer {
-    color: var(--zv-muted);
+    color: var(--navy-deep);
     font-size: 0.8rem;
     padding: 16px 12px;
     text-align: center;
