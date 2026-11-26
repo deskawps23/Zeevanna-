@@ -97,3 +97,4 @@ registerLink.addEventListener("click", async (e) => {
     alert("❌ Gagal daftar: " + error.message);
   }
 });
+document.addEventListener('mousemove',function(e){var x=(e.clientX/window.innerWidth-0.5)*20;var y=(e.clientY/window.innerHeight-0.5)*20;document.querySelectorAll('.svc-card').forEach(function(c){c.style.transform='perspective(800px) rotateY('+x+'deg) rotateX('+(-y)+'deg) translateZ(20px)'})});

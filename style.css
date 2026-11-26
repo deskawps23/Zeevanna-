@@ -114,3 +114,4 @@ button[type="submit"]:disabled {
     border-radius: 8px;
     margin-top: 12px;
 }
+.svc-card{transform-style:preserve-3d;transition:transform .2s ease;will-change:transform}
