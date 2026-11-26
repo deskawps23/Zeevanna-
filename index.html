@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html data-theme="minimal" lang="id">
+<html data-theme="dribbble" lang="id">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
@@ -212,6 +212,54 @@
     transform: translate(2px, 2px);
     box-shadow: 2px 2px 0px #09090b;
   }
+
+  /* 5. DRIBBBLE MODERN POLISH (bersih, berdimensi halus, modern) */
+  html[data-theme="dribbble"] body {
+    background: linear-gradient(180deg, #f5f7fb 0%, #eef2f8 100%);
+    color: #0f172a;
+  }
+  html[data-theme="dribbble"] .card,
+  html[data-theme="dribbble"] .box,
+  html[data-theme="dribbble"] .panel,
+  html[data-theme="dribbble"] form#driverForm {
+    background: #ffffff;
+    border: 1px solid rgba(15, 23, 42, 0.06);
+    border-radius: 18px;
+    box-shadow:
+      0 10px 25px -5px rgba(15, 23, 42, 0.06),
+      0 4px 10px -2px rgba(15, 23, 42, 0.03);
+  }
+  html[data-theme="dribbble"] input,
+  html[data-theme="dribbble"] select,
+  html[data-theme="dribbble"] textarea {
+    background: #f8fafc;
+    color: #0f172a;
+    border: 1px solid #cbd5e1;
+    border-radius: 12px;
+  }
+  html[data-theme="dribbble"] input:focus,
+  html[data-theme="dribbble"] select:focus,
+  html[data-theme="dribbble"] textarea:focus {
+    outline: none;
+    background: #ffffff;
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.14);
+  }
+  html[data-theme="dribbble"] button[type="submit"],
+  html[data-theme="dribbble"] .btn-primary {
+    background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+    color: #ffffff;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    box-shadow: 0 8px 18px -4px rgba(79, 70, 229, 0.35);
+  }
+  html[data-theme="dribbble"] button[type="submit"]:hover,
+  html[data-theme="dribbble"] .btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 12px 22px -4px rgba(79, 70, 229, 0.42);
+  }
+
 </style>
 </head>
 <body>
