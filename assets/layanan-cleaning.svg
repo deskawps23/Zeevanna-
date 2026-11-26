@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" width="320" height="200">
+  <rect width="320" height="200" rx="22" fill="#fffdf9" stroke="#0f2447" stroke-width="2.5"/>
+  <ellipse cx="160" cy="160" rx="105" ry="13" fill="#050505" opacity="0.14"/>
+  <rect x="96" y="76" width="52" height="68" rx="12" fill="#0f2447"/>
+  <rect x="108" y="56" width="28" height="22" rx="4" fill="#6b1d2f"/>
+  <path d="M136 64 L164 64 L170 74" fill="none" stroke="#050505" stroke-width="6" stroke-linecap="round"/>
+  <path d="M188 144 L216 66 L228 70 L200 148 Z" fill="#0d9488"/>
+  <path d="M178 142 L212 146 L206 160 L172 154 Z" fill="#86efac" stroke="#0f2447" stroke-width="2.5"/>
+  <circle cx="248" cy="52" r="12" fill="#2dd4bf"/>
+  <text x="24" y="36" fill="#0f2447" font-family="Arial, sans-serif" font-size="14" font-weight="700">CLEANING SERVICE</text>
+</svg>

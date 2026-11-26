@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="240" height="240">
+  <defs>
+    <linearGradient id="navyGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f2447"/>
+      <stop offset="100%" stop-color="#1b3d75"/>
+    </linearGradient>
+    <linearGradient id="toscaGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0d9488"/>
+      <stop offset="100%" stop-color="#2dd4bf"/>
+    </linearGradient>
+  </defs>
+  <rect x="12" y="12" width="216" height="216" rx="44" fill="#f7f5f0" stroke="#0f2447" stroke-width="5"/>
+  <rect x="24" y="24" width="192" height="192" rx="34" fill="url(#navyGrad)"/>
+  <path d="M58 134 C66 96, 108 82, 166 86 L178 138 L64 138 Z" fill="#fffdf9" stroke="#2dd4bf" stroke-width="4"/>
+  <path d="M88 104 L138 104" stroke="#6b1d2f" stroke-width="7" stroke-linecap="round"/>
+  <path d="M54 156 Q120 176 186 146" fill="none" stroke="url(#toscaGrad)" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="176" cy="68" r="12" fill="#86efac"/>
+  <text x="120" y="196" text-anchor="middle" fill="#f7f5f0" font-family="Arial, sans-serif" font-size="22" font-weight="800" letter-spacing="1.5">ZEEVANNA</text>
+</svg>
