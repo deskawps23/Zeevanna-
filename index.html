@@ -76,64 +76,89 @@
 }
 </style>
 
-<style id="zeevanna-palette-v3">
+<style id="zeevanna-palette-final">
   :root {
-    --bone-base: #f7f5f0;
-    --bone-card: #fffdf9;
-    --navy-deep: #0f2447;
-    --mint-soft: #86efac;
-    --mint-vivid: #22c55e;
-    --tosca-main: #0d9488;
-    --tosca-bright: #2dd4bf;
-    --burgundy-main: #6b1d2f;
-    --burgundy-dark: #4a1220;
-    --black-flare: #050505;
-    --ink-dark: #0f172a;
-    --ink-muted: #475569;
-    --line-soft: #e2ddd2;
+    --putih-tulang: #f7f5f0;
+    --kartu-tulang: #fffdf9;
+    --biru-navy: #0f2447;
+    --hijau-muda: #86efac;
+    --hijau-tegas: #16a34a;
+    --tosca: #0d9488;
+    --tosca-terang: #2dd4bf;
+    --burgundy: #6b1d2f;
+    --burgundy-gelap: #4a1220;
+    --hitam-nyala: #050505;
+    --teks-utama: #0f2447;
+    --teks-redup: #475569;
   }
 
-  body {
-    background-color: var(--bone-base);
-    color: var(--ink-dark);
-    font-family: "Inter", "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  html, body {
+    background-color: var(--putih-tulang) !important;
+    color: var(--teks-utama) !important;
     overflow-x: hidden;
   }
 
-  /* Header biru navy dengan aksen tosca & slide hitam menyala */
-  header, .hdr, .topbar {
-    background-color: var(--navy-deep);
-    color: var(--bone-base);
-    border-bottom: 2px solid var(--tosca-main);
+  /* Header biru navy dengan teks terang & aksen tosca */
+  header, header * {
+    color: var(--putih-tulang);
+  }
+  header {
+    background: linear-gradient(135deg, var(--biru-navy) 0%, #163466 100%) !important;
+    border-bottom: 3px solid var(--tosca-terang) !important;
+  }
+  header a, header button {
+    color: var(--putih-tulang) !important;
   }
 
-  /* Slide / drawer / panel geser hitam menyala */
-  .slide, .drawer, .sidebar, .menu-slide, [class*="slide"], [class*="drawer"] {
-    background-color: var(--black-flare);
-    color: var(--bone-base);
-    border-color: var(--tosca-bright);
-    box-shadow: 0 10px 28px rgba(5, 5, 5, 0.45), 0 0 0 1px rgba(45, 212, 191, 0.35);
+  /* Kartu / section dasar putih tulang dengan sentuhan border tosca / navy */
+  section, .card, .box, .panel, form {
+    background-color: var(--kartu-tulang) !important;
+    border-color: rgba(15, 36, 71, 0.14) !important;
   }
 
-  /* Badge & aksen hijau muda + tosca */
-  .badge-aktif, .status-aktif, .tag-mint, [class*="badge"] {
-    background-color: var(--mint-soft);
-    color: var(--navy-deep);
-    border: 1px solid var(--mint-vivid);
+  /* Badge / pill hijau muda & tosca */
+  .badge, .pill, .tag, [class*="badge"], [class*="pill"], [class*="aktif"] {
+    background-color: var(--hijau-muda) !important;
+    color: var(--biru-navy) !important;
+    border: 1px solid var(--hijau-tegas) !important;
+    font-weight: 700;
   }
 
-  a, .link-tosca, [class*="tosca"] {
-    color: var(--tosca-main);
+  /* Tombol aksi utama merah burgundy (menggantikan ungu lama) */
+  button[type="submit"], .btn-primary, .btn-burgundy,
+  button[class*="primary"], button[class*="submit"],
+  #btnLacak, [id*="lacak"], [class*="pesan-btn"],
+  .card button:not([class*="secondary"]):not([class*="ghost"]) {
+    background-color: var(--burgundy) !important;
+    color: var(--putih-tulang) !important;
+    border: 1px solid var(--burgundy-gelap) !important;
+  }
+  button[type="submit"]:hover, .btn-primary:hover, #btnLacak:hover {
+    background-color: var(--burgundy-gelap) !important;
   }
 
-  /* Aksen merah burgundy pada tombol / highlight tertentu */
-  .btn-burgundy, .badge-burgundy, [class*="burgundy"] {
-    background-color: var(--burgundy-main);
-    color: var(--bone-base);
-    border-color: var(--burgundy-dark);
+  /* Aksen tosca untuk ikon/link/batas aktif */
+  a {
+    color: var(--tosca) !important;
+  }
+  .tosca, [class*="tosca"] {
+    color: var(--tosca) !important;
+    border-color: var(--tosca-terang) !important;
   }
 
-  /* Cegah teks terpotong atau patah aneh */
+  /* Slide / panel geser hitam menyala */
+  .slide, .drawer, .sidebar, .offcanvas, .modal-slide,
+  [class*="slide"], [class*="drawer"], [class*="offcanvas"] {
+    background-color: var(--hitam-nyala) !important;
+    color: var(--putih-tulang) !important;
+    border-color: var(--tosca-terang) !important;
+    box-shadow: 0 0 0 1px var(--tosca-terang), 0 0 24px rgba(45, 212, 191, 0.35), 0 14px 36px rgba(5, 5, 5, 0.75) !important;
+  }
+  [class*="slide"] *, [class*="drawer"] *, [class*="offcanvas"] * {
+    color: var(--putih-tulang);
+  }
+
+  /* Rapikan teks tahapan & cegah kata terpotong */
   p, small, span, div, label, li, .hint, .note, .msg,
   #driverForm p, #driverForm small, #driverForm .hint, #driverForm .msg {
     max-width: 100%;
@@ -143,9 +168,11 @@
   }
 
   .step, .tahap, [class*="step"], [class*="stage"] {
-    font-size: 0.82rem;
+    font-size: 0.76rem;
+    line-height: 1.25;
     overflow-wrap: normal;
     word-break: normal;
+    hyphens: none;
     min-width: 0;
   }
 
@@ -154,24 +181,16 @@
   textarea {
     max-width: 100%;
     box-sizing: border-box;
-    background-color: var(--bone-card);
-    border-color: var(--line-soft);
+    background-color: #ffffff !important;
+    color: var(--biru-navy) !important;
+    border: 1px solid rgba(15, 36, 71, 0.22) !important;
     border-radius: 10px;
-  }
-
-  button, .btn, input[type="submit"], input[type="button"],
-  #driverForm button[type="submit"], #driverForm input[type="submit"] {
-    max-width: 100%;
-    border-radius: 10px;
-    font-weight: 600;
-    cursor: pointer;
   }
 
   #zeevanna-footer, footer {
-    color: var(--navy-deep);
-    font-size: 0.8rem;
-    padding: 16px 12px;
-    text-align: center;
+    color: var(--biru-navy) !important;
+    background-color: var(--putih-tulang) !important;
+    border-top: 2px solid var(--tosca) !important;
   }
 </style>
 </head>
