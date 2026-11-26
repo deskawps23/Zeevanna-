@@ -324,7 +324,7 @@
     <a href="https://wa.me/6283819023700" target="_blank"><i class="fab fa-whatsapp"></i><span>WA</span></a>
   </nav>
   <script>
-  const API_URL = "https://script.google.com/macros/s/AKfycbyDk05peulId5P6RxPaTcIk8neEpJAOG6ZZDK0N66yqr9Go-jkZeyVYfrIgqh9nNUn_/exec";
+  window.API_URL = "https://script.google.com/macros/s/AKfycbyDk05peulId5P6RxPaTcIk8neEpJAOG6ZZDK0N66yqr9Go-jkZeyVYfrIgqh9nNUn_/exec";
     const KEY_HIST = 'zvn_hist_v1';
     const rp = (n) => 'Rp ' + Math.max(0, Math.round(n)).toLocaleString('id-ID');
 
@@ -368,10 +368,10 @@
       const id = document.getElementById('trackId').value.trim();
       const out = document.getElementById('trackOut');
       if (!id) { out.textContent = 'Masukkan Order ID dulu.'; return; }
-      if (API_URL.includes('GANTI_DENGAN_URL_WEB_APP_EXEC_ANDA')) { out.textContent = 'URL API belum dipasang.'; return; }
+      if (window.API_URL.includes('GANTI_DENGAN_URL_WEB_APP_EXEC_ANDA')) { out.textContent = 'URL API belum dipasang.'; return; }
       out.textContent = 'Memeriksa status...';
       try {
-        const d = await (await fetch(`${API_URL}?action=status&order_id=${encodeURIComponent(id)}`)).json();
+        const d = await (await fetch(`${window.API_URL}?action=status&order_id=${encodeURIComponent(id)}`)).json();
         if (d.status === 'found') {
           markStep(d.status_alur);
           out.textContent = `Order ID: ${d.order_id}\nPelanggan: ${d.pelanggan}\nKecamatan: ${d.kecamatan_zona_1}\nNominal: ${rp(d.nominal)}\nStatus: ${d.status_alur}`;
@@ -414,9 +414,9 @@
 
       btn.disabled = true;
       out.textContent = 'Mengirim pesanan...';
-      if (!API_URL.includes('GANTI_DENGAN_URL_WEB_APP_EXEC_ANDA')) {
+      if (!window.API_URL.includes('GANTI_DENGAN_URL_WEB_APP_EXEC_ANDA')) {
         try {
-          const r = await fetch(API_URL, {
+          const r = await fetch(window.API_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'text/plain;charset=utf-8' },
             body: JSON.stringify({
@@ -453,7 +453,7 @@
       btn.disabled = true;
       out.textContent = 'Mengirim pendaftaran mitra driver...';
       try {
-        const r = await fetch(API_URL, {
+        const r = await fetch(window.API_URL, {
           method: 'POST',
           mode: 'no-cors',
           headers: { 'Content-Type': 'text/plain;charset=utf-8' },
@@ -473,8 +473,8 @@
 
       const msg = `Halo Zeevanna, saya pesan:%0AOrder ID: ${encodeURIComponent(orderId)}%0ANama: ${encodeURIComponent(nama)}%0AWA: ${encodeURIComponent(noHp)}%0AKec: ${encodeURIComponent(kec)}%0AAlamat: ${encodeURIComponent(alamat)}%0ADetail: ${encodeURIComponent(det)}%0ABayar: ${encodeURIComponent(bayar)} (${encodeURIComponent(rp(est.tot))})`;
         // Sinkronisasi order otomatis ke sheet Bagi_Hasil_Porsi
-                if (typeof API_URL !== 'undefined' && API_URL) {
-                  fetch(API_URL, {
+                if (typeof window.API_URL !== 'undefined' && window.API_URL) {
+                  fetch(window.API_URL, {
                     method: 'POST',
                     mode: 'no-cors',
                     headers: { 'Content-Type': 'text/plain;charset=utf-8' },
@@ -533,8 +533,8 @@ document.getElementById('driverForm').addEventListener('submit', async function(
   btn.disabled = true;
   out.textContent = 'Mengirim pendaftaran mitra driver...';
   try {
-    const endpoint = (typeof API_URL !== 'undefined') ? API_URL : '';
-    if (!endpoint) throw new Error('API_URL belum terdefinisi di index.html');
+    const endpoint = (typeof window.API_URL !== 'undefined') ? window.API_URL : '';
+    if (!endpoint) throw new Error('window.API_URL belum terdefinisi di index.html');
     await fetch(endpoint, {
           method: 'POST',
           mode: 'no-cors',
