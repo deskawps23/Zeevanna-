@@ -1,0 +1,122 @@
+[
+  {
+    "desa": "Ciputri",
+    "kampung": "Kp. Mengger",
+    "rt": "02",
+    "rw": "03",
+    "kecamatan": "Kaduhejo",
+    "lat": -6.34,
+    "lng": 106.12,
+    "sumber": "ASAS Absen / GPS"
+  },
+  {
+    "desa": "Kaduhejo",
+    "kampung": "Kp. Kaduhejo",
+    "rt": "01",
+    "rw": "01",
+    "kecamatan": "Kaduhejo",
+    "lat": -6.335,
+    "lng": 106.125,
+    "sumber": "ASAS Absen / GPS"
+  },
+  {
+    "desa": "Cadasari",
+    "kampung": "Kp. Cadasari",
+    "rt": "01",
+    "rw": "01",
+    "kecamatan": "Cadasari",
+    "lat": -6.285,
+    "lng": 106.135,
+    "sumber": "ASAS Absen / GPS"
+  },
+  {
+    "desa": "Cadasari",
+    "kampung": "Kp. Cadasari Ujung",
+    "rt": "02",
+    "rw": "02",
+    "kecamatan": "Cadasari",
+    "lat": -6.275,
+    "lng": 106.14,
+    "sumber": "ASAS Absen / GPS"
+  },
+  {
+    "desa": "Saketi",
+    "kampung": "Kp. Saketi",
+    "rt": "01",
+    "rw": "01",
+    "kecamatan": "Saketi",
+    "lat": -6.395,
+    "lng": 106.135,
+    "sumber": "ASAS Absen / GPS"
+  },
+  {
+    "desa": "Saketi",
+    "kampung": "Kp. Saketi Ujung",
+    "rt": "02",
+    "rw": "02",
+    "kecamatan": "Saketi",
+    "lat": -6.41,
+    "lng": 106.14,
+    "sumber": "ASAS Absen / GPS"
+  },
+  {
+    "desa": "Menes",
+    "kampung": "Kp. Menes",
+    "rt": "01",
+    "rw": "01",
+    "kecamatan": "Menes",
+    "lat": -6.385,
+    "lng": 106.115,
+    "sumber": "ASAS Absen / GPS"
+  },
+  {
+    "desa": "Menes",
+    "kampung": "Kp. Menes Ujung",
+    "rt": "02",
+    "rw": "02",
+    "kecamatan": "Menes",
+    "lat": -6.4,
+    "lng": 106.11,
+    "sumber": "ASAS Absen / GPS"
+  },
+  {
+    "desa": "Angsana",
+    "kampung": "Kp. Angsana",
+    "rt": "01",
+    "rw": "01",
+    "kecamatan": "Angsana",
+    "lat": -6.6,
+    "lng": 106.0,
+    "sumber": "ASAS Absen / GPS"
+  },
+  {
+    "desa": "Pandeglang",
+    "kampung": "Kp. Pandeglang",
+    "rt": "01",
+    "rw": "01",
+    "kecamatan": "Pandeglang",
+    "lat": -6.315,
+    "lng": 106.105,
+    "sumber": "ASAS Absen / GPS"
+  },
+  {
+    "desa": "Banjar",
+    "kampung": "Kp. Banjar",
+    "rt": "01",
+    "rw": "01",
+    "kecamatan": "Banjar",
+    "lat": -6.365,
+    "lng": 106.185,
+    "sumber": "ASAS Absen / GPS"
+  },
+  {
+    "desa": "Sumur",
+    "kampung": "Kp. Sumur",
+    "rt": "01",
+    "rw": "01",
+    "kecamatan": "Sumur",
+    "lat": -6.655,
+    "lng": 105.575,
+    "sumber": "ASAS Absen / GPS"
+  }
+]

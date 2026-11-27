@@ -103,5 +103,60 @@ function haversineFallback(a,b){
 // Contoh: Kaduhejo ke Saketi lurus 10 km x 1.4 = 14 km jalan, deket 15 km beneran!
 // Contoh: Kaduhejo ke Angsana lurus 32 km x 1.4 = 45 km jalan, deket 54 km beneran!
 </script>
+
+<script>
+// PER-KOORDINAT - BUKAN PER KECAMATAN!
+// Hapus: Tengah Kaduhejo -> Tengah Saketi = 7 km - SALAH!
+// Ganti: Titik Kp. Mengger -> Titik Kp. Saketi Ujung = 15 km - BENER!
+var perKoordinat = [];
+fetch('asas-per-koordinat.json').then(r=>r.json()).then(d=>{ perKoordinat=d; console.log('Per Koordinat masuk:', d.length, 'titik'); }).catch(()=>{});
+var titikJemput = null;
+var titikTujuan = null;
+function pakaiGPSJemput(){
+  navigator.geolocation.getCurrentPosition(function(pos){
+    titikJemput = [pos.coords.longitude, pos.coords.latitude];
+    alert('Titik jemput ke-lock: ' + pos.coords.latitude + ', ' + pos.coords.longitude);
+  });
+}
+function pakaiGPSTujuan(){
+  navigator.geolocation.getCurrentPosition(function(pos){
+    titikTujuan = [pos.coords.longitude, pos.coords.latitude];
+    alert('Titik tujuan ke-lock: ' + pos.coords.latitude + ', ' + pos.coords.longitude);
+  });
+}
+async function hitungPerKoordinat(){
+  if(!titikJemput || !titikTujuan){
+    alert('Pilih titik dulu! Klik GPS / PIN PETA / Desa + Kampung + RT/RW!');
+    return null;
+  }
+  var url = 'https://router.project-osrm.org/route/v1/driving/' + titikJemput[0] + ',' + titikJemput[1] + ';' + titikTujuan[0] + ',' + titikTujuan[1] + '?overview=false';
+  try{
+    var r = await fetch(url);
+    var j = await r.json();
+    if(j.routes && j.routes[0]){
+      var km = j.routes[0].distance/1000;
+      var menit = Math.round(j.routes[0].duration/60);
+      var harga = 0;
+      if(km <= 3){ harga = 10000; }
+      else if(km <= 7){ harga = 15000; }
+      else if(km <= 12){ harga = 20000; }
+      else{ harga = 20000 + Math.round((km-12)*2000); }
+      console.log('PER-KOORDINAT: ' + km.toFixed(1) + ' km, ' + menit + ' menit, Rp ' + harga);
+      return {km: km, menit: menit, harga: harga};
+    }
+  }catch(e){
+    console.log('OSRM gagal, pake Haversine x 1.4');
+    var dlat = (titikTujuan[1]-titikJemput[1])*Math.PI/180;
+    var dlng = (titikTujuan[0]-titikJemput[0])*Math.PI/180;
+    var h = Math.sin(dlat/2)*Math.sin(dlat/2) + Math.cos(titikJemput[1]*Math.PI/180)*Math.cos(titikTujuan[1]*Math.PI/180)*Math.sin(dlng/2)*Math.sin(dlng/2);
+    var lurus = 2*6371*Math.asin(Math.sqrt(h));
+    var km2 = lurus*1.4;
+    var harga2 = km2<=3?10000:km2<=7?15000:km2<=12?20000:20000+Math.round((km2-12)*2000);
+    return {km: km2, menit: Math.round(km2*2), harga: harga2};
+  }
+  return null;
+}
+</script>
 </body>
+
 </html>
