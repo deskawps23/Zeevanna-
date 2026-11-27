@@ -1,0 +1,224 @@
+[
+  {
+    "kecamatan": "Pandeglang",
+    "lat": -6.3096519,
+    "lng": 106.1065355,
+    "zona": "Zona 1",
+    "sumber": "ASAS + Nominatim"
+  },
+  {
+    "kecamatan": "Majasari",
+    "lat": -6.325,
+    "lng": 106.115,
+    "zona": "Zona 1"
+  },
+  {
+    "kecamatan": "Kaduhejo",
+    "lat": -6.335,
+    "lng": 106.125,
+    "zona": "Zona 1"
+  },
+  {
+    "kecamatan": "Cadasari",
+    "lat": -6.285,
+    "lng": 106.135,
+    "zona": "Zona 1"
+  },
+  {
+    "kecamatan": "Karang Tanjung",
+    "lat": -6.295,
+    "lng": 106.095,
+    "zona": "Zona 1"
+  },
+  {
+    "kecamatan": "Koroncong",
+    "lat": -6.305,
+    "lng": 106.085,
+    "zona": "Zona 1"
+  },
+  {
+    "kecamatan": "Cipeucang",
+    "lat": -6.355,
+    "lng": 106.145,
+    "zona": "Zona 1"
+  },
+  {
+    "kecamatan": "Mandalawangi",
+    "lat": -6.375,
+    "lng": 106.165,
+    "zona": "Zona 1"
+  },
+  {
+    "kecamatan": "Cimanuk",
+    "lat": -6.3506253,
+    "lng": 106.0433187,
+    "zona": "Zona 1",
+    "sumber": "ASAS + Nominatim"
+  },
+  {
+    "kecamatan": "Banjar",
+    "lat": -6.365,
+    "lng": 106.185,
+    "zona": "Zona 1"
+  },
+  {
+    "kecamatan": "Mekarjaya",
+    "lat": -6.385,
+    "lng": 106.195,
+    "zona": "Zona 1"
+  },
+  {
+    "kecamatan": "Cisata",
+    "lat": -6.345,
+    "lng": 106.095,
+    "zona": "Zona 2"
+  },
+  {
+    "kecamatan": "Cikedal",
+    "lat": -6.365,
+    "lng": 106.075,
+    "zona": "Zona 2"
+  },
+  {
+    "kecamatan": "Menes",
+    "lat": -6.3885731,
+    "lng": 105.9196675,
+    "zona": "Zona 2",
+    "sumber": "ASAS + Nominatim"
+  },
+  {
+    "kecamatan": "Saketi",
+    "lat": -6.4018664,
+    "lng": 105.9927408,
+    "zona": "Zona 2",
+    "sumber": "ASAS + Nominatim"
+  },
+  {
+    "kecamatan": "Jiput",
+    "lat": -6.365,
+    "lng": 106.155,
+    "zona": "Zona 2"
+  },
+  {
+    "kecamatan": "Pulosari",
+    "lat": -6.325,
+    "lng": 106.075,
+    "zona": "Zona 2"
+  },
+  {
+    "kecamatan": "Labuan",
+    "lat": -6.3933985,
+    "lng": 105.8295797,
+    "zona": "Zona 3",
+    "sumber": "ASAS + Nominatim"
+  },
+  {
+    "kecamatan": "Carita",
+    "lat": -6.2921971,
+    "lng": 105.8413741,
+    "zona": "Zona 3",
+    "sumber": "ASAS + Nominatim"
+  },
+  {
+    "kecamatan": "Pagelaran",
+    "lat": -6.395,
+    "lng": 105.665,
+    "zona": "Zona 3"
+  },
+  {
+    "kecamatan": "Patia",
+    "lat": -6.405,
+    "lng": 105.685,
+    "zona": "Zona 3"
+  },
+  {
+    "kecamatan": "Sukaresmi",
+    "lat": -6.425,
+    "lng": 105.705,
+    "zona": "Zona 3"
+  },
+  {
+    "kecamatan": "Panimbang",
+    "lat": -6.4999876,
+    "lng": 105.788288,
+    "zona": "Zona 4",
+    "sumber": "ASAS + Nominatim"
+  },
+  {
+    "kecamatan": "Cimanggu",
+    "lat": -6.625,
+    "lng": 105.615,
+    "zona": "Zona 4"
+  },
+  {
+    "kecamatan": "Cibaliung",
+    "lat": -6.7337038,
+    "lng": 105.7484778,
+    "zona": "Zona 4",
+    "sumber": "ASAS + Nominatim"
+  },
+  {
+    "kecamatan": "Cigeulis",
+    "lat": -6.6200607,
+    "lng": 105.6688642,
+    "zona": "Zona 4",
+    "sumber": "ASAS + Nominatim"
+  },
+  {
+    "kecamatan": "Cibitung",
+    "lat": -6.575,
+    "lng": 105.675,
+    "zona": "Zona 4"
+  },
+  {
+    "kecamatan": "Sobang",
+    "lat": -6.605,
+    "lng": 105.635,
+    "zona": "Zona 4"
+  },
+  {
+    "kecamatan": "Sumur",
+    "lat": -6.6605262,
+    "lng": 105.5894145,
+    "zona": "Zona 4",
+    "sumber": "ASAS + Nominatim"
+  },
+  {
+    "kecamatan": "Angsana",
+    "lat": -6.6,
+    "lng": 106.0,
+    "zona": "Zona 5"
+  },
+  {
+    "kecamatan": "Munjul",
+    "lat": -6.55,
+    "lng": 106.05,
+    "zona": "Zona 5"
+  },
+  {
+    "kecamatan": "Bojong",
+    "lat": -6.4870918,
+    "lng": 105.9755829,
+    "zona": "Zona 5",
+    "sumber": "ASAS + Nominatim"
+  },
+  {
+    "kecamatan": "Picung",
+    "lat": -6.5,
+    "lng": 106.1,
+    "zona": "Zona 5"
+  },
+  {
+    "kecamatan": "Cikeusik",
+    "lat": -6.7293385,
+    "lng": 105.8750938,
+    "zona": "Zona 5",
+    "sumber": "ASAS + Nominatim"
+  },
+  {
+    "kecamatan": "Sindangresmi",
+    "lat": -6.58,
+    "lng": 106.15,
+    "zona": "Zona 5"
+  }
+]

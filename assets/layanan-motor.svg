@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" width="320" height="200">
+  <rect width="320" height="200" rx="22" fill="#fffdf9" stroke="#0f2447" stroke-width="2.5"/>
+  <ellipse cx="160" cy="160" rx="112" ry="13" fill="#050505" opacity="0.16"/>
+  <circle cx="92" cy="136" r="26" fill="#050505" stroke="#2dd4bf" stroke-width="4"/>
+  <circle cx="92" cy="136" r="11" fill="#f7f5f0"/>
+  <circle cx="228" cy="136" r="26" fill="#050505" stroke="#2dd4bf" stroke-width="4"/>
+  <circle cx="228" cy="136" r="11" fill="#f7f5f0"/>
+  <path d="M92 136 L142 134 L174 92 L228 136" fill="none" stroke="#0f2447" stroke-width="9" stroke-linejoin="round" stroke-linecap="round"/>
+  <path d="M126 92 L188 92 L202 114 L136 114 Z" fill="#6b1d2f"/>
+  <rect x="74" y="72" width="44" height="30" rx="6" fill="#0d9488"/>
+  <circle cx="256" cy="46" r="13" fill="#86efac"/>
+  <text x="24" y="36" fill="#0f2447" font-family="Arial, sans-serif" font-size="14" font-weight="700">ZEEVANNA JEK</text>
+</svg>

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" width="320" height="200">
+  <rect width="320" height="200" rx="22" fill="#fffdf9" stroke="#0f2447" stroke-width="2.5"/>
+  <ellipse cx="160" cy="158" rx="105" ry="14" fill="#050505" opacity="0.14"/>
+  <path d="M72 136 C82 84, 144 66, 232 72 L248 138 L78 138 Z" fill="#0f2447" stroke="#050505" stroke-width="4"/>
+  <path d="M104 94 C132 62, 192 60, 214 82" fill="none" stroke="#6b1d2f" stroke-width="12" stroke-linecap="round"/>
+  <path d="M104 122 L216 122" stroke="#2dd4bf" stroke-width="6" stroke-linecap="round"/>
+  <path d="M254 88 C268 78, 266 62, 278 52" fill="none" stroke="#0d9488" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="242" cy="48" r="14" fill="#86efac"/>
+  <text x="24" y="36" fill="#0f2447" font-family="Arial, sans-serif" font-size="14" font-weight="700">JASA SETRIKA</text>
+</svg>

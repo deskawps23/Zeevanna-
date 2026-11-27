@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard Kasir - Zeevanna Digital</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    body {
+      margin: 0;
+      background: #f4f6f9;
+      color: #1f2937;
+    }
+    header {
+      background: #111827;
+      color: #ffffff;
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .brand {
+      font-size: 18px;
+      font-weight: 700;
+    }
+    .user-bar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 14px;
+    }
+    button {
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    button.logout-btn {
+      background: #ef4444;
+      color: #fff;
+      padding: 8px 14px;
+    }
+    button.logout-btn:hover {
+      background: #dc2626;
+    }
+    button.primary-btn {
+      background: #2563eb;
+      color: #fff;
+      padding: 10px 16px;
+    }
+    button.primary-btn:hover {
+      background: #1d4ed8;
+    }
+    button.success-btn {
+      background: #059669;
+      color: #fff;
+      padding: 10px 18px;
+      width: 100%;
+    }
+    button.success-btn:hover {
+      background: #047857;
+    }
+    button.secondary-btn {
+      background: #e5e7eb;
+      color: #111827;
+      padding: 6px 10px;
+      font-size: 12px;
+    }
+    main {
+      max-width: 1040px;
+      margin: 24px auto;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    @media (max-width: 820px) {
+      main {
+        grid-template-columns: 1fr;
+      }
+    }
+    .card {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+    .full-span {
+      grid-column: 1 / -1;
+    }
+    h1, h2 {
+      margin: 0 0 12px;
+      font-size: 18px;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 2fr 1fr 80px auto;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    @media (max-width: 600px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+    input {
+      width: 100%;
+      padding: 9px 11px;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 14px;
+      font-size: 14px;
+    }
+    th, td {
+      text-align: left;
+      padding: 9px 8px;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    th {
+      color: #4b5563;
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+    .total-box {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 18px;
+      font-weight: 700;
+      padding: 12px 0;
+      border-top: 2px solid #111827;
+      margin-bottom: 12px;
+    }
+    .status-msg {
+      margin-top: 10px;
+      font-size: 13px;
+      color: #047857;
+      min-height: 18px;
+    }
+    .history-item {
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 12px 14px;
+      margin-bottom: 10px;
+      background: #fafafa;
+    }
+    .history-top {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .history-meta {
+      font-size: 12px;
+      color: #6b7280;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">Zeevanna Digital — Kasir</div>
+    <div class="user-bar">
+      <span id="userEmail">Memeriksa sesi...</span>
+      <button id="logoutBtn" class="logout-btn" type="button">Logout</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="card">
+      <h1>Transaksi Kasir Baru</h1>
+      <form id="itemForm" class="form-row">
+        <input id="itemName" type="text" placeholder="Nama item / layanan" required />
+        <input id="itemPrice" type="number" min="0" step="100" placeholder="Harga (Rp)" required />
+        <input id="itemQty" type="number" min="1" value="1" required />
+        <button class="primary-btn" type="submit">Tambah</button>
+      </form>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Qty</th>
+            <th>Subtotal</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="cartBody">
+          <tr>
+            <td colspan="4" style="color:#6b7280; text-align:center;">Belum ada item</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="total-box">
+        <span>Total</span>
+        <span id="totalDisplay">Rp 0</span>
+      </div>
+
+      <button id="saveTxBtn" class="success-btn" type="button">Simpan Transaksi ke Firestore</button>
+      <div id="statusMsg" class="status-msg"></div>
+    </section>
+
+    <section class="card">
+      <h2>Riwayat Transaksi (Firestore)</h2>
+      <div id="historyList">
+        <p style="color:#6b7280; font-size:14px;">Memuat riwayat transaksi...</p>
+      </div>
+    </section>
+  </main>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import {
+      getFirestore,
+      collection,
+      addDoc,
+      query,
+      orderBy,
+      limit,
+      onSnapshot,
+      serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCGyMG1kC_lhykbWDU0lgBERvZlH-1hydc",
+      authDomain: "zeevanna-digital-service.firebaseapp.com",
+      projectId: "zeevanna-digital-service",
+      storageBucket: "zeevanna-digital-service.firebasestorage.app",
+      messagingSenderId: "39278240980",
+      appId: "1:39278240980:web:c51305627f4625cc124741"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    const userEmailEl = document.getElementById("userEmail");
+    const logoutBtn = document.getElementById("logoutBtn");
+    const itemForm = document.getElementById("itemForm");
+    const itemNameInput = document.getElementById("itemName");
+    const itemPriceInput = document.getElementById("itemPrice");
+    const itemQtyInput = document.getElementById("itemQty");
+    const cartBody = document.getElementById("cartBody");
+    const totalDisplay = document.getElementById("totalDisplay");
+    const saveTxBtn = document.getElementById("saveTxBtn");
+    const statusMsg = document.getElementById("statusMsg");
+    const historyList = document.getElementById("historyList");
+
+    let currentUser = null;
+    let cartItems = [];
+    let unsubscribeHistory = null;
+
+    const formatRupiah = (num) =>
+      new Intl.NumberFormat("id-ID", {
+        style: "currency",
+        currency: "IDR",
+        maximumFractionDigits: 0
+      }).format(num || 0);
+
+    function renderCart() {
+      if (cartItems.length === 0) {
+        cartBody.innerHTML = `<tr><td colspan="4" style="color:#6b7280; text-align:center;">Belum ada item</td></tr>`;
+        totalDisplay.textContent = formatRupiah(0);
+        return;
+      }
+
+      cartBody.innerHTML = cartItems
+        .map(
+          (item, index) => `
+          <tr>
+            <td>${item.name}</td>
+            <td>${item.qty}</td>
+            <td>${formatRupiah(item.price * item.qty)}</td>
+            <td><button type="button" class="secondary-btn" data-remove="${index}">Hapus</button></td>
+          </tr>
+        `
+        )
+        .join("");
+
+      const total = cartItems.reduce((sum, item) => sum + item.price * item.qty, 0);
+      totalDisplay.textContent = formatRupiah(total);
+    }
+
+    function listenTransactions() {
+      if (unsubscribeHistory) unsubscribeHistory();
+
+      const q = query(
+        collection(db, "transactions"),
+        orderBy("createdAt", "desc"),
+        limit(10)
+      );
+
+      unsubscribeHistory = onSnapshot(
+        q,
+        (snapshot) => {
+          if (snapshot.empty) {
+            historyList.innerHTML = `<p style="color:#6b7280; font-size:14px;">Belum ada transaksi tersimpan.</p>`;
+            return;
+          }
+
+          historyList.innerHTML = snapshot.docs
+            .map((doc) => {
+              const data = doc.data();
+              const itemsText = Array.isArray(data.items)
+                ? data.items.map((i) => `${i.name} (${i.qty}x)`).join(", ")
+                : "";
+              const timeText = data.createdAt?.toDate
+                ? data.createdAt.toDate().toLocaleString("id-ID")
+                : "Baru saja";
+
+              return `
+                <div class="history-item">
+                  <div class="history-top">
+                    <span>${formatRupiah(data.total)}</span>
+                    <span>${timeText}</span>
+                  </div>
+                  <div class="history-meta">${itemsText}</div>
+                  <div class="history-meta">Kasir: ${data.cashierEmail || "-"}</div>
+                </div>
+              `;
+            })
+            .join("");
+        },
+        (error) => {
+          historyList.innerHTML = `<p style="color:#dc2626; font-size:14px;">Gagal memuat riwayat: ${error.message}</p>`;
+        }
+      );
+    }
+
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        if (unsubscribeHistory) unsubscribeHistory();
+        window.location.href = "index.html";
+        return;
+      }
+      currentUser = user;
+      userEmailEl.textContent = user.email;
+      listenTransactions();
+    });
+
+    logoutBtn.addEventListener("click", async () => {
+      await signOut(auth);
+      window.location.href = "index.html";
+    });
+
+    itemForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const name = itemNameInput.value.trim();
+      const price = Number(itemPriceInput.value);
+      const qty = Number(itemQtyInput.value);
+
+      if (!name || price < 0 || qty < 1) return;
+
+      cartItems.push({ name, price, qty });
+      renderCart();
+
+      itemNameInput.value = "";
+      itemPriceInput.value = "";
+      itemQtyInput.value = "1";
+      itemNameInput.focus();
+      statusMsg.textContent = "";
+    });
+
+    cartBody.addEventListener("click", (e) => {
+      const btn = e.target.closest("[data-remove]");
+      if (!btn) return;
+      const idx = Number(btn.getAttribute("data-remove"));
+      cartItems.splice(idx, 1);
+      renderCart();
+    });
+
+    saveTxBtn.addEventListener("click", async () => {
+      if (!currentUser) return;
+      if (cartItems.length === 0) {
+        statusMsg.style.color = "#dc2626";
+        statusMsg.textContent = "Tambahkan minimal 1 item sebelum menyimpan.";
+        return;
+      }
+
+      try {
+        saveTxBtn.disabled = true;
+        saveTxBtn.textContent = "Menyimpan...";
+        statusMsg.style.color = "#047857";
+        statusMsg.textContent = "";
+
+        const total = cartItems.reduce((sum, item) => sum + item.price * item.qty, 0);
+
+        await addDoc(collection(db, "transactions"), {
+          items: cartItems,
+          total,
+          cashierEmail: currentUser.email,
+          cashierUid: currentUser.uid,
+          createdAt: serverTimestamp()
+        });
+
+        cartItems = [];
+        renderCart();
+        statusMsg.textContent = "Transaksi berhasil disimpan ke Firestore!";
+      } catch (error) {
+        statusMsg.style.color = "#dc2626";
+        statusMsg.textContent = "Gagal menyimpan transaksi: " + error.message;
+      } finally {
+        saveTxBtn.disabled = false;
+        saveTxBtn.textContent = "Simpan Transaksi ke Firestore";
+      }
+    });
+  </script>
+</body>
+</html>

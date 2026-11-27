@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Uji Koordinat Zeevanna</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #141112;
+      color: #f6f3f4;
+      margin: 0;
+      padding: 16px;
+    }
+    .card {
+      max-width: 520px;
+      margin: 0 auto 14px;
+      background: #22191c;
+      border: 1px solid #3c2a30;
+      border-radius: 12px;
+      padding: 14px;
+    }
+    h2, h3 { margin: 0 0 10px; font-size: 16px; }
+    label { display: block; font-size: 12px; color: #d8c7cd; margin-top: 8px; }
+    select, input, button {
+      width: 100%;
+      box-sizing: border-box;
+      margin-top: 4px;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #4a353c;
+      font-size: 14px;
+    }
+    select, input { background: #141112; color: #fff; }
+    .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    button {
+      background: #8b1e34;
+      color: #fff;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+    }
+    button.secondary { background: #2e2428; border: 1px solid #594149; }
+    .hasil {
+      background: #171214;
+      border-left: 4px solid #c83e59;
+      padding: 10px 12px;
+      border-radius: 8px;
+      font-size: 13px;
+      line-height: 1.5;
+      margin-top: 10px;
+    }
+    .small { font-size: 12px; color: #b7a3aa; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>Zeevanna — Kalkulator Berbasis Koordinat</h2>
+    <div class="small" id="infoAnchor">Memuat konfigurasi titik koordinat...</div>
+
+    <label>Titik Asal / Jemput</label>
+    <select id="presetAsal"></select>
+    <div class="row2">
+      <input id="latAsal" type="number" step="any" placeholder="Lat Asal (-6.30...)" />
+      <input id="lngAsal" type="number" step="any" placeholder="Lng Asal (106.10...)" />
+    </div>
+    <button type="button" class="secondary" id="btnGpsAsal">Ambil GPS Asal Sekarang</button>
+
+    <label>Titik Tujuan / Antar (untuk Jek)</label>
+    <select id="presetTujuan"></select>
+    <div class="row2">
+      <input id="latTujuan" type="number" step="any" placeholder="Lat Tujuan (-6.37...)" />
+      <input id="lngTujuan" type="number" step="any" placeholder="Lng Tujuan (105.92...)" />
+    </div>
+    <button type="button" class="secondary" id="btnGpsTujuan">Ambil GPS Tujuan Sekarang</button>
+
+    <label>Detail RT/RW / Patokan (Opsional)</label>
+    <input id="catatanLokasi" type="text" placeholder="Contoh: RT 02 / RW 04, dekat warung..." />
+
+    <div class="row2" style="margin-top:12px;">
+      <button type="button" id="btnHitungJek">Hitung Jek (Titik ke Titik)</button>
+      <button type="button" class="secondary" id="btnCekSetrika">Cek Jangkauan Setrika</button>
+    </div>
+
+    <div class="hasil" id="outputHasil">Hasil perhitungan akan tampil di sini.</div>
+  </div>
+
+  <script src="./zeevanna-koordinat.js"></script>
+  <script>
+    const el = (id) => document.getElementById(id);
+    const rp = (n) => "Rp" + Number(n || 0).toLocaleString("id-ID");
+
+    function isiDropdown(selectEl, daftar, defaultIdx = 0) {
+      selectEl.innerHTML = "";
+      daftar.forEach((t, i) => {
+        const opt = document.createElement("option");
+        opt.value = i;
+        opt.textContent = `${t.nama} (${t.kecamatan}) [${t.lat}, ${t.lng}]`;
+        selectEl.appendChild(opt);
+      });
+      if (daftar[defaultIdx]) selectEl.value = defaultIdx;
+    }
+
+    function setKoordinatInput(prefix, lat, lng) {
+      el("lat" + prefix).value = lat;
+      el("lng" + prefix).value = lng;
+    }
+
+    function ambilKoordinatInput(prefix) {
+      return {
+        lat: Number(el("lat" + prefix).value),
+        lng: Number(el("lng" + prefix).value)
+      };
+    }
+
+    (async () => {
+      try {
+        const cfg = await ZeevannaKoordinat.muatConfig("./koordinat-inti.json");
+        el("infoAnchor").textContent =
+          `Anchor Setrika: ${cfg.anchor_operasional.nama} (${cfg.anchor_operasional.lat}, ${cfg.anchor_operasional.lng}) | Radius: ${cfg.cakupan_setrika.radius_maks_km} km`;
+
+        isiDropdown(el("presetAsal"), cfg.titik_referensi, 2);   // Pertigaan Cadasari
+        isiDropdown(el("presetTujuan"), cfg.titik_referensi, 7); // Pasar Menes
+
+        const a0 = cfg.titik_referensi[2];
+        const t0 = cfg.titik_referensi[7];
+        setKoordinatInput("Asal", a0.lat, a0.lng);
+        setKoordinatInput("Tujuan", t0.lat, t0.lng);
+
+        el("presetAsal").addEventListener("change", (e) => {
+          const item = cfg.titik_referensi[Number(e.target.value)];
+          if (item) setKoordinatInput("Asal", item.lat, item.lng);
+        });
+
+        el("presetTujuan").addEventListener("change", (e) => {
+          const item = cfg.titik_referensi[Number(e.target.value)];
+          if (item) setKoordinatInput("Tujuan", item.lat, item.lng);
+        });
+      } catch (err) {
+        el("outputHasil").innerHTML = `<b>Error muat konfigurasi:</b> ${err.message}`;
+      }
+    })();
+
+    el("btnGpsAsal").addEventListener("click", async () => {
+      el("outputHasil").textContent = "Mengambil lokasi GPS asal...";
+      try {
+        const gps = await ZeevannaKoordinat.ambilGpsSekarang();
+        setKoordinatInput("Asal", gps.lat, gps.lng);
+        el("outputHasil").innerHTML =
+          `<b>GPS Asal Didapat:</b> ${gps.lat}, ${gps.lng} (akurasi ±${gps.akurasi_m} m)`;
+      } catch (err) {
+        el("outputHasil").textContent = err.message;
+      }
+    });
+
+    el("btnGpsTujuan").addEventListener("click", async () => {
+      el("outputHasil").textContent = "Mengambil lokasi GPS tujuan...";
+      try {
+        const gps = await ZeevannaKoordinat.ambilGpsSekarang();
+        setKoordinatInput("Tujuan", gps.lat, gps.lng);
+        el("outputHasil").innerHTML =
+          `<b>GPS Tujuan Didapat:</b> ${gps.lat}, ${gps.lng} (akurasi ±${gps.akurasi_m} m)`;
+      } catch (err) {
+        el("outputHasil").textContent = err.message;
+      }
+    });
+
+    el("btnHitungJek").addEventListener("click", async () => {
+      el("outputHasil").textContent = "Menghitung jarak & tarif Jek...";
+      try {
+        const asal = ambilKoordinatInput("Asal");
+        const tujuan = ambilKoordinatInput("Tujuan");
+        const res = await ZeevannaKoordinat.hitungTarifJek(asal, tujuan);
+        const catatan = el("catatanLokasi").value.trim();
+        el("outputHasil").innerHTML =
+          `<b>Layanan:</b> Jek (Koordinat ke Koordinat)<br>` +
+          `<b>Jarak:</b> ${res.jarak_km} km` +
+          (res.durasi_menit ? ` (±${res.durasi_menit} menit)` : "") + `<br>` +
+          `<b>Estimasi Tarif:</b> ${rp(res.tarif_rp)}<br>` +
+          `<b>Sumber Hitung:</b> ${res.sumber}` +
+          (catatan ? `<br><b>Catatan RT/RW/Patokan:</b> ${catatan}` : "");
+      } catch (err) {
+        el("outputHasil").textContent = err.message;
+      }
+    });
+
+    el("btnCekSetrika").addEventListener("click", async () => {
+      el("outputHasil").textContent = "Mengecek jangkauan Jasa Setrika dari titik asal...";
+      try {
+        const titik = ambilKoordinatInput("Asal");
+        const res = await ZeevannaKoordinat.cekJangkauanSetrika(titik);
+        el("outputHasil").innerHTML =
+          `<b>Layanan:</b> Jasa Setrika (Berbasis Koordinat Anchor)<br>` +
+          `<b>Status:</b> ${res.dalam_jangkauan ? "DALAM JANGKAUAN" : "DI LUAR RADIUS MAKSIMUM"}<br>` +
+          `<b>Jarak dari Base:</b> ${res.jarak_dari_base_km} km (Batas: ${res.radius_maks_km} km)<br>` +
+          `<b>Tarif Antar-Jemput:</b> ${res.tarif_antar_jemput_rp != null ? rp(res.tarif_antar_jemput_rp) : "Hubungi Admin"}<br>` +
+          `<b>Sumber Hitung:</b> ${res.sumber}`;
+      } catch (err) {
+        el("outputHasil").textContent = err.message;
+      }
+    });
+  </script>
+</body>
+</html>

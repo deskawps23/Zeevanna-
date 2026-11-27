@@ -1,0 +1,212 @@
+[
+  {
+    "kecamatan": "Pandeglang",
+    "lat": -6.315,
+    "lng": 106.105,
+    "zona": "Zona 1"
+  },
+  {
+    "kecamatan": "Majasari",
+    "lat": -6.325,
+    "lng": 106.115,
+    "zona": "Zona 1"
+  },
+  {
+    "kecamatan": "Kaduhejo",
+    "lat": -6.335,
+    "lng": 106.125,
+    "zona": "Zona 1"
+  },
+  {
+    "kecamatan": "Cadasari",
+    "lat": -6.285,
+    "lng": 106.135,
+    "zona": "Zona 1"
+  },
+  {
+    "kecamatan": "Karang Tanjung",
+    "lat": -6.295,
+    "lng": 106.095,
+    "zona": "Zona 1"
+  },
+  {
+    "kecamatan": "Koroncong",
+    "lat": -6.305,
+    "lng": 106.085,
+    "zona": "Zona 1"
+  },
+  {
+    "kecamatan": "Cipeucang",
+    "lat": -6.355,
+    "lng": 106.145,
+    "zona": "Zona 1"
+  },
+  {
+    "kecamatan": "Mandalawangi",
+    "lat": -6.375,
+    "lng": 106.165,
+    "zona": "Zona 1"
+  },
+  {
+    "kecamatan": "Cimanuk",
+    "lat": -6.345,
+    "lng": 106.175,
+    "zona": "Zona 1"
+  },
+  {
+    "kecamatan": "Banjar",
+    "lat": -6.365,
+    "lng": 106.185,
+    "zona": "Zona 1"
+  },
+  {
+    "kecamatan": "Mekarjaya",
+    "lat": -6.385,
+    "lng": 106.195,
+    "zona": "Zona 1"
+  },
+  {
+    "kecamatan": "Cisata",
+    "lat": -6.345,
+    "lng": 106.095,
+    "zona": "Zona 2"
+  },
+  {
+    "kecamatan": "Cikedal",
+    "lat": -6.365,
+    "lng": 106.075,
+    "zona": "Zona 2"
+  },
+  {
+    "kecamatan": "Menes",
+    "lat": -6.385,
+    "lng": 106.115,
+    "zona": "Zona 2"
+  },
+  {
+    "kecamatan": "Saketi",
+    "lat": -6.395,
+    "lng": 106.135,
+    "zona": "Zona 2"
+  },
+  {
+    "kecamatan": "Jiput",
+    "lat": -6.365,
+    "lng": 106.155,
+    "zona": "Zona 2"
+  },
+  {
+    "kecamatan": "Pulosari",
+    "lat": -6.325,
+    "lng": 106.075,
+    "zona": "Zona 2"
+  },
+  {
+    "kecamatan": "Labuan",
+    "lat": -6.375,
+    "lng": 105.625,
+    "zona": "Zona 3"
+  },
+  {
+    "kecamatan": "Carita",
+    "lat": -6.305,
+    "lng": 105.845,
+    "zona": "Zona 3"
+  },
+  {
+    "kecamatan": "Pagelaran",
+    "lat": -6.395,
+    "lng": 105.665,
+    "zona": "Zona 3"
+  },
+  {
+    "kecamatan": "Patia",
+    "lat": -6.405,
+    "lng": 105.685,
+    "zona": "Zona 3"
+  },
+  {
+    "kecamatan": "Sukaresmi",
+    "lat": -6.425,
+    "lng": 105.705,
+    "zona": "Zona 3"
+  },
+  {
+    "kecamatan": "Panimbang",
+    "lat": -6.555,
+    "lng": 105.715,
+    "zona": "Zona 4"
+  },
+  {
+    "kecamatan": "Cimanggu",
+    "lat": -6.625,
+    "lng": 105.615,
+    "zona": "Zona 4"
+  },
+  {
+    "kecamatan": "Cibaliung",
+    "lat": -6.595,
+    "lng": 105.655,
+    "zona": "Zona 4"
+  },
+  {
+    "kecamatan": "Cigeulis",
+    "lat": -6.565,
+    "lng": 105.695,
+    "zona": "Zona 4"
+  },
+  {
+    "kecamatan": "Cibitung",
+    "lat": -6.575,
+    "lng": 105.675,
+    "zona": "Zona 4"
+  },
+  {
+    "kecamatan": "Sobang",
+    "lat": -6.605,
+    "lng": 105.635,
+    "zona": "Zona 4"
+  },
+  {
+    "kecamatan": "Sumur",
+    "lat": -6.655,
+    "lng": 105.575,
+    "zona": "Zona 4"
+  },
+  {
+    "kecamatan": "Angsana",
+    "lat": -6.6,
+    "lng": 106.0,
+    "zona": "Zona 5"
+  },
+  {
+    "kecamatan": "Munjul",
+    "lat": -6.55,
+    "lng": 106.05,
+    "zona": "Zona 5"
+  },
+  {
+    "kecamatan": "Bojong",
+    "lat": -6.45,
+    "lng": 106.1,
+    "zona": "Zona 5"
+  },
+  {
+    "kecamatan": "Picung",
+    "lat": -6.5,
+    "lng": 106.1,
+    "zona": "Zona 5"
+  },
+  {
+    "kecamatan": "Cikeusik",
+    "lat": -6.65,
+    "lng": 106.05,
+    "zona": "Zona 5"
+  },
+  {
+    "kecamatan": "Sindangresmi",
+    "lat": -6.58,
+    "lng": 106.15,
+    "zona": "Zona 5"
+  }
+]
