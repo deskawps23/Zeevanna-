@@ -1,0 +1,41 @@
+:root {
+  --bg-tulang: #f7f3ee;
+  --permukaan-kartu: #fffdfb;
+  --burgundy-utama: #6b1d36;
+  --burgundy-gelap: #4d1225;
+  --pink-lembut: #f6dce5;
+  --pink-aksen: #c85a7c;
+  --ungu-lembut: #ece4f3;
+  --ungu-aksen: #6b4c7b;
+  --abu-netral: #e5e2e0;
+  --garis-halus: #dfd8d3;
+  --teks-utama: #2c2227;
+  --teks-redup: #6d6167;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-tulang);
+  color: var(--teks-utama);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+@keyframes masukLembut {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animasi-masuk-lembut {
+  animation: masukLembut 200ms ease-out both;
+}
