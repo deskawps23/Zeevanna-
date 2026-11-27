@@ -43,6 +43,8 @@ export default function App() {
           peran={peran}
           halamanPelanggan={halamanPelanggan}
           onPilihTujuan={handlePilihTujuan}
+          roleMap={typeof roleMap !== "undefined" ? roleMap : {}}
+          superAdminEmails={typeof superAdminEmails !== "undefined" ? superAdminEmails : []}
         />
 
         <div
