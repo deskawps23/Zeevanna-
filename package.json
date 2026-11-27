@@ -1,0 +1,24 @@
+{
+  "name": "zeevanna-ui-pelanggan-mitra",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@esbuild/linux-arm64": "^0.28.2",
+    "@rollup/rollup-linux-arm64-musl": "^4.68.9",
+    "@tailwindcss/vite": "^4.3.5",
+    "@vitejs/plugin-react": "^4.7.0",
+    "esbuild-wasm": "^0.28.2",
+    "tailwindcss": "^4.3.5",
+    "vite": "^6.4.6"
+  }
+}
