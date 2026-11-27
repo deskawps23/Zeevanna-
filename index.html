@@ -30,4 +30,12 @@ console.log('Tombol Zeevanna FUNGSI BENERAN - API_URL asli');
 </script><style>.apk-nav{position:fixed;bottom:0;left:0;right:0;background:#7a1f2e;color:#fff;display:flex;justify-content:space-around;padding:12px 0;z-index:99;font-size:13px} .apk-nav span{cursor:pointer} body{padding-bottom:60px;overflow-x:hidden} .grid{scroll-snap-type:x mandatory;overflow-x:auto;display:flex} .grid .card{min-width:45%;scroll-snap-align:start}</style><div class="apk-nav"><span onclick="window.scrollTo(0,0)">🏠 Home</span><span onclick="document.getElementById('form-jek').scrollIntoView({behavior:'smooth'})">🛵 Pesan</span><span onclick="window.scrollTo(0,1200)">🔍 Lacak</span><span onclick="window.scrollTo(0,document.body.scrollHeight)">👤 Profil</span></div><script>if("serviceWorker" in navigator){navigator.serviceWorker.register("sw.js")}</script><script>
 function bukaJek(){document.querySelectorAll('[id*=jek],[id*=Jek]').forEach(e=>{e.style.display='block'});let f=document.getElementById('form-jek')||document.querySelector('[id*=form]');if(f){f.style.display='block';f.scrollIntoView({behavior:'smooth'})}else{alert('Form Jek - Isi Nama - WA - Jemput - Tujuan - Rp 10.000 / 15.000 / 20.000')}}
 document.addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('*').forEach(e=>{if(e.textContent.trim()==='Jek - KLIK PESAN'||e.textContent.includes('Jek - KLIK PESAN')){e.style.cursor='pointer';e.onclick=bukaJek}})});
+</script><script>
+setInterval(async()=>{
+  try{
+    let r=await fetch('https://script.google.com/macros/s/AKfycbyDk05peulId5P6RxPaTcIk8neEpJAOG6ZZDK0N66yqr9Go-jkZeyVYfrIgqh9nNUn_/exec?action=list_orders');
+    let d=await r.json();
+    if(d && d.length>0 && d[0].status==='Baru'){alert('Order Baru! '+d[0].nama+' - '+d[0].jemput+' -> '+d[0].tujuan+' - Rp '+d[0].harga+' - Terima?');}
+  }catch(e){}
+},10000);
 </script></body></html>
