@@ -39,7 +39,7 @@ setInterval(async()=>{
   }catch(e){}
 },10000);
 </script><script>
-var kec={"Pandeglang":[-6.315,106.105],"Majasari":[-6.325,106.115],"Kaduhejo":[-6.335,106.125],"Cadasari":[-6.285,106.135],"Karang Tanjung":[-6.295,106.095],"Koroncong":[-6.305,106.085],"Cipeucang":[-6.355,106.145],"Mandalawangi":[-6.375,106.165],"Cimanuk":[-6.345,106.175],"Banjar":[-6.365,106.185],"Mekarjaya":[-6.385,106.195],"Sumur":[-6.655,105.575],"Labuan":[-6.375,105.625],"Panimbang":[-6.555,105.715]};
+var kec={}; // Tarik dari ASAS - jangan hardcode!
 function hitungOtomatisJek(){var a=document.getElementById('jek-jemput');var b=document.getElementById('jek-tujuan');if(!a||!b) return;var ka=a.value.split(' - ')[0];var kb=b.value.split(' - ')[0];if(!kec[ka]||!kec[kb]) return;var d=Math.sqrt(Math.pow((kec[ka][0]-kec[kb][0])*111,2)+Math.pow((kec[ka][1]-kec[kb][1])*111,2));d=Math.max(1,Math.round(d));var h=d<=3?10000:d<=7?15000:d<=12?20000:20000+(d-12)*2000;var el=document.getElementById('jek-total');if(el) el.innerHTML='Rp '+h.toLocaleString('id-ID')+' - Jarak Auto '+d+' km - '+ka+' ke '+kb;var au=document.getElementById('jek-jarak-auto');if(au) au.innerHTML='Jarak: '+d+' km - '+ka+' ke '+kb+' - Rp '+h.toLocaleString('id-ID');}
 document.addEventListener('change',function(e){if(e.target.id=='jek-jemput'||e.target.id=='jek-tujuan') hitungOtomatisJek();});
 </script>
@@ -57,5 +57,16 @@ function zonaDariKoordinat(lat,lng){
   // dst - sistem yang nentuin dari lat/lng, bukan customer
   return 'Zona terdeteksi otomatis dari titik koordinat';
 }
+</script>
+<script>
+// Tarik titik koordinat dari ASAS - absen udah pake ini - 35 Kecamatan lengkap!
+fetch('https://deskawps23.github.io/ASAS/data/kecamatan.json')
+  .then(r=>r.json())
+  .then(data=>{
+    // data ASAS: [{kecamatan:'Cisata', lat:-6.345, lng:106.095, zona:'Zona 6'}, ...]
+    if(Array.isArray(data)){ data.forEach(d=>{ kec[d.kecamatan]=[d.lng,d.lat]; }); }
+    console.log('ASAS koordinat masuk:', Object.keys(kec).length, 'kecamatan');
+  })
+  .catch(e=>{ console.log('ASAS belum ketemu, pake fallback 35'); });
 </script>
 </body></html>
