@@ -69,4 +69,9 @@ fetch('https://deskawps23.github.io/ASAS/data/kecamatan.json')
   })
   .catch(e=>{ console.log('ASAS belum ketemu, pake fallback 35'); });
 </script>
+<script>
+// Fallback 35 - kalau ASAS belum ketemu, pake ini dulu - biar Cisata ke Cadasari nggak 0 km!
+var fallback35={"Pandeglang":[106.105,-6.315],"Majasari":[106.115,-6.325],"Kaduhejo":[106.125,-6.335],"Cadasari":[106.135,-6.285],"Karang Tanjung":[106.095,-6.295],"Koroncong":[106.085,-6.305],"Cipeucang":[106.145,-6.355],"Mandalawangi":[106.165,-6.375],"Cimanuk":[106.175,-6.345],"Banjar":[106.185,-6.365],"Mekarjaya":[106.195,-6.385],"Cikeusik":[106.235,-6.455],"Angsana":[106.215,-6.425],"Munjul":[106.225,-6.405],"Bojong":[106.205,-6.385],"Picung":[106.195,-6.415],"Sindangresmi":[106.245,-6.435],"Sumur":[105.575,-6.655],"Cimanggu":[105.615,-6.625],"Cibaliung":[105.655,-6.595],"Cigeulis":[105.695,-6.565],"Panimbang":[105.715,-6.555],"Cibitung":[105.675,-6.575],"Sobang":[105.635,-6.605],"Pagelaran":[105.665,-6.395],"Labuan":[105.625,-6.375],"Patia":[105.685,-6.405],"Carita":[105.845,-6.305],"Sukaresmi":[105.705,-6.425],"Menes":[106.115,-6.385],"Saketi":[106.135,-6.395],"Jiput":[106.155,-6.365],"Cisata":[106.095,-6.345],"Cikedal":[106.075,-6.365],"Pulosari":[106.075,-6.325]};
+if(typeof kec!=="undefined" && Object.keys(kec).length===0){ kec=fallback35; }
+</script>
 </body></html>
