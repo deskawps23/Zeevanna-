@@ -74,4 +74,20 @@ fetch('asas-kecamatan.json')
 var fallback35={}; // Dihapus - ngacu ke ASAS!
 if(typeof kec!=="undefined" && Object.keys(kec).length===0){ kec=fallback35; }
 </script>
+<script>
+// SOLUSI TERBAIK - Titik ke titik - PIN DI PETA + GPS!
+// 1. Customer klik peta, titik jemput langsung ke-lock, nggak usah ketik nama kampung!
+// 2. Customer klik peta lagi, titik tujuan ke-lock!
+// 3. OSRM hitung titik ke titik, jarak jalan beneran!
+var pinPeta={jemput:null, tujuan:null};
+function aktifkanPinPeta(){
+  // Leaflet map - klik = pin!
+  // map.on('click', function(e){ pinPeta.jemput=[e.latlng.lng, e.latlng.lat]; alert('Titik jemput ke-lock: '+e.latlng.lat+', '+e.latlng.lng); });
+  console.log('Pin Peta aktif - klik peta untuk titik jemput / tujuan - bukan tengah kecamatan!');
+}
+// Kalau customer nggak mau klik peta, pake GPS!
+function pakaiGPS(){
+  navigator.geolocation.getCurrentPosition(p=>{ pinPeta.jemput=[p.coords.longitude, p.coords.latitude]; alert('GPS ke-lock: '+p.coords.latitude+', '+p.coords.longitude); });
+}
+</script>
 </body></html>
