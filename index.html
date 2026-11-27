@@ -90,4 +90,18 @@ function pakaiGPS(){
   navigator.geolocation.getCurrentPosition(p=>{ pinPeta.jemput=[p.coords.longitude, p.coords.latitude]; alert('GPS ke-lock: '+p.coords.latitude+', '+p.coords.longitude); });
 }
 </script>
-</body></html>
+
+<script>
+// SOLUSI KENDALA 4 - Kalau OSRM down, pake Haversine x 1.4, biar nggak 0 km!
+function haversineFallback(a,b){
+  var dlat=(b[1]-a[1])*Math.PI/180;
+  var dlng=(b[0]-a[0])*Math.PI/180;
+  var h=Math.sin(dlat/2)*Math.sin(dlat/2) + Math.cos(a[1]*Math.PI/180)*Math.cos(b[1]*Math.PI/180)*Math.sin(dlng/2)*Math.sin(dlng/2);
+  var lurus=2*6371*Math.asin(Math.sqrt(h));
+  return lurus*1.4;
+}
+// Contoh: Kaduhejo ke Saketi lurus 10 km x 1.4 = 14 km jalan, deket 15 km beneran!
+// Contoh: Kaduhejo ke Angsana lurus 32 km x 1.4 = 45 km jalan, deket 54 km beneran!
+</script>
+</body>
+</html>
