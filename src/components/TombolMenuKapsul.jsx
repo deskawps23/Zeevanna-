@@ -1,8 +1,42 @@
-export default function TombolMenuKapsul({ terbuka, onKlik }) {
+import {
+  getActiveRole,
+  canExecuteAdminControl,
+  recordTransactionEvent,
+} from "../integration/zeevannaBridge.js";
+
+export default function TombolMenuKapsul({
+  terbuka,
+  onKlik,
+  user = null,
+  roleMap = {},
+  superAdminEmails = [],
+}) {
+  const peranAktif = getActiveRole(user, roleMap, superAdminEmails);
+  const bolehKontrolSuperAdmin = canExecuteAdminControl(peranAktif);
+
+  async function tanganiKlikKapsul(event) {
+    if (typeof onKlik === "function") {
+      onKlik(event);
+    }
+
+    if (bolehKontrolSuperAdmin && user) {
+      try {
+        await recordTransactionEvent({
+          user,
+          role: peranAktif,
+          source: "TombolMenuKapsul",
+          status: terbuka ? "closed" : "opened",
+        });
+      } catch {
+        // Biarkan interaksi UI kapsul tetap berjalan mulus
+      }
+    }
+  }
+
   return (
     <button
       type="button"
-      onClick={onKlik}
+      onClick={tanganiKlikKapsul}
       aria-expanded={terbuka}
       aria-label={terbuka ? "Tutup menu navigasi" : "Buka menu navigasi"}
       style={{

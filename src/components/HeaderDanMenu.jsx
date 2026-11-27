@@ -67,7 +67,13 @@ export default function HeaderDanMenu({
             {labelAktif}
           </span>
 
-          <TombolMenuKapsul terbuka={menuTerbuka} onKlik={handleToggleMenu} />
+          <TombolMenuKapsul
+      terbuka={menuTerbuka}
+      onKlik={handleToggleMenu}
+      user={{ role: peran }}
+      roleMap={typeof roleMap !== "undefined" ? roleMap : {}}
+      superAdminEmails={typeof superAdminEmails !== "undefined" ? superAdminEmails : []}
+    />
         </div>
       </div>
 
