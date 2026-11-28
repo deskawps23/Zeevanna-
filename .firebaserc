@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "deskawps-70537"
+  },
+  "targets": {
+    "deskawps-70537": {
+      "hosting": {
+        "deskawps": [
+          "deskawps"
+        ]
+      }
+    }
+  }
+}
