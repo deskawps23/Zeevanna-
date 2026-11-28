@@ -213,6 +213,21 @@ export default function App() {
             </section>
           )}
         </main>
+
+      <footer
+        className="w-full py-6 px-4 mt-12 border-t text-center text-xs"
+        style={{
+          borderColor: "var(--garis-halus)",
+          color: "var(--teks-utama)",
+        }}
+      >
+        <p className="font-medium">
+          Created, Design &amp; Development by <strong>deskawps</strong>
+        </p>
+        <p className="mt-1 tracking-wide opacity-80">
+          Zeevanna Digital &amp; Service &mdash; ASAS, Inc. &mdash; ASAS Group Global World
+        </p>
+      </footer>
       </div>
     </div>
   );
