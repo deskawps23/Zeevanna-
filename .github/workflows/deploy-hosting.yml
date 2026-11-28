@@ -20,7 +20,7 @@ jobs:
 
       - name: Install dependencies and build
         run: |
-          npm install
+          npm install --os=linux --cpu=x64 --no-save
           npm run build
 
       - name: Deploy to Firebase Hosting
@@ -30,3 +30,4 @@ jobs:
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}'
           channelId: live
           target: deskawps
+          
