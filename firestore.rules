@@ -1,0 +1,65 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    function userDoc() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
+    }
+    function hasRole(roles) {
+      return isSignedIn()
+        && exists(/databases/$(database)/documents/users/$(request.auth.uid))
+        && userDoc().status == 'active'
+        && (userDoc().role in roles);
+    }
+
+    match /services/{serviceId} {
+      allow read: if true;
+      allow create, update, delete: if hasRole(['super_admin', 'admin']);
+    }
+
+    match /zones/{zoneId} {
+      allow read: if true;
+      allow create, update, delete: if hasRole(['super_admin', 'admin']);
+    }
+
+    match /revenue_shares/{docId} {
+      allow read, write: if hasRole(['super_admin', 'cfo']);
+    }
+
+    match /users/{userId} {
+      allow read: if isSignedIn() && (request.auth.uid == userId || hasRole(['super_admin', 'admin']));
+      allow create: if isSignedIn()
+        && request.auth.uid == userId
+        && request.resource.data.status == 'active';
+      allow update: if isSignedIn()
+        && ((request.auth.uid == userId
+          && request.resource.data.role == resource.data.role
+          && request.resource.data.status == resource.data.status)
+          || hasRole(['super_admin', 'admin']));
+      allow delete: if hasRole(['super_admin']);
+    }
+
+    match /orders/{orderId} {
+      allow read: if isSignedIn()
+        && (resource.data.customerId == request.auth.uid
+          || resource.data.mitraId == request.auth.uid
+          || hasRole(['super_admin', 'admin', 'cfo', 'mitra', 'driver']));
+      allow create: if isSignedIn()
+        && request.resource.data.customerId == request.auth.uid
+        && request.resource.data.status in ['Menunggu Mitra', 'active'];
+      allow update: if isSignedIn()
+        && (hasRole(['super_admin', 'admin', 'cfo', 'mitra', 'driver'])
+          || (resource.data.customerId == request.auth.uid
+            && request.resource.data.customerId == resource.data.customerId
+            && request.resource.data.status in ['Dibatalkan', 'Selesai']));
+      allow delete: if hasRole(['super_admin', 'admin']);
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
