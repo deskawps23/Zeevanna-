@@ -20,7 +20,8 @@ jobs:
 
       - name: Install dependencies and build
         run: |
-          npm install --no-optional
+          npm install --omit=optional --no-audit --no-fund
+          npm install --no-save @esbuild/linux-x64
           npm run build
 
       - name: Deploy to Firebase Hosting
