@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "site": "deskawps",
+    "site": "deskawps-70537",
     "public": "dist",
     "ignore": [
       "firebase.json",
