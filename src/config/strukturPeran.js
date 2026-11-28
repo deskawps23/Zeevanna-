@@ -1,3 +1,16 @@
+export const KECAMATAN_ZONA_1 = [
+  "pandeglang",
+  "majasari",
+  "karangtanjung",
+  "cadasari",
+  "koroncong",
+  "kaduhejo",
+];
+
+export function validasiWilayahZona1(teksWilayah = "") {
+  const normal = String(teksWilayah).trim().toLowerCase();
+  return KECAMATAN_ZONA_1.some((kec) => normal.includes(kec));
+}
 export const MODE_UTAMA = {
   PELANGGAN: "pelanggan",
   TIM_MITRA: "tim_mitra",
@@ -15,7 +28,11 @@ export function buatMetadataDasar(mode, peran) {
     ? KATEGORI_PERAN.PELANGGAN
     : peran === KATEGORI_PERAN.MITRA
     ? KATEGORI_PERAN.MITRA
-    : KATEGORI_PERAN.STAF_TIM;
+return {
+  ok: false,
+  pesan:
+    "Wilayah harus termasuk Zona 1 (Pandeglang, Majasari, Karangtanjung, Cadasari, Koroncong, atau Kaduhejo).",
+  data: null,
 
   return {
     tipe_pendaftar: adalahPelanggan ? MODE_UTAMA.PELANGGAN : MODE_UTAMA.TIM_MITRA,
@@ -33,6 +50,14 @@ export function susunPayloadPratinjau({ mode, peran, nama, kontak, isianUtama })
     return {
       ok: false,
       pesan: "Nama perlu diisi terlebih dahulu.",
+if (peran === KATEGORI_PERAN.MITRA && !validasiWilayahZona1(isianBersih)) {
+  return {
+    ok: false,
+    pesan:
+      "Wilayah Zona 1 harus mencakup Pandeglang, Majasari, Karangtanjung, Cadasari, Koroncong, atau Kaduhejo.",
+    data: null,
+  };
+}
       data: null,
     };
   }

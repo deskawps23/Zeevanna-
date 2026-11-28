@@ -8,7 +8,7 @@ import {
 
 // Konfigurasi Firebase dari proyek Zeevanna Digital-Service
 const firebaseConfig = {
-  apiKey: "AIzaSyCGyMG1kC_lhykbWDU0lgBERvZlH-1hydc",
+  apiKey: "<API_KEY_BARU>",
   authDomain: "zeevanna-digital-service.firebaseapp.com",
   projectId: "zeevanna-digital-service",
   storageBucket: "zeevanna-digital-service.firebasestorage.app",
